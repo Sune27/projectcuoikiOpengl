@@ -9,33 +9,7 @@ RobotArm::RobotArm()
     centerBaseLeg.setValue(0, 0, 0);
     centerBaseBody.setValue(0, 0, 0.5);
     centerBaseHead.setValue(0, 0, 1.0);
-    leftStand.setValue(0, 0, standPositionZ);
-    rightStand.setValue(0, 0, standPositionZ);
-    axisStand.setValue(0, 0, standPositionZ);
     
-    //vector direction
-    robotDirectionXY_Vertical.vertical(angleX);
-    robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
-    VectorRotationMethod(robotDirectionXYZ, robotDirectionXY_Vertical, angleZ);
-    //stand
-    leftStand.move(robotDirectionXY_Horizontal, standDistance);
-    rightStand.move(robotDirectionXY_Horizontal, -standDistance);
-    axisStand.move(robotDirectionXYZ, standAxisDistance);
-    
-    //shortArm
-    leftShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
-    rightShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
-    axisShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
-    
-    shortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleShortArm);
-    leftShortArm.move(shortArmDirection, 1.5);
-    rightShortArm.move(shortArmDirection, 1.5);
-    axisShortArm.move(shortArmDirection, shortArmHeight-0.9);
-    leftShortArm.move(robotDirectionXY_Horizontal, shortArmDistance);
-    rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistance);
-    
-    //longArm
-    longArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLongArm);
 }
 
 void RobotArm::printAttributes()
@@ -62,6 +36,16 @@ void RobotArm::update()
     rightStand.move(robotDirectionXY_Horizontal, -standDistance);
     axisStand.move(robotDirectionXYZ, standAxisDistance);
 
+    leftShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
+    rightShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
+    axisShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
+
+    leftShortArm.move(shortArmDirection, 1.5);
+    rightShortArm.move(shortArmDirection, 1.5);
+    axisShortArm.move(shortArmDirection, shortArmHeight-0.9);
+    leftShortArm.move(robotDirectionXY_Horizontal, shortArmDistance);
+    rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistance);
+
 }
 
 
@@ -84,7 +68,7 @@ void RobotArm::draw()
     drawDirection();
     drawRobotBase();
     drawRobotStand();
-    // drawRobotShortArm();
+    drawRobotShortArm();
 }
 
 void RobotArm::drawDirection()
