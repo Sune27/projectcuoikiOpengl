@@ -56,7 +56,7 @@ private:
     float axisShortArmRadius = 0.3;
     float axisShortArmHeight = 2;
     //longArm
-    float angleLongArm = -10.0;
+    float angleLongArm = 25.0;
     
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseBody_Color = GRAY_LIGHT;

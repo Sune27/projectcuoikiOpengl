@@ -23,12 +23,14 @@ void RobotArm::printAttributes()
 
 void RobotArm::update()
 {
+    //vector
     robotDirectionXY_Vertical.vertical(angleX);
     robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
     VectorRotationMethod(robotDirectionXYZ, robotDirectionXY_Vertical, angleZ);
     shortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleShortArm);
     longArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLongArm);
 
+    //stand
     leftStand.setValue(0, 0, standPositionZ);
     rightStand.setValue(0, 0, standPositionZ);
     axisStand.setValue(0, 0, standPositionZ);
@@ -36,6 +38,7 @@ void RobotArm::update()
     rightStand.move(robotDirectionXY_Horizontal, -standDistance);
     axisStand.move(robotDirectionXYZ, standAxisDistance);
 
+    //shortarm
     leftShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
     rightShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
     axisShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
@@ -45,6 +48,8 @@ void RobotArm::update()
     axisShortArm.move(shortArmDirection, shortArmHeight-0.9);
     leftShortArm.move(robotDirectionXY_Horizontal, shortArmDistance);
     rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistance);
+
+    //longarm
 
 }
 
@@ -77,7 +82,7 @@ void RobotArm::drawDirection()
     
     drawLine(robotDirectionXY_Vertical, centerBaseHead, DIRECTION_LENGTH, PURPLE);
     drawLine(robotDirectionXY_Horizontal, centerBaseHead, DIRECTION_LENGTH, BLUE);
-    drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
+    //drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
     drawLine(shortArmDirection, axisStand, DIRECTION_LENGTH, RED);
     drawLine(longArmDirection, axisShortArm, DIRECTION_LENGTH, GREEN);
 }
@@ -113,12 +118,14 @@ void RobotArm::checkMinValueAngle()
 {
     if(angleZ < ANGLEZ_MIN) angleZ = ANGLEZ_MIN;
     if(angleShortArm < ANGLESHORTARM_MIN) angleShortArm = ANGLESHORTARM_MIN;
+    if(angleLongArm < ANGLELONGARM_MIN) angleLongArm = ANGLELONGARM_MIN;
 }
 
 void RobotArm::checkMaxValueAngle()
 {
     if(angleZ > ANGLEZ_MAX) angleZ = ANGLEZ_MAX;
     if(angleShortArm > ANGLESHORTARM_MAX) angleShortArm = ANGLESHORTARM_MAX;
+    if(angleLongArm > ANGLELONGARM_MAX) angleLongArm = ANGLELONGARM_MAX;
 }
 
 RobotArm::~RobotArm()

@@ -19,6 +19,8 @@ const float ANGLEZ_MIN = 55;
 const float ANGLEZ_MAX = 85;
 const float ANGLESHORTARM_MIN = 35.0;
 const float ANGLESHORTARM_MAX = 100.0;
+const float ANGLELONGARM_MAX = 25.0;
+const float ANGLELONGARM_MIN = -45.0;
 
 const double PI = 3.14193;
 const int NUM_SEGMENTS = 30;

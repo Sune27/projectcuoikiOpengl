@@ -14,7 +14,7 @@ void reshape(int, int);
 void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
 
-GLdouble eyeX = 16.0, eyeY = -6.0, eyeZ = 12.0;
+GLdouble eyeX = 20.0, eyeY = -8.0, eyeZ = 15.0;
 GLdouble centerX = 0.0, centerY = 0.0, centerZ = 0.0;
 GLdouble upX = 0.0, upY = 0.0, upZ = 1.0;
 
@@ -53,8 +53,6 @@ void display()
 		centerX, centerY, centerZ,
 		upX, upY, upZ
 	);
-
-	glLineWidth(1);
 	robotArm.draw();
 	
 	glFlush();
@@ -95,6 +93,12 @@ void keyboardFunc(unsigned char key, int x, int y)
 			break;
 		case 'g':
 			robotArm.rotateAngle(ANGLE_SHORT_ARM, -rotate);
+			break;
+		case 'y':
+			robotArm.rotateAngle(ANGLE_LONG_ARM, rotate);
+			break;
+		case 'h':
+			robotArm.rotateAngle(ANGLE_LONG_ARM, -rotate);
 			break;
 		default:
 			break;
