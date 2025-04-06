@@ -112,11 +112,13 @@ void RobotArm::drawRobotBase()
 void RobotArm::checkMinValueAngle()
 {
     if(angleZ < ANGLEZ_MIN) angleZ = ANGLEZ_MIN;
+    if(angleShortArm < ANGLESHORTARM_MIN) angleShortArm = ANGLESHORTARM_MIN;
 }
 
 void RobotArm::checkMaxValueAngle()
 {
     if(angleZ > ANGLEZ_MAX) angleZ = ANGLEZ_MAX;
+    if(angleShortArm > ANGLESHORTARM_MAX) angleShortArm = ANGLESHORTARM_MAX;
 }
 
 RobotArm::~RobotArm()

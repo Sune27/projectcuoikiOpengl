@@ -48,7 +48,7 @@ private:
     float angleX = 60.0;
     float angleZ = 55.0;
     //short arm
-    float angleShortArm = 150.0;
+    float angleShortArm = 100.0;
     float shortArmDistance = 0.5;
     float shortArmWidth = 0.8;
     float shortArmLength = 0.15;
