@@ -19,6 +19,7 @@ void RobotArm::printAttributes()
     cout << "angleZ: " << angleZ << endl;
     cout << "angleShortArm: " << angleShortArm << endl;
     cout << "angleLongArm: " << angleLongArm << endl;
+    cout << "wristDistance: " << wristDistance << endl;
 }
 
 void RobotArm::update()
@@ -57,7 +58,7 @@ void RobotArm::update()
     rightLongArm.move(longArmDirection, 3);
     leftLongArm.move(robotDirectionXY_Horizontal, longArmDistance);
     rightLongArm.move(robotDirectionXY_Horizontal, -longArmDistance);
-    //wrist.move(longArmDirection, wristDistance);
+    wrist.move(longArmDirection, wristDistance);
 }
 
 

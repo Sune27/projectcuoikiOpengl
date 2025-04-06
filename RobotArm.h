@@ -61,9 +61,9 @@ private:
     float longArmWidth = 0.8;
     float longArmLength = 0.15;
     float longArmHeight = 8;
-    float wristDistance = 8.5;
+    float wristDistance = 7.5;
     float wristRadius = 0.7;
-    float wristHeight = 2;
+    float wristHeight = 1.2;
  
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseBody_Color = GRAY_LIGHT;
