@@ -50,7 +50,14 @@ void RobotArm::update()
     rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistance);
 
     //longarm
-
+    leftLongArm.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
+    rightLongArm.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
+    wrist.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
+    leftLongArm.move(longArmDirection, 3);
+    rightLongArm.move(longArmDirection, 3);
+    leftLongArm.move(robotDirectionXY_Horizontal, longArmDistance);
+    rightLongArm.move(robotDirectionXY_Horizontal, -longArmDistance);
+    //wrist.move(longArmDirection, wristDistance);
 }
 
 
@@ -74,6 +81,17 @@ void RobotArm::draw()
     drawRobotBase();
     drawRobotStand();
     drawRobotShortArm();
+    drawRobotLongArm();
+}
+
+void RobotArm::drawRobotLongArm()
+{
+    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, WHITE);
+    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, WHITE);
+    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, DARK_GREEN);
+    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, DARK_GREEN);
+    drawCylinderWithCaps(wristRadius, wristHeight, wristRadius, wrist, longArmDirection, WHITE);
+    drawCylinderOutline(wristRadius, wristHeight, wrist, longArmDirection, DARK_BLUE);
 }
 
 void RobotArm::drawDirection()

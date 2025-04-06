@@ -57,7 +57,14 @@ private:
     float axisShortArmHeight = 2;
     //longArm
     float angleLongArm = 25.0;
-    
+    float longArmDistance = 0.5;
+    float longArmWidth = 0.8;
+    float longArmLength = 0.15;
+    float longArmHeight = 8;
+    float wristDistance = 8.5;
+    float wristRadius = 0.7;
+    float wristHeight = 2;
+ 
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseBody_Color = GRAY_LIGHT;
     Color baseHead_Color = GRAY_LIGHT;
@@ -81,6 +88,9 @@ private:
     Point leftShortArm;
     Point rightShortArm;
     Point axisShortArm;
+    Point leftLongArm;
+    Point rightLongArm;
+    Point wrist;
 };
 
 #endif
