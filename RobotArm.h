@@ -68,11 +68,12 @@ private:
     float handRadius = 1;
     float handHeight = 0.5;
     float handThickness = 0.5;
-    float handAngleStart = 0;
-    float handAngleEnd = 180;
-    
+    float handDistance = 5;
+    float leftHandAngleStart = 0;
+    float leftHandAngleEnd = 180;
+    float rightHandAngleStart = 180;
+    float rightHandAngleEnd = 360;
 
- 
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseBody_Color = GRAY_LIGHT;
     Color baseHead_Color = GRAY_LIGHT;
@@ -99,6 +100,8 @@ private:
     Point leftLongArm;
     Point rightLongArm;
     Point wrist;
+    Point leftHand;
+    Point rightHand;
 };
 
 #endif

@@ -59,6 +59,14 @@ void RobotArm::update()
     leftLongArm.move(robotDirectionXY_Horizontal, longArmDistance);
     rightLongArm.move(robotDirectionXY_Horizontal, -longArmDistance);
     wrist.move(longArmDirection, wristDistance);
+
+    //hand
+    leftHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
+    rightHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
+    leftHand.move(longArmDirection, 3);
+    rightHand.move(longArmDirection, 3);
+    leftHand.move(robotDirectionXY_Horizontal, handDistance);
+    rightHand.move(robotDirectionXY_Horizontal, -handDistance);
 }
 
 
@@ -81,7 +89,7 @@ void RobotArm::draw()
     drawDirection();
     drawRobotBase();
     drawRobotStand();
-    //drawRobotShortArm();
+    drawRobotShortArm();
     //drawRobotLongArm();
     test();
 }
@@ -110,7 +118,8 @@ void RobotArm::drawDirection()
 
 void RobotArm::test()
 {
-    drawMissingCylinder(handRadius, handHeight, handThickness, wrist, longArmDirection, WHITE, handAngleStart, handAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, wrist, robotDirectionXY_Horizontal, WHITE, leftHandAngleStart, leftHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, wrist, robotDirectionXY_Horizontal, WHITE, rightHandAngleStart, rightHandAngleEnd);
 }
 
 void RobotArm::drawRobotStand()

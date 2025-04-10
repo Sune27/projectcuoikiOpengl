@@ -54,6 +54,15 @@ void display()
 		upX, upY, upZ
 	);
 	robotArm.draw();
+	cout << "eyeX: " << eyeX << endl;
+	cout << "eyeY: " << eyeY << endl;
+	cout << "eyeZ: " << eyeZ << endl;
+	cout << "centerX: " << centerX << endl;
+	cout << "centerY: " << centerY << endl;
+	cout << "centerZ: " << centerZ << endl;
+	cout << "upX: " << upX << endl;
+	cout << "upY: " << upY << endl;
+	cout << "upZ: " << upZ << endl;
 	
 	glFlush();
 	glutSwapBuffers(); 
