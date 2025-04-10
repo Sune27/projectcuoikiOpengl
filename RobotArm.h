@@ -64,6 +64,14 @@ private:
     float wristDistance = 7.5;
     float wristRadius = 0.7;
     float wristHeight = 1.2;
+    //hand
+    float handRadius = 1;
+    float handHeight = 0.5;
+    float handThickness = 0.5;
+    float handAngleStart = 0;
+    float handAngleEnd = 180;
+    
+
  
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseBody_Color = GRAY_LIGHT;

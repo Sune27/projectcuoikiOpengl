@@ -81,8 +81,9 @@ void RobotArm::draw()
     drawDirection();
     drawRobotBase();
     drawRobotStand();
-    drawRobotShortArm();
-    drawRobotLongArm();
+    //drawRobotShortArm();
+    //drawRobotLongArm();
+    test();
 }
 
 void RobotArm::drawRobotLongArm()
@@ -109,6 +110,7 @@ void RobotArm::drawDirection()
 
 void RobotArm::test()
 {
+    drawMissingCylinder(handRadius, handHeight, handThickness, wrist, longArmDirection, WHITE, handAngleStart, handAngleEnd);
 }
 
 void RobotArm::drawRobotStand()

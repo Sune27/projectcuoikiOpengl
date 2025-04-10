@@ -14,7 +14,7 @@ void reshape(int, int);
 void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
 
-GLdouble eyeX = 20.0, eyeY = -10.0, eyeZ = 20.0;
+GLdouble eyeX = 30.0, eyeY = -20.0, eyeZ = 30.0;
 GLdouble centerX = 0.0, centerY = 0.0, centerZ = 0.0;
 GLdouble upX = 0.0, upY = 0.0, upZ = 1.0;
 

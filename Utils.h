@@ -191,6 +191,7 @@ struct Point
     }
 };
 
+void drawMissingCylinder(float radius, float height, float thickness, Point center, Vector normal, Color color, float angleStart, float angleEnd);
 Vector normalize(const Vector& v);
 Vector crossProduct(const Vector& v1, const Vector& v2);
 GLdouble dotProduct(const Vector& v1, const Vector& v2);

@@ -2,6 +2,153 @@
 #include "Config.h"
 using namespace std;
 
+void drawMissingCylinder(float radius, float height, float thickness, Point center, Vector normal, Color color, float angleStart, float angleEnd) 
+{
+    setColor(color);
+    // Chuẩn hóa vector pháp tuyến
+    GLdouble normalX = normal.arr[0];
+    GLdouble normalY = normal.arr[1];
+    GLdouble normalZ = normal.arr[2];
+    GLdouble length = sqrt(normalX * normalX + normalY * normalY + normalZ * normalZ);
+    GLdouble normalizedNormalX = normalX / length;
+    GLdouble normalizedNormalY = normalY / length;
+    GLdouble normalizedNormalZ = normalZ / length;
+
+    // Tính toán vector tiếp tuyến và bitangent
+    GLdouble tangentX, tangentY, tangentZ;
+    if (normalizedNormalZ != 1.0f && normalizedNormalZ != -1.0f)
+    {
+        tangentX = normalizedNormalY;
+        tangentY = -normalizedNormalX;
+        tangentZ = 0.0f;
+    } else 
+    {
+        tangentX = 1.0f;
+        tangentY = 0.0f;
+        tangentZ = 0.0f;
+    }
+
+    length = sqrt(tangentX * tangentX + tangentY * tangentY + tangentZ * tangentZ);
+    tangentX /= length;
+    tangentY /= length;
+    tangentZ /= length;
+
+    GLdouble bitangentX = normalizedNormalY * tangentZ - normalizedNormalZ * tangentY;
+    GLdouble bitangentY = normalizedNormalZ * tangentX - normalizedNormalX * tangentZ;
+    GLdouble bitangentZ = normalizedNormalX * tangentY - normalizedNormalY * tangentX;
+
+    //Chuyển góc từ độ sang radian
+    float startAngleRad = angleStart * M_PI / 180.0f;
+    float endAngleRad = angleEnd * M_PI / 180.0f;
+    float angleIncrement = (endAngleRad - startAngleRad) / NUM_SEGMENTS;
+
+    // Lấy các giá trị tâm từ struct Point
+    GLdouble centerX = center.arr[0];
+    GLdouble centerY = center.arr[1];
+    GLdouble centerZ = center.arr[2];
+
+    // Vẽ thân hình trụ
+    glBegin(GL_QUAD_STRIP);
+        for (int i = 0; i <= NUM_SEGMENTS; ++i)
+        {
+            float angleRad = startAngleRad + i * angleIncrement;
+            float x = radius * cos(angleRad);
+            float y = radius * sin(angleRad);
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn
+            GLdouble pointX = centerX + x * tangentX + y * bitangentX;
+            GLdouble pointY = centerY + x * tangentY + y * bitangentY;
+            GLdouble pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn (đỉnh trên)
+            GLdouble topPointX = pointX + normalizedNormalX * height / 2.0f;
+            GLdouble topPointY = pointY + normalizedNormalY * height / 2.0f;
+            GLdouble topPointZ = pointZ + normalizedNormalZ * height / 2.0f;
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn (đỉnh dưới)
+            GLdouble bottomPointX = pointX - normalizedNormalX * height / 2.0f;
+            GLdouble bottomPointY = pointY - normalizedNormalY * height / 2.0f;
+            GLdouble bottomPointZ = pointZ - normalizedNormalZ * height / 2.0f;
+
+            glVertex3d(bottomPointX, bottomPointY, bottomPointZ);
+            glVertex3d(topPointX, topPointY, topPointZ);
+        }
+    glEnd();
+
+    // Vẽ nắp trên hình trụ
+    glBegin(GL_QUAD_STRIP);
+    for (int i = 0; i <= NUM_SEGMENTS; ++i)
+        {
+            float angleRad = startAngleRad + i * angleIncrement;
+            float x = radius * cos(angleRad);
+            float y = radius * sin(angleRad);
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn
+            GLdouble pointX = centerX + x * tangentX + y * bitangentX;
+            GLdouble pointY = centerY + x * tangentY + y * bitangentY;
+            GLdouble pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn (đỉnh trên)
+            GLdouble topPointX = pointX + normalizedNormalX * height / 2.0f;
+            GLdouble topPointY = pointY + normalizedNormalY * height / 2.0f;
+            GLdouble topPointZ = pointZ + normalizedNormalZ * height / 2.0f;
+
+            // Tính toán vị trí đỉnh bên trong (để tạo độ dày)
+            float innerX = (radius - thickness) * cos(angleRad);
+            float innerY = (radius - thickness) * sin(angleRad);
+
+            GLdouble innerPointX = centerX + innerX * tangentX + innerY * bitangentX;
+            GLdouble innerPointY = centerY + innerX * tangentY + innerY * bitangentY;
+            GLdouble innerPointZ = centerZ + innerX * tangentZ + innerY * bitangentZ;
+
+            // Tính toán vị trí đỉnh bên trong (để tạo độ dày) trên nắp
+            GLdouble innerTopPointX = innerPointX + normalizedNormalX * height / 2.0f;
+            GLdouble innerTopPointY = innerPointY + normalizedNormalY * height / 2.0f;
+            GLdouble innerTopPointZ = innerPointZ + normalizedNormalZ * height / 2.0f;
+
+            glVertex3d(topPointX, topPointY, topPointZ);
+            glVertex3d(innerTopPointX, innerTopPointY, innerTopPointZ);
+        }
+    glEnd();
+
+    // Vẽ nắp dưới hình trụ
+    glBegin(GL_QUAD_STRIP);
+        for (int i = 0; i <= NUM_SEGMENTS; ++i)
+        {
+            float angleRad = startAngleRad + i * angleIncrement;
+            float x = radius * cos(angleRad);
+            float y = radius * sin(angleRad);
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn
+            GLdouble pointX = centerX + x * tangentX + y * bitangentX;
+            GLdouble pointY = centerY + x * tangentY + y * bitangentY;
+            GLdouble pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn (đỉnh trên)
+            GLdouble bottomPointX = pointX - normalizedNormalX * height / 2.0f;
+            GLdouble bottomPointY = pointY - normalizedNormalY * height / 2.0f;
+            GLdouble bottomPointZ = pointZ - normalizedNormalZ * height / 2.0f;
+
+            // Tính toán vị trí đỉnh bên trong (để tạo độ dày)
+            float innerX = (radius - thickness) * cos(angleRad);
+            float innerY = (radius - thickness) * sin(angleRad);
+
+            GLdouble innerPointX = centerX + innerX * tangentX + innerY * bitangentX;
+            GLdouble innerPointY = centerY + innerX * tangentY + innerY * bitangentY;
+            GLdouble innerPointZ = centerZ + innerX * tangentZ + innerY * bitangentZ;
+
+            // Tính toán vị trí đỉnh bên trong (để tạo độ dày) trên nắp
+            GLdouble innerBottomPointX = innerPointX - normalizedNormalX * height / 2.0f;
+            GLdouble innerBottomPointY = innerPointY - normalizedNormalY * height / 2.0f;
+            GLdouble innerBottomPointZ = innerPointZ - normalizedNormalZ * height / 2.0f;
+
+            glVertex3d(bottomPointX, bottomPointY, bottomPointZ);
+            glVertex3d(innerBottomPointX, innerBottomPointY, innerBottomPointZ);
+        }
+    glEnd();
+}
+
+
 // Hàm chuẩn hóa vector
 Vector normalize(const Vector& v)
 {
