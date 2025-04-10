@@ -16,15 +16,18 @@ public:
     void drawRobotStand();
     void drawRobotShortArm();
     void drawRobotLongArm();
+    void drawRobotHand();
     void drawDirection();
     void printAttributes();
     void checkMinValueAngle();
     void checkMaxValueAngle();
     void update();
     void test();
-
+    
     void rotateAngle(TypeAngle angle, float rotate);
-
+    void changeHandDistanceVertical(float distance);
+    void changeHandDistanceHorizontal(float distance);
+    
     Vector getVector(TypeVector v);
     float getAngle(TypeAngle a);
 
@@ -68,11 +71,12 @@ private:
     float handRadius = 1;
     float handHeight = 0.5;
     float handThickness = 0.5;
-    float handDistance = 5;
-    float leftHandAngleStart = 0;
+    float handDistanceVertical = 5;
+    float handDistanceHorizontal = 2;
+    float leftHandAngleStart = 360;
     float leftHandAngleEnd = 180;
     float rightHandAngleStart = 180;
-    float rightHandAngleEnd = 360;
+    float rightHandAngleEnd = 0;
 
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseBody_Color = GRAY_LIGHT;

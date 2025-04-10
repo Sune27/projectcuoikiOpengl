@@ -19,7 +19,8 @@ void RobotArm::printAttributes()
     cout << "angleZ: " << angleZ << endl;
     cout << "angleShortArm: " << angleShortArm << endl;
     cout << "angleLongArm: " << angleLongArm << endl;
-    cout << "wristDistance: " << wristDistance << endl;
+    cout << "handDistanceVertical: " << handDistanceVertical << endl;
+    cout << leftHand << endl;
 }
 
 void RobotArm::update()
@@ -63,10 +64,10 @@ void RobotArm::update()
     //hand
     leftHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
     rightHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
-    leftHand.move(longArmDirection, 3);
-    rightHand.move(longArmDirection, 3);
-    leftHand.move(robotDirectionXY_Horizontal, handDistance);
-    rightHand.move(robotDirectionXY_Horizontal, -handDistance);
+    leftHand.move(longArmDirection, handDistanceVertical);
+    rightHand.move(longArmDirection, handDistanceVertical);
+    leftHand.move(robotDirectionXY_Horizontal, handDistanceHorizontal);
+    rightHand.move(robotDirectionXY_Horizontal, -handDistanceHorizontal);
 }
 
 
@@ -91,6 +92,7 @@ void RobotArm::draw()
     drawRobotStand();
     drawRobotShortArm();
     //drawRobotLongArm();
+    //drawRobotHand();
     test();
 }
 
@@ -118,8 +120,8 @@ void RobotArm::drawDirection()
 
 void RobotArm::test()
 {
-    drawMissingCylinder(handRadius, handHeight, handThickness, wrist, robotDirectionXY_Horizontal, WHITE, leftHandAngleStart, leftHandAngleEnd);
-    drawMissingCylinder(handRadius, handHeight, handThickness, wrist, robotDirectionXY_Horizontal, WHITE, rightHandAngleStart, rightHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, robotDirectionXY_Horizontal, WHITE, leftHandAngleStart, leftHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, robotDirectionXY_Horizontal, WHITE, rightHandAngleStart, rightHandAngleEnd);
 }
 
 void RobotArm::drawRobotStand()
@@ -156,6 +158,16 @@ void RobotArm::checkMaxValueAngle()
     if(angleZ > ANGLEZ_MAX) angleZ = ANGLEZ_MAX;
     if(angleShortArm > ANGLESHORTARM_MAX) angleShortArm = ANGLESHORTARM_MAX;
     if(angleLongArm > ANGLELONGARM_MAX) angleLongArm = ANGLELONGARM_MAX;
+}
+
+void RobotArm::changeHandDistanceVertical(float distance)
+{
+    handDistanceVertical += distance;
+}
+
+void RobotArm::changeHandDistanceHorizontal(float distance)
+{
+    handDistanceHorizontal += distance;
 }
 
 RobotArm::~RobotArm()

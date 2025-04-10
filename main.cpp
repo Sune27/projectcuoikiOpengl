@@ -109,6 +109,18 @@ void keyboardFunc(unsigned char key, int x, int y)
 		case 'h':
 			robotArm.rotateAngle(ANGLE_LONG_ARM, -rotate);
 			break;
+		case 'e':
+			robotArm.changeHandDistanceVertical(rotate);
+			break;
+		case 'd':
+			robotArm.changeHandDistanceVertical(-rotate);
+			break;
+		case 'r':
+			robotArm.changeHandDistanceHorizontal(rotate);
+			break;
+		case 'f':
+			robotArm.changeHandDistanceHorizontal(-rotate);
+			break;
 		default:
 			break;
 	}
