@@ -20,6 +20,7 @@ void RobotArm::printAttributes()
     cout << "angleShortArm: " << angleShortArm << endl;
     cout << "angleLongArm: " << angleLongArm << endl;
     cout << "handDistanceVertical: " << handDistanceVertical << endl;
+    cout << "handDistanceHorizontal: " << handDistanceHorizontal << endl;
     cout << leftHand << endl;
 }
 
@@ -91,8 +92,8 @@ void RobotArm::draw()
     drawRobotBase();
     drawRobotStand();
     drawRobotShortArm();
-    //drawRobotLongArm();
-    //drawRobotHand();
+    drawRobotLongArm();
+    drawRobotHand();
     test();
 }
 
@@ -117,11 +118,15 @@ void RobotArm::drawDirection()
     drawLine(longArmDirection, axisShortArm, DIRECTION_LENGTH, GREEN);
 }
 
-
-void RobotArm::test()
+void RobotArm::drawRobotHand()
 {
     drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, robotDirectionXY_Horizontal, WHITE, leftHandAngleStart, leftHandAngleEnd);
     drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, robotDirectionXY_Horizontal, WHITE, rightHandAngleStart, rightHandAngleEnd);
+
+}
+
+void RobotArm::test()
+{
 }
 
 void RobotArm::drawRobotStand()
@@ -162,12 +167,12 @@ void RobotArm::checkMaxValueAngle()
 
 void RobotArm::changeHandDistanceVertical(float distance)
 {
-    handDistanceVertical += distance;
+    handDistanceVertical += distance/10;
 }
 
 void RobotArm::changeHandDistanceHorizontal(float distance)
 {
-    handDistanceHorizontal += distance;
+    handDistanceHorizontal += distance/10;
 }
 
 RobotArm::~RobotArm()

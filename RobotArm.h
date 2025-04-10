@@ -73,7 +73,7 @@ private:
     float handThickness = 0.5;
     float handDistanceVertical = 5;
     float handDistanceHorizontal = 2;
-    float leftHandAngleStart = 360;
+    float leftHandAngleStart = 0;
     float leftHandAngleEnd = 180;
     float rightHandAngleStart = 180;
     float rightHandAngleEnd = 0;
