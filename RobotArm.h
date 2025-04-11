@@ -60,17 +60,20 @@ private:
     float angleZ = 55.0;
     //short arm
     float angleShortArm = 100.0;
-    float shortArmDistance = 0.5;
+    float shortArmDistanceVertical = 1.5;
+    float shortArmDistanceHorizontal = 0.5;
     float shortArmWidth = 0.8;
     float shortArmLength = 0.15;
     float shortArmHeight = 4;
+    float axisShortArmDistance = 3.1;
     float axisShortArmRadius = 0.3;
     float axisShortArmHeight = 2;
     float axisShortArmHeightOutside = 2;
     float axisShortArmHeightInside = 1.5;
     //longArm
     float angleLongArm = 25.0;
-    float longArmDistance = 0.5;
+    float longArmDistanceVertical = 3;
+    float longArmDistanceHorizontal = 0.5;
     float longArmWidth = 0.8;
     float longArmLength = 0.15;
     float longArmHeight = 8;
@@ -104,7 +107,7 @@ private:
     Color shortArm_OutlineColor = PURPLE;
     Color axisShortArm_Color = WHITE;
     Color axisShortArm_OutlineColor = DARK_BLUE;
-    
+
     Color longArm_Color = WHITE;
     Color longArm_OutlineColor = DARK_GREEN;
     Color wrist_Color = WHITE;

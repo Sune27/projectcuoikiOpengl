@@ -14,18 +14,18 @@ RobotArm::RobotArm()
 
 void RobotArm::printAttributeToTxt()
 {
-    ofstream outputFile("attributes.txt");
-    if(outputFile.is_open() == false)
-    {
-        cerr << "khong the mo file attribute.txt";
-    }
-    else
-    {
-        outputFile << "float baseLeg_Radius = " << baseLeg_Radius << ";" << endl;
-        outputFile << "float baseLeg_Height = " << baseLeg_Height << ";" << endl;
+    // ofstream outputFile("attributes.txt");
+    // if(outputFile.is_open() == false)
+    // {
+    //     cerr << "khong the mo file attribute.txt";
+    // }
+    // else
+    // {
+    //     outputFile << "float baseLeg_Radius = " << baseLeg_Radius << ";" << endl;
+    //     outputFile << "float baseLeg_Height = " << baseLeg_Height << ";" << endl;
 
-        outputFile << "leftLongArm_Color: WHITE 255 255 255"  << endl;
-    }
+    //     outputFile << "leftLongArm_Color: WHITE 255 255 255"  << endl;
+    // }
 }
 
 void RobotArm::printAttributes()
@@ -63,20 +63,20 @@ void RobotArm::update()
     rightShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
     axisShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
 
-    leftShortArm.move(shortArmDirection, 1.5);
-    rightShortArm.move(shortArmDirection, 1.5);
-    axisShortArm.move(shortArmDirection, shortArmHeight-0.9);
-    leftShortArm.move(robotDirectionXY_Horizontal, shortArmDistance);
-    rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistance);
+    leftShortArm.move(shortArmDirection, shortArmDistanceVertical);
+    rightShortArm.move(shortArmDirection, shortArmDistanceVertical);
+    axisShortArm.move(shortArmDirection, axisShortArmDistance);
+    leftShortArm.move(robotDirectionXY_Horizontal, shortArmDistanceHorizontal);
+    rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistanceHorizontal);
 
     //longarm
     leftLongArm.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
     rightLongArm.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
     wrist.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
-    leftLongArm.move(longArmDirection, 3);
-    rightLongArm.move(longArmDirection, 3);
-    leftLongArm.move(robotDirectionXY_Horizontal, longArmDistance);
-    rightLongArm.move(robotDirectionXY_Horizontal, -longArmDistance);
+    leftLongArm.move(longArmDirection, longArmDistanceVertical);
+    rightLongArm.move(longArmDirection, longArmDistanceVertical);
+    leftLongArm.move(robotDirectionXY_Horizontal, longArmDistanceHorizontal);
+    rightLongArm.move(robotDirectionXY_Horizontal, -longArmDistanceHorizontal);
     wrist.move(longArmDirection, wristDistance);
 
     //hand
@@ -142,6 +142,7 @@ void RobotArm::drawDirection()
     }
 }
 
+//done
 void RobotArm::drawRobotHand()
 {
     drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart, leftHandAngleEnd);
