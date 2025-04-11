@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <iostream>
+#include <fstream>
 
 #include "Utils.h"
 #include "Config.h"
@@ -22,6 +23,7 @@ public:
     void printAttributes();
     void checkMinValueAngle();
     void checkMaxValueAngle();
+    void printAttributeToTxt();
     void update();
     void test();
     

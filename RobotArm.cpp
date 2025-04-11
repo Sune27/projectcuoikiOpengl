@@ -12,6 +12,19 @@ RobotArm::RobotArm()
     
 }
 
+void RobotArm::printAttributeToTxt()
+{
+    ofstream outputFile("attributes.txt");
+    if(outputFile.is_open() == false)
+    {
+        cerr << "khong the mo file attribute.txt";
+    }
+    else
+    {
+        outputFile << "float baseLeg_Radius = " << baseLeg_Radius << ";" << endl;
+    }
+}
+
 void RobotArm::printAttributes()
 {
     cout << __TIME__ << endl;
@@ -89,6 +102,7 @@ void RobotArm::draw()
 {
     update();
     printAttributes();
+    printAttributeToTxt();
     drawDirection();
     drawRobotBase();
     drawRobotStand();
