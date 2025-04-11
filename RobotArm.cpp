@@ -63,9 +63,9 @@ void RobotArm::update()
     axisStand.move(robotDirectionXYZ, standAxisDistance);
 
     //shortarm
-    leftShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
-    rightShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
-    axisShortArm.setValue(axisStand.arr[0], axisStand.arr[1], axisStand.arr[2]);
+    leftShortArm = axisStand;
+    rightShortArm = axisStand;
+    axisShortArm = axisStand;
 
     leftShortArm.move(shortArmDirection, shortArmDistanceVertical);
     rightShortArm.move(shortArmDirection, shortArmDistanceVertical);
@@ -74,9 +74,9 @@ void RobotArm::update()
     rightShortArm.move(robotDirectionXY_Horizontal, -shortArmDistanceHorizontal);
 
     //longarm
-    leftLongArm.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
-    rightLongArm.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
-    wrist.setValue(axisShortArm.arr[0], axisShortArm.arr[1], axisShortArm.arr[2]);
+    leftLongArm = axisShortArm;
+    rightLongArm = axisShortArm;
+    wrist = axisShortArm;
     leftLongArm.move(longArmDirection, longArmDistanceVertical);
     rightLongArm.move(longArmDirection, longArmDistanceVertical);
     leftLongArm.move(robotDirectionXY_Horizontal, longArmDistanceHorizontal);
@@ -84,12 +84,15 @@ void RobotArm::update()
     wrist.move(longArmDirection, wristDistance);
 
     //hand
-    leftHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
-    rightHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
+    leftHand = wrist;
+    rightHand = wrist;
+    centerHand = wrist;
     leftHand.move(longArmDirection, handDistanceVertical);
     rightHand.move(longArmDirection, handDistanceVertical);
+    centerHand.move(longArmDirection, handDistanceVertical);
     leftHand.move(handMove, handDistanceHorizontal);
     rightHand.move(handMove, -handDistanceHorizontal);
+
 }
 
 //done
@@ -148,8 +151,8 @@ void RobotArm::drawDirection()
         //drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
         drawLine(shortArmDirection, axisStand, DIRECTION_LENGTH, RED);
         drawLine(longArmDirection, axisShortArm, DIRECTION_LENGTH, GREEN);
-        drawLine(handDirection, rightHand, DIRECTION_LENGTH, YELLOW);
-        drawLine(handMove, rightHand, DIRECTION_LENGTH, PINK);
+        drawLine(handDirection, centerHand, DIRECTION_LENGTH, YELLOW);
+        drawLine(handMove, centerHand, DIRECTION_LENGTH, PINK);
     }
 }
 

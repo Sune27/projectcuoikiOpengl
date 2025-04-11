@@ -159,6 +159,12 @@ struct Point
         this->arr[1] = p.arr[1];
         this->arr[2] = p.arr[2];
     }
+    void operator=(const Point& p)
+    {
+        this->arr[0] = p.arr[0];
+        this->arr[1] = p.arr[1];
+        this->arr[2] = p.arr[2];
+    }
     friend ostream& operator<< (ostream& os, Point p)
     {
         os << "[x]: " << p.arr[0] << endl;

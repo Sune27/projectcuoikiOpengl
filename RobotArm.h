@@ -99,6 +99,7 @@ private:
 
     //container
     float containerLength = 2;
+    double distanceContainer;
 
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseLeg_OutlineColor = GREEN;
@@ -152,6 +153,7 @@ private:
     Point wrist;
     Point leftHand;
     Point rightHand;
+    Point centerHand;
     Point centerContainer;
 };
 
