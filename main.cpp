@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Console.h"
 #include "RobotArm.h"
+#include "UserInterface.h"
 using namespace std;
 
 RobotArm robotArm;
