@@ -2,6 +2,7 @@
 #include <cmath>
 #include <math.h>
 #include <iostream>
+#include <string>
 
 #include "Config.h"
 
@@ -201,6 +202,23 @@ struct Point
         arr[0] = x;
         arr[1] = y;
         arr[2] = z;
+    }
+};
+struct Button
+{
+    float x, y, width, height;
+    Color outline, background;
+    string text;
+
+    void setValue(float x, float y, float width, float height, Color outline, Color background, string text)
+    {
+        this->x = x;
+        this->y = y;
+        this->width = width;
+        this->height = height;
+        this->outline = outline;
+        this->background = background;
+        this->text = text;
     }
 };
 
