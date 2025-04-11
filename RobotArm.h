@@ -90,6 +90,11 @@ private:
     Color baseBody_OutlineColor = GREEN;
     Color baseHead_Color = GRAY_LIGHT;
     Color baseHead_OutlineColor = GREEN;
+    Color leftLongArm_Color = WHITE;
+    Color rightLongArm_Color = WHITE;
+    Color leftLongArm_OutlineColor = DARK_GREEN;
+    Color rightLongArm_OutlineColor = DARK_GREEN;
+    
 
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;

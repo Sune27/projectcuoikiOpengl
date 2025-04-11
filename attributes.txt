@@ -1,1 +1,3 @@
 float baseLeg_Radius = 4;
+float baseLeg_Height = 0.2;
+leftLongArm_Color: WHITE 255 255 255

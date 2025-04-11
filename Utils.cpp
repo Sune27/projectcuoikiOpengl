@@ -748,6 +748,9 @@ void setColor(Color color)
 {
     switch (color) 
 	{
+        case ORANGE:
+            glColor3f(255.0/255.0, 165.0/255.0, 0);
+            break;
         case DARK_BLUE:
             glColor3f(0,0, 128.0/255);
             break;
@@ -766,7 +769,7 @@ void setColor(Color color)
         case PINK:
             glColor3f(255/255.0, 191/255.0, 204/255.0);
             break;
-    	case RED:
+    	case RED: //255 0 0
 	    	glColor3f(1.0f, 0.0f, 0.0f);
 	    	break;
 	  	case GREEN:

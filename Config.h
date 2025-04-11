@@ -67,6 +67,7 @@ enum Color
     DARK_GREEN,
     LIGHT_BLUE,
     DARK_BLUE,
+    ORANGE,
 };
 
 #endif

@@ -22,6 +22,9 @@ void RobotArm::printAttributeToTxt()
     else
     {
         outputFile << "float baseLeg_Radius = " << baseLeg_Radius << ";" << endl;
+        outputFile << "float baseLeg_Height = " << baseLeg_Height << ";" << endl;
+
+        outputFile << "leftLongArm_Color: WHITE 255 255 255"  << endl;
     }
 }
 
@@ -114,10 +117,10 @@ void RobotArm::draw()
 
 void RobotArm::drawRobotLongArm()
 {
-    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, WHITE);
-    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, WHITE);
-    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, DARK_GREEN);
-    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, DARK_GREEN);
+    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, leftLongArm_Color);
+    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, rightLongArm_Color);
+    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, leftLongArm_OutlineColor);
+    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, rightLongArm_OutlineColor);
     drawCylinderWithCaps(wristRadius, wristHeight, wristRadius, wrist, longArmDirection, WHITE);
     drawCylinderOutline(wristRadius, wristHeight, wrist, longArmDirection, DARK_BLUE);
 }
