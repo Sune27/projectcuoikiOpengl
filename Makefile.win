@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = Console.o main.o RobotArm.o Utils.o
-LINKOBJ  = Console.o main.o RobotArm.o Utils.o
+OBJ      = Console.o main.o RobotArm.o Utils.o UserInterface.o
+LINKOBJ  = Console.o main.o RobotArm.o Utils.o UserInterface.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc "../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a"
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include/c++"
@@ -35,3 +35,6 @@ RobotArm.o: RobotArm.cpp
 
 Utils.o: Utils.cpp
 	$(CPP) -c Utils.cpp -o Utils.o $(CXXFLAGS)
+
+UserInterface.o: UserInterface.cpp
+	$(CPP) -c UserInterface.cpp -o UserInterface.o $(CXXFLAGS)

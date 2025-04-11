@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "Utils.h"
+#include "Config.h"
 
 #ifndef ROBOTARM_H
 #define ROBOTARM_H
