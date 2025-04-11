@@ -66,6 +66,8 @@ private:
     float shortArmHeight = 4;
     float axisShortArmRadius = 0.3;
     float axisShortArmHeight = 2;
+    float axisShortArmHeightOutside = 2;
+    float axisShortArmHeightInside = 1.5;
     //longArm
     float angleLongArm = 25.0;
     float longArmDistance = 0.5;
@@ -93,18 +95,23 @@ private:
     Color baseHead_Color = GRAY_LIGHT;
     Color baseHead_OutlineColor = GREEN;
     
-    Color leftStand_Color = WHITE;
-    Color rightStand_Color = WHITE;
-    Color leftStand_OutlineColor = DARK_BLUE;
-    Color rightStand_OutlineColor = DARK_BLUE;
+    Color stand_Color = WHITE;
+    Color stand_OutlineColor = DARK_BLUE;
     Color axisStand_Color = WHITE;
     Color axisStand_Outlinecolor = DARK_BLUE;
 
-    Color leftLongArm_Color = WHITE;
-    Color rightLongArm_Color = WHITE;
-    Color leftLongArm_OutlineColor = DARK_GREEN;
-    Color rightLongArm_OutlineColor = DARK_GREEN;
+    Color shortArm_Color = WHITE;
+    Color shortArm_OutlineColor = PURPLE;
+    Color axisShortArm_Color = WHITE;
+    Color axisShortArm_OutlineColor = DARK_BLUE;
     
+    Color longArm_Color = WHITE;
+    Color longArm_OutlineColor = DARK_GREEN;
+    Color wrist_Color = WHITE;
+    Color wrist_OutlineColor = DARK_GREEN;
+    
+    Color hand_Color = WHITE;
+    Color hand_OutlineColor = PURPLE;
 
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;

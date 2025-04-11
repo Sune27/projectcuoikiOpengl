@@ -88,16 +88,16 @@ void RobotArm::update()
     rightHand.move(handMove, -handDistanceHorizontal);
 }
 
-
+//done
 void RobotArm::drawRobotShortArm()
 {
-    drawBox(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, leftShortArm, WHITE);
-    drawBox(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, rightShortArm, WHITE);
-    drawBoxOutline(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, leftShortArm, PURPLE);
-    drawBoxOutline(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, rightShortArm, PURPLE);
-    drawCylinderWithCaps(axisShortArmRadius, axisShortArmHeight, axisShortArmRadius, axisShortArm, robotDirectionXY_Horizontal, WHITE);
-    drawCylinderOutline(axisShortArmRadius, axisShortArmHeight, axisShortArm, robotDirectionXY_Horizontal, DARK_BLUE);
-    drawCylinderOutline(axisShortArmRadius, axisShortArmHeight - 0.5, axisShortArm, robotDirectionXY_Horizontal, DARK_BLUE);
+    drawBox(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, leftShortArm, shortArm_Color);
+    drawBox(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, rightShortArm, shortArm_Color);
+    drawBoxOutline(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, leftShortArm, shortArm_OutlineColor);
+    drawBoxOutline(shortArmLength, shortArmWidth, shortArmHeight, shortArmDirection, rightShortArm, shortArm_OutlineColor);
+    drawCylinderWithCaps(axisShortArmRadius, axisShortArmHeight, axisShortArmRadius, axisShortArm, robotDirectionXY_Horizontal, axisShortArm_Color);
+    drawCylinderOutline(axisShortArmRadius, axisShortArmHeightOutside, axisShortArm, robotDirectionXY_Horizontal, axisShortArm_OutlineColor);
+    drawCylinderOutline(axisShortArmRadius, axisShortArmHeightInside, axisShortArm, robotDirectionXY_Horizontal, axisShortArm_OutlineColor);
 
 }
 
@@ -115,14 +115,15 @@ void RobotArm::draw()
     test();
 }
 
+//done
 void RobotArm::drawRobotLongArm()
 {
-    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, leftLongArm_Color);
-    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, rightLongArm_Color);
-    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, leftLongArm_OutlineColor);
-    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, rightLongArm_OutlineColor);
-    drawCylinderWithCaps(wristRadius, wristHeight, wristRadius, wrist, longArmDirection, WHITE);
-    drawCylinderOutline(wristRadius, wristHeight, wrist, longArmDirection, DARK_BLUE);
+    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, longArm_Color);
+    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, longArm_Color);
+    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, longArm_OutlineColor);
+    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, longArm_OutlineColor);
+    drawCylinderWithCaps(wristRadius, wristHeight, wristRadius, wrist, longArmDirection, wrist_Color);
+    drawCylinderOutline(wristRadius, wristHeight, wrist, longArmDirection, wrist_OutlineColor);
 }
 
 void RobotArm::drawDirection()
@@ -143,8 +144,8 @@ void RobotArm::drawDirection()
 
 void RobotArm::drawRobotHand()
 {
-    drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, WHITE, leftHandAngleStart, leftHandAngleEnd);
-    drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, WHITE, rightHandAngleStart, rightHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart, leftHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart, rightHandAngleEnd);
 
 }
 
@@ -152,12 +153,13 @@ void RobotArm::test()
 {
 }
 
+//done
 void RobotArm::drawRobotStand()
 {
-    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, leftStand_Color);
-    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, rightStand_Color);
-    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, leftStand_OutlineColor);
-    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, rightStand_OutlineColor);
+    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, stand_Color);
+    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, stand_Color);
+    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, stand_OutlineColor);
+    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, stand_OutlineColor);
     drawCylinderWithCaps(axisRadius, axisHeight, axisRadius, axisStand, robotDirectionXY_Horizontal,axisStand_Color);
     drawCylinderOutline(axisRadius, axisHeightOutside, axisStand, robotDirectionXY_Horizontal, axisStand_Outlinecolor);
     drawCylinderOutline(axisRadius, axisHeightInside, axisStand, robotDirectionXY_Horizontal, axisStand_Outlinecolor);
