@@ -61,6 +61,13 @@ enum TypeVector
 
 enum Color
 {
+	DARK_GRAY,
+	GRAY,
+	LIGHT_GRAY,
+	SILVER,
+	DIM_BLACK,
+	ALUMINUM,
+	OFF_WHILE,
     RED,
     GREEN,
     BLUE,
@@ -75,7 +82,8 @@ enum Color
     DARK_GREEN,
     LIGHT_BLUE,
     DARK_BLUE,
-    ORANGE
+    ORANGE,
 };
+
 
 #endif

@@ -878,6 +878,27 @@ void setColor(Color color)
 {
     switch (color) 
 	{
+		case DARK_GRAY:
+            glColor3f(70.0/255.0, 70.0/255.0, 70.0/255.0);
+            break;
+        case GRAY:
+            glColor3f(90.0/255.0, 90.0/255.0, 90.0/255.0);
+            break;
+        case LIGHT_GRAY:
+            glColor3f(190.0/255.0, 190.0/255.0, 190.0/255.0);
+            break;
+        case SILVER:
+            glColor3f(160.0/255.0, 160.0/255.0, 160.0/255.0);
+            break;
+        case DIM_BLACK:
+            glColor3f(30.0/255.0, 30.0/255.0, 30.0/255.0);
+            break;
+        case ALUMINUM:
+            glColor3f(200.0/255.0, 200.0/255.0, 200.0/255.0);
+            break;
+        case OFF_WHILE:
+            glColor3f(220.0/255.0, 220.0/255.0, 220.0/255.0);
+            break;
         case ORANGE:
             glColor3f(255.0/255.0, 165.0/255.0, 0);
             break;
