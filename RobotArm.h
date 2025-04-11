@@ -45,9 +45,11 @@ private:
     float baseBody_Height = 0.75;
     float baseHead_Radius = 1.4;
     float baseHead_Height = 0.45;
+    //stand
     float axisRadius = 0.3;
     float axisHeight = 2;
-    //stand
+    float axisHeightOutside = 2;
+    float axisHeightInside = 1.1;
     float standPositionZ = 1.8;
     float standAxisDistance = 1.1;
     float standDistance = 0.75;
@@ -90,6 +92,14 @@ private:
     Color baseBody_OutlineColor = GREEN;
     Color baseHead_Color = GRAY_LIGHT;
     Color baseHead_OutlineColor = GREEN;
+    
+    Color leftStand_Color = WHITE;
+    Color rightStand_Color = WHITE;
+    Color leftStand_OutlineColor = DARK_BLUE;
+    Color rightStand_OutlineColor = DARK_BLUE;
+    Color axisStand_Color = WHITE;
+    Color axisStand_Outlinecolor = DARK_BLUE;
+
     Color leftLongArm_Color = WHITE;
     Color rightLongArm_Color = WHITE;
     Color leftLongArm_OutlineColor = DARK_GREEN;

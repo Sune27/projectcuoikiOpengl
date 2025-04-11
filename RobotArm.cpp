@@ -154,15 +154,16 @@ void RobotArm::test()
 
 void RobotArm::drawRobotStand()
 {
-    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, WHITE);
-    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, WHITE);
-    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, DARK_BLUE);
-    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, DARK_BLUE);
-    drawCylinderWithCaps(axisRadius, axisHeight, axisRadius, axisStand, robotDirectionXY_Horizontal, WHITE);
-    drawCylinderOutline(axisRadius, axisHeight, axisStand, robotDirectionXY_Horizontal, DARK_BLUE);
-    drawCylinderOutline(axisRadius, axisHeight-0.9, axisStand, robotDirectionXY_Horizontal, DARK_BLUE);
+    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, leftStand_Color);
+    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, rightStand_Color);
+    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, leftStand_OutlineColor);
+    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, rightStand_OutlineColor);
+    drawCylinderWithCaps(axisRadius, axisHeight, axisRadius, axisStand, robotDirectionXY_Horizontal,axisStand_Color);
+    drawCylinderOutline(axisRadius, axisHeightOutside, axisStand, robotDirectionXY_Horizontal, axisStand_Outlinecolor);
+    drawCylinderOutline(axisRadius, axisHeightInside, axisStand, robotDirectionXY_Horizontal, axisStand_Outlinecolor);
 }
 
+//done
 void RobotArm::drawRobotBase()
 {
     drawCylinderWithCaps(baseLeg_Radius, baseLeg_Height, baseLeg_Radius, centerBaseLeg, normalBase, baseLeg_Color);
