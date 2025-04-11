@@ -9,7 +9,7 @@ RobotArm::RobotArm()
     centerBaseLeg.setValue(0, 0, 0);
     centerBaseBody.setValue(0, 0, 0.5);
     centerBaseHead.setValue(0, 0, 1.0);
-    
+    centerContainer.setValue(5,5,1);
 }
 
 void RobotArm::printAttributeToTxt()
@@ -112,6 +112,7 @@ void RobotArm::draw()
     drawRobotShortArm();
     drawRobotLongArm();
     drawRobotHand();
+    drawContainer();
     test();
 }
 
@@ -124,6 +125,12 @@ void RobotArm::drawRobotLongArm()
     drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, longArm_OutlineColor);
     drawCylinderWithCaps(wristRadius, wristHeight, wristRadius, wrist, longArmDirection, wrist_Color);
     drawCylinderOutline(wristRadius, wristHeight, wrist, longArmDirection, wrist_OutlineColor);
+}
+
+void RobotArm::drawContainer()
+{
+    drawBox(containerLength, containerLength, containerLength, normalBase, centerContainer, containerColor);
+    drawBoxOutline(containerLength, containerLength, containerLength, normalBase, centerContainer, containerOutlineColor);
 }
 
 void RobotArm::drawDirection()

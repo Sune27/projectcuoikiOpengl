@@ -19,6 +19,7 @@ public:
     void drawRobotShortArm();
     void drawRobotLongArm();
     void drawRobotHand();
+    void drawContainer();
     void drawDirection();
     void printAttributes();
     void checkMinValueAngle();
@@ -59,7 +60,7 @@ private:
     float angleX = 60.0;
     float angleZ = 55.0;
     //short arm
-    float angleShortArm = 100.0;
+    float angleShortArm = 72.0;
     float shortArmDistanceVertical = 1.5;
     float shortArmDistanceHorizontal = 0.5;
     float shortArmWidth = 0.8;
@@ -71,7 +72,7 @@ private:
     float axisShortArmHeightOutside = 2;
     float axisShortArmHeightInside = 1.5;
     //longArm
-    float angleLongArm = 25.0;
+    float angleLongArm = -20.0;
     float longArmDistanceVertical = 3;
     float longArmDistanceHorizontal = 0.5;
     float longArmWidth = 0.8;
@@ -90,6 +91,8 @@ private:
     float leftHandAngleEnd = 270;
     float rightHandAngleStart = 270;
     float rightHandAngleEnd = 450;
+    //container
+    float containerLength = 2;
 
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseLeg_OutlineColor = GREEN;
@@ -116,6 +119,9 @@ private:
     Color hand_Color = WHITE;
     Color hand_OutlineColor = PURPLE;
 
+    Color containerColor = WHITE;
+    Color containerOutlineColor = DARK_BLUE;
+
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
     Vector robotDirectionXY_Horizontal;
@@ -139,6 +145,7 @@ private:
     Point wrist;
     Point leftHand;
     Point rightHand;
+    Point centerContainer;
 };
 
 #endif
