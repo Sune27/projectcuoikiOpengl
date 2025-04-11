@@ -2,6 +2,136 @@
 #include "Config.h"
 using namespace std;
 
+void drawMissingCylinderOutline(float radius, float height, Point center, Vector normal, Color color, float angleStart, float angleEnd)
+{
+    // Chuẩn hóa vector pháp tuyến
+    GLdouble normalX = normal.arr[0];
+    GLdouble normalY = normal.arr[1];
+    GLdouble normalZ = normal.arr[2];
+    GLdouble length = sqrt(normalX * normalX + normalY * normalY + normalZ * normalZ);
+    GLdouble normalizedNormalX = normalX / length;
+    GLdouble normalizedNormalY = normalY / length;
+    GLdouble normalizedNormalZ = normalZ / length;
+
+    // Tính toán vector tiếp tuyến và bitangent
+    GLdouble tangentX, tangentY, tangentZ;
+    if (normalizedNormalZ != 1.0f && normalizedNormalZ != -1.0f) {
+        tangentX = normalizedNormalY;
+        tangentY = -normalizedNormalX;
+        tangentZ = 0.0f;
+    } else {
+        tangentX = 1.0f;
+        tangentY = 0.0f;
+        tangentZ = 0.0f;
+    }
+
+    length = sqrt(tangentX * tangentX + tangentY * tangentY + tangentZ * tangentZ);
+    tangentX /= length;
+    tangentY /= length;
+    tangentZ /= length;
+
+    GLdouble bitangentX = normalizedNormalY * tangentZ - normalizedNormalZ * tangentY;
+    GLdouble bitangentY = normalizedNormalZ * tangentX - normalizedNormalX * tangentZ;
+    GLdouble bitangentZ = normalizedNormalX * tangentY - normalizedNormalY * tangentX;
+
+    // Lấy tọa độ tâm
+    GLdouble centerX = center.arr[0];
+    GLdouble centerY = center.arr[1];
+    GLdouble centerZ = center.arr[2];
+
+    setColor(color); // Đặt màu cho viền
+    glLineWidth(LINE_WIDTH); // Độ dày của đường viền
+
+    // Chuyển đổi góc từ độ sang radian
+    float startAngleRad = angleStart * M_PI / 180.0f;
+    float endAngleRad = angleEnd * M_PI / 180.0f;
+    float angleIncrement = (endAngleRad - startAngleRad) / NUM_SEGMENTS;
+
+    // Vẽ các đường tròn ở đáy và đỉnh
+    glBegin(GL_LINE_STRIP); // Sử dụng LINE_STRIP để vẽ các vòng tròn không kín
+        for (int i = 0; i <= NUM_SEGMENTS; ++i) {
+            float angleRad = startAngleRad + i * angleIncrement;
+            float x = radius * cos(angleRad);
+            float y = radius * sin(angleRad);
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn
+            GLdouble pointX = centerX + x * tangentX + y * bitangentX;
+            GLdouble pointY = centerY + x * tangentY + y * bitangentY;
+            GLdouble pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+            // Tính toán vị trí đỉnh trên mặt phẳng hình tròn (đỉnh dưới)
+            GLdouble bottomPointX = pointX - normalizedNormalX * height / 2.0f;
+            GLdouble bottomPointY = pointY - normalizedNormalY * height / 2.0f;
+            GLdouble bottomPointZ = pointZ - normalizedNormalZ * height / 2.0f;
+
+            glVertex3d(bottomPointX, bottomPointY, bottomPointZ);
+        }
+    glEnd();
+
+    glBegin(GL_LINE_STRIP);
+    for (int i = 0; i <= NUM_SEGMENTS; ++i) {
+        float angleRad = startAngleRad + i * angleIncrement;
+        float x = radius * cos(angleRad);
+        float y = radius * sin(angleRad);
+
+        // Tính toán vị trí đỉnh trên mặt phẳng hình tròn
+        GLdouble pointX = centerX + x * tangentX + y * bitangentX;
+        GLdouble pointY = centerY + x * tangentY + y * bitangentY;
+        GLdouble pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+        // Tính toán vị trí đỉnh trên mặt phẳng hình tròn (đỉnh trên)
+        GLdouble topPointX = pointX + normalizedNormalX * height / 2.0f;
+        GLdouble topPointY = pointY + normalizedNormalY * height / 2.0f;
+        GLdouble topPointZ = pointZ + normalizedNormalZ * height / 2.0f;
+
+        glVertex3d(topPointX, topPointY, topPointZ);
+    }
+    glEnd();
+
+   //Vẽ 2 đường nối
+   float angleRad = startAngleRad;
+    float x = radius * cos(angleRad);
+    float y = radius * sin(angleRad);
+
+    GLdouble pointX = centerX + x * tangentX + y * bitangentX;
+    GLdouble pointY = centerY + x * tangentY + y * bitangentY;
+    GLdouble pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+    GLdouble topPointX = pointX + normalizedNormalX * height / 2.0f;
+    GLdouble topPointY = pointY + normalizedNormalY * height / 2.0f;
+    GLdouble topPointZ = pointZ + normalizedNormalZ * height / 2.0f;
+
+    GLdouble bottomPointX = pointX - normalizedNormalX * height / 2.0f;
+    GLdouble bottomPointY = pointY - normalizedNormalY * height / 2.0f;
+    GLdouble bottomPointZ = pointZ - normalizedNormalZ * height / 2.0f;
+
+    glBegin(GL_LINES);
+        glVertex3d(bottomPointX, bottomPointY, bottomPointZ);
+        glVertex3d(topPointX, topPointY, topPointZ);
+    glEnd();
+
+    angleRad = endAngleRad;
+    x = radius * cos(angleRad);
+    y = radius * sin(angleRad);
+
+    pointX = centerX + x * tangentX + y * bitangentX;
+    pointY = centerY + x * tangentY + y * bitangentY;
+    pointZ = centerZ + x * tangentZ + y * bitangentZ;
+
+    topPointX = pointX + normalizedNormalX * height / 2.0f;
+    topPointY = pointY + normalizedNormalY * height / 2.0f;
+    topPointZ = pointZ + normalizedNormalZ * height / 2.0f;
+
+    bottomPointX = pointX - normalizedNormalX * height / 2.0f;
+    bottomPointY = pointY - normalizedNormalY * height / 2.0f;
+    bottomPointZ = pointZ - normalizedNormalZ * height / 2.0f;
+
+    glBegin(GL_LINES);
+        glVertex3d(bottomPointX, bottomPointY, bottomPointZ);
+        glVertex3d(topPointX, topPointY, topPointZ);
+    glEnd();
+}
+
 void drawMissingCylinder(float radius, float height, float thickness, Point center, Vector normal, Color color, float angleStart, float angleEnd) 
 {
     setColor(color);

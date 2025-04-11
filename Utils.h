@@ -197,6 +197,7 @@ struct Point
     }
 };
 
+void drawMissingCylinderOutline(float radius, float height, Point center, Vector normal, Color color, float angleStart, float angleEnd);
 void drawMissingCylinder(float radius, float height, float thickness, Point center, Vector normal, Color color, float angleStart, float angleEnd);
 Vector normalize(const Vector& v);
 Vector crossProduct(const Vector& v1, const Vector& v2);

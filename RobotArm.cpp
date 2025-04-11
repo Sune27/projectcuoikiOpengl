@@ -146,7 +146,8 @@ void RobotArm::drawRobotHand()
 {
     drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart, leftHandAngleEnd);
     drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart, rightHandAngleEnd);
-
+    drawMissingCylinderOutline(handRadius, handHeight, leftHand, handDirection, hand_OutlineColor, leftHandAngleStart, leftHandAngleEnd);
+    drawMissingCylinderOutline(handRadius, handHeight, rightHand, handDirection, hand_OutlineColor, rightHandAngleStart, rightHandAngleEnd);
 }
 
 void RobotArm::test()
