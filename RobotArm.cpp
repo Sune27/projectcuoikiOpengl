@@ -32,7 +32,8 @@ void RobotArm::update()
     VectorRotationMethod(robotDirectionXYZ, robotDirectionXY_Vertical, angleZ);
     shortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleShortArm);
     longArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLongArm);
-
+    handDirection.rotateAroundZAxis(longArmDirection, 90);
+    handMove = crossProduct(longArmDirection, robotDirectionXY_Vertical);
     //stand
     leftStand.setValue(0, 0, standPositionZ);
     rightStand.setValue(0, 0, standPositionZ);
@@ -67,8 +68,8 @@ void RobotArm::update()
     rightHand.setValue(wrist.arr[0], wrist.arr[1], wrist.arr[2]);
     leftHand.move(longArmDirection, handDistanceVertical);
     rightHand.move(longArmDirection, handDistanceVertical);
-    leftHand.move(robotDirectionXY_Horizontal, handDistanceHorizontal);
-    rightHand.move(robotDirectionXY_Horizontal, -handDistanceHorizontal);
+    leftHand.move(handMove, handDistanceHorizontal);
+    rightHand.move(handMove, -handDistanceHorizontal);
 }
 
 
@@ -109,19 +110,24 @@ void RobotArm::drawRobotLongArm()
 
 void RobotArm::drawDirection()
 {
-    glLineWidth(LINE_WIDTH);
-    
-    drawLine(robotDirectionXY_Vertical, centerBaseHead, DIRECTION_LENGTH, PURPLE);
-    drawLine(robotDirectionXY_Horizontal, centerBaseHead, DIRECTION_LENGTH, BLUE);
-    //drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
-    drawLine(shortArmDirection, axisStand, DIRECTION_LENGTH, RED);
-    drawLine(longArmDirection, axisShortArm, DIRECTION_LENGTH, GREEN);
+    if(showDirection == true)
+    {
+        glLineWidth(LINE_WIDTH);
+        
+        drawLine(robotDirectionXY_Vertical, centerBaseHead, DIRECTION_LENGTH, PURPLE);
+        drawLine(robotDirectionXY_Horizontal, centerBaseHead, DIRECTION_LENGTH, BLUE);
+        //drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
+        drawLine(shortArmDirection, axisStand, DIRECTION_LENGTH, RED);
+        drawLine(longArmDirection, axisShortArm, DIRECTION_LENGTH, GREEN);
+        drawLine(handDirection, rightHand, DIRECTION_LENGTH, YELLOW);
+        drawLine(handMove, rightHand, DIRECTION_LENGTH, PINK);
+    }
 }
 
 void RobotArm::drawRobotHand()
 {
-    drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, robotDirectionXY_Horizontal, WHITE, leftHandAngleStart, leftHandAngleEnd);
-    drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, robotDirectionXY_Horizontal, WHITE, rightHandAngleStart, rightHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, WHITE, leftHandAngleStart, leftHandAngleEnd);
+    drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, WHITE, rightHandAngleStart, rightHandAngleEnd);
 
 }
 
@@ -173,6 +179,11 @@ void RobotArm::changeHandDistanceVertical(float distance)
 void RobotArm::changeHandDistanceHorizontal(float distance)
 {
     handDistanceHorizontal += distance/10;
+}
+
+void RobotArm::changeStatusShowDirection()
+{
+    showDirection = !showDirection;
 }
 
 RobotArm::~RobotArm()

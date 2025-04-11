@@ -83,6 +83,12 @@ struct Vector
         os << "[z] :" << v.arr[2] << endl;
         return os;
     }
+    void operator=(const Vector v)
+    {
+        this->arr[0] = v.arr[0];
+        this->arr[1] = v.arr[1];
+        this->arr[2] = v.arr[2];
+    }
     void horizontal(const Vector& other) {
         // Vector đầu vào
         GLdouble x = other.arr[0];

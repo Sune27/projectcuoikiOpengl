@@ -14,9 +14,7 @@ void reshape(int, int);
 void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
 
-GLdouble eyeX = 30.0, eyeY = -20.0, eyeZ = 30.0;
-GLdouble centerX = 0.0, centerY = 0.0, centerZ = 0.0;
-GLdouble upX = 0.0, upY = 0.0, upZ = 1.0;
+
 
 
 int main(int argc, char** argv) 
@@ -120,6 +118,9 @@ void keyboardFunc(unsigned char key, int x, int y)
 			break;
 		case 'f':
 			robotArm.changeHandDistanceHorizontal(-rotate);
+			break;
+		case '=':
+			robotArm.changeStatusShowDirection();
 			break;
 		default:
 			break;

@@ -5,6 +5,10 @@ using namespace std;
 #ifndef CONFIG_H
 #define CONFIG_H
 
+const GLdouble eyeX = 30.0, eyeY = -20.0, eyeZ = 30.0;
+const GLdouble centerX = 0.0, centerY = 0.0, centerZ = 0.0;
+const GLdouble upX = 0.0, upY = 0.0, upZ = 1.0;
+
 const int WINDOW_WIDTH = 1000;
 const int WINDOW_HEIGHT = 800;
 const int WINDOW_POSITION_X = 450;

@@ -27,11 +27,14 @@ public:
     void rotateAngle(TypeAngle angle, float rotate);
     void changeHandDistanceVertical(float distance);
     void changeHandDistanceHorizontal(float distance);
-    
+    void changeStatusShowDirection();
+
     Vector getVector(TypeVector v);
     float getAngle(TypeAngle a);
 
 private:
+    //special
+    bool showDirection = false;
     //base
     float baseLeg_Radius = 4;
     float baseLeg_Height = 0.2;
@@ -71,18 +74,18 @@ private:
     float handRadius = 1;
     float handHeight = 0.5;
     float handThickness = 0.5;
-    float handDistanceVertical = 5;
-    float handDistanceHorizontal = 2;
-    float leftHandAngleStart = 0;
-    float leftHandAngleEnd = 180;
-    float rightHandAngleStart = 180;
-    float rightHandAngleEnd = 0;
+    float handDistanceVertical = 1.5;
+    float handDistanceHorizontal = -0.5;
+    float leftHandAngleStart = 90;
+    float leftHandAngleEnd = 270;
+    float rightHandAngleStart = 270;
+    float rightHandAngleEnd = 450;
 
     Color baseLeg_Color = GRAY_LIGHT;
-    Color baseBody_Color = GRAY_LIGHT;
-    Color baseHead_Color = GRAY_LIGHT;
     Color baseLeg_OutlineColor = GREEN;
+    Color baseBody_Color = GRAY_LIGHT;
     Color baseBody_OutlineColor = GREEN;
+    Color baseHead_Color = GRAY_LIGHT;
     Color baseHead_OutlineColor = GREEN;
 
     Vector normalBase; // (0,0,1)
@@ -91,6 +94,8 @@ private:
     Vector robotDirectionXYZ;
     Vector shortArmDirection;
     Vector longArmDirection;
+    Vector handDirection;
+    Vector handMove;
 
     Point centerBaseLeg;
     Point centerBaseBody;
