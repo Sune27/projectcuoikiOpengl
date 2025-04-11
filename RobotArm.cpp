@@ -9,7 +9,11 @@ RobotArm::RobotArm()
     centerBaseLeg.setValue(0, 0, 0);
     centerBaseBody.setValue(0, 0, 0.5);
     centerBaseHead.setValue(0, 0, 1.0);
-    centerContainer.setValue(5,5,1);
+    centerContainer.setValue(10,0,4);
+    
+    robotDirectionXY_Vertical.vertical(angleX);
+    robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
+    containerDirection.setValue(robotDirectionXY_Horizontal.arr[0], robotDirectionXY_Horizontal.arr[1], robotDirectionXY_Horizontal.arr[2]);
 }
 
 void RobotArm::printAttributeToTxt()
@@ -129,8 +133,8 @@ void RobotArm::drawRobotLongArm()
 
 void RobotArm::drawContainer()
 {
-    drawBox(containerLength, containerLength, containerLength, normalBase, centerContainer, containerColor);
-    drawBoxOutline(containerLength, containerLength, containerLength, normalBase, centerContainer, containerOutlineColor);
+    drawBox(containerLength, containerLength, containerLength, containerDirection, centerContainer, containerColor);
+    drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, centerContainer, containerOutlineColor);
 }
 
 void RobotArm::drawDirection()
@@ -152,14 +156,39 @@ void RobotArm::drawDirection()
 //done
 void RobotArm::drawRobotHand()
 {
-    drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart, leftHandAngleEnd);
-    drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart, rightHandAngleEnd);
-    drawMissingCylinderOutline(handRadius, handHeight, leftHand, handDirection, hand_OutlineColor, leftHandAngleStart, leftHandAngleEnd);
-    drawMissingCylinderOutline(handRadius, handHeight, rightHand, handDirection, hand_OutlineColor, rightHandAngleStart, rightHandAngleEnd);
+    if(isHandOpen == true)
+    {
+        drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart_Open, leftHandAngleEnd_Open);
+        drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart_Open, rightHandAngleEnd_Open);
+        drawMissingCylinderOutline(handRadius, handHeight, leftHand, handDirection, hand_OutlineColor, leftHandAngleStart_Open, leftHandAngleEnd_Open);
+        drawMissingCylinderOutline(handRadius, handHeight, rightHand, handDirection, hand_OutlineColor, rightHandAngleStart_Open, rightHandAngleEnd_Open);
+    }
+    else 
+    {
+        drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart_Close, leftHandAngleEnd_Close);
+        drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart_Close, rightHandAngleEnd_Close);
+        drawMissingCylinderOutline(handRadius, handHeight, leftHand, handDirection, hand_OutlineColor, leftHandAngleStart_Close, leftHandAngleEnd_Close);
+        drawMissingCylinderOutline(handRadius, handHeight, rightHand, handDirection, hand_OutlineColor, rightHandAngleStart_Close, rightHandAngleEnd_Close);
+    }
 }
 
 void RobotArm::test()
 {
+}
+
+void RobotArm::changeStatus(TypeStatus status)
+{
+    switch(status)
+    {
+        case SHOW_DIRECTION:
+            showDirection = !showDirection;
+            break;
+        case HAND_OPEN:
+            isHandOpen = !isHandOpen;
+            break;
+        default:
+            break;
+    }
 }
 
 //done
@@ -208,11 +237,6 @@ void RobotArm::changeHandDistanceVertical(float distance)
 void RobotArm::changeHandDistanceHorizontal(float distance)
 {
     handDistanceHorizontal += distance/10;
-}
-
-void RobotArm::changeStatusShowDirection()
-{
-    showDirection = !showDirection;
 }
 
 RobotArm::~RobotArm()

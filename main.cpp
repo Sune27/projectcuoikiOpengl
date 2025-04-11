@@ -83,6 +83,9 @@ void keyboardFunc(unsigned char key, int x, int y)
 		case 27:
 			exit(0);
 			break;
+		case 32:
+			robotArm.changeStatus(HAND_OPEN);
+			break;
 		case 'z':
 			robotArm.rotateAngle(ANGLE_X, rotate);
 			break;
@@ -120,7 +123,7 @@ void keyboardFunc(unsigned char key, int x, int y)
 			robotArm.changeHandDistanceHorizontal(-rotate);
 			break;
 		case '=':
-			robotArm.changeStatusShowDirection();
+			robotArm.changeStatus(SHOW_DIRECTION);
 			break;
 		default:
 			break;

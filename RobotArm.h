@@ -31,7 +31,7 @@ public:
     void rotateAngle(TypeAngle angle, float rotate);
     void changeHandDistanceVertical(float distance);
     void changeHandDistanceHorizontal(float distance);
-    void changeStatusShowDirection();
+    void changeStatus(TypeStatus status);
 
     Vector getVector(TypeVector v);
     float getAngle(TypeAngle a);
@@ -39,6 +39,7 @@ public:
 private:
     //special
     bool showDirection = false;
+    bool isHandOpen = true;
     //base
     float baseLeg_Radius = 4;
     float baseLeg_Height = 0.2;
@@ -87,10 +88,15 @@ private:
     float handThickness = 0.5;
     float handDistanceVertical = 1.5;
     float handDistanceHorizontal = -0.5;
-    float leftHandAngleStart = 90;
-    float leftHandAngleEnd = 270;
-    float rightHandAngleStart = 270;
-    float rightHandAngleEnd = 450;
+    float leftHandAngleStart_Open = 200;
+    float leftHandAngleEnd_Open = 270;
+    float rightHandAngleStart_Open = 350;
+    float rightHandAngleEnd_Open = 270;    
+    float leftHandAngleStart_Close = 90;
+    float leftHandAngleEnd_Close = 270;
+    float rightHandAngleStart_Close = 270;
+    float rightHandAngleEnd_Close = 450;
+
     //container
     float containerLength = 2;
 
@@ -130,6 +136,7 @@ private:
     Vector longArmDirection;
     Vector handDirection;
     Vector handMove;
+    Vector containerDirection;
 
     Point centerBaseLeg;
     Point centerBaseBody;
