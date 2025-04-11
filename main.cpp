@@ -17,7 +17,6 @@ void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
 
 
-
 int main(int argc, char** argv) 
 {
 	glutInit(&argc, argv);
@@ -62,6 +61,7 @@ void display()
 	cout << "upX: " << upX << endl;
 	cout << "upY: " << upY << endl;
 	cout << "upZ: " << upZ << endl;
+	ui.draw2DUI();
 	
 	glFlush();
 	glutSwapBuffers(); 

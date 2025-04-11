@@ -12,6 +12,8 @@ class UI
 	public:
 		UI();
 		~UI();
+		void draw2DUI();
+
 	private:
 };
 
