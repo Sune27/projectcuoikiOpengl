@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <cmath>
+#include <math.h>
 #include <iostream>
 
 #include "Config.h"
@@ -197,6 +198,7 @@ struct Point
     }
 };
 
+double distanceTwoPoint(Point p1, Point p2);
 void drawMissingCylinderOutline(float radius, float height, Point center, Vector normal, Color color, float angleStart, float angleEnd);
 void drawMissingCylinder(float radius, float height, float thickness, Point center, Vector normal, Color color, float angleStart, float angleEnd);
 Vector normalize(const Vector& v);
