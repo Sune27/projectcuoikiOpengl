@@ -9,6 +9,7 @@
 using namespace std;
 
 RobotArm robotArm;
+UI ui;
 
 void display();
 void reshape(int, int);
