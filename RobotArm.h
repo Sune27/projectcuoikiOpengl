@@ -73,8 +73,8 @@ private:
     float shortArmLength;
     float shortArmRadius;
     //longArm
-    float angleLeftLongArm;
-    float angleRightLongArm;
+    float angleXLeftLongArm;
+    float angleXRightLongArm;
     float hingeRadius;
     float longArmRadius;
     float longArmLength;

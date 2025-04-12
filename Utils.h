@@ -37,81 +37,39 @@ struct Vector
         result.arr[2] = arr[0] * other.arr[1] - arr[1] * other.arr[0];
         return result;
     }
-    void rotateAroundXYSurface(Vector other, double angleRotate) {
-        // 1. Tính vector pháp tuyến của mặt phẳng song song với OXY
-        Vector normal(0,0,1);
-
-        // 2. Tính vector vuông góc với normal và vector other (nằm trên mặt phẳng)
-        Vector rotationAxis;
-        rotationAxis.arr[0] = other.arr[1] * normal.arr[2] - other.arr[2] * normal.arr[1];
-        rotationAxis.arr[1] = other.arr[2] * normal.arr[0] - other.arr[0] * normal.arr[2];
-        rotationAxis.arr[2] = other.arr[0] * normal.arr[1] - other.arr[1] * normal.arr[0];
-
-        // 3. Chuẩn hóa vector rotationAxis
-        double axisLength = sqrt(rotationAxis.arr[0] * rotationAxis.arr[0] +
-                                 rotationAxis.arr[1] * rotationAxis.arr[1] +
-                                 rotationAxis.arr[2] * rotationAxis.arr[2]);
-        if (axisLength == 0.0) {
-            // Xử lý trường hợp vector other song song với normal
-            // Trong trường hợp này, không có trục quay hợp lệ
-            return; // Hoặc ném một exception, tùy vào yêu cầu của bạn
-        }
-        rotationAxis.arr[0] /= axisLength;
-        rotationAxis.arr[1] /= axisLength;
-        rotationAxis.arr[2] /= axisLength;
-
-        // 4. Thực hiện phép quay Rodrigues' rotation formula
-        double cosAngle = cos(angleRotate);
-        double sinAngle = sin(angleRotate);
-
-        double u = rotationAxis.arr[0];
-        double v = rotationAxis.arr[1];
-        double w = rotationAxis.arr[2];
-
-        double x = arr[0];
-        double y = arr[1];
-        double z = arr[2];
-
-        arr[0] = (cosAngle + (1 - cosAngle) * u * u) * x +
-                 ((1 - cosAngle) * u * v - w * sinAngle) * y +
-                 ((1 - cosAngle) * u * w + v * sinAngle) * z;
-
-        arr[1] = ((1 - cosAngle) * u * v + w * sinAngle) * x +
-                 (cosAngle + (1 - cosAngle) * v * v) * y +
-                 ((1 - cosAngle) * v * w - u * sinAngle) * z;
-
-        arr[2] = ((1 - cosAngle) * u * w - v * sinAngle) * x +
-                 ((1 - cosAngle) * v * w + u * sinAngle) * y +
-                 (cosAngle + (1 - cosAngle) * w * w) * z;
-
-        // 5. Đảm bảo vector vẫn nằm trên mặt phẳng song song với OXY
-        // Đặt thành phần z về 0
-        arr[2] = other.arr[2]; // Giữ cùng độ cao với vector other
-    }
-    void rotateAroundXAxis(const Vector& axis, double angleDegrees) 
+    void rotateAroundXAxis(const Vector& other, float angleDegrees) 
     {
-        // 1. Chuyển đổi góc từ độ sang radian
-        double angleRadians = angleDegrees * M_PI / 180.0;
+        // 1. Chuẩn hóa vector other
+        Vector other_normalized = other.normalize();
 
-        // 2. Chuẩn hóa trục quay (axis)
-        Vector axis_normalized = axis.normalize();
+        // 2. Tạo vector pháp tuyến của mặt phẳng chứa vector other và vuông góc với OYZ (X-axis)
+        Vector xAxis(1.0, 0.0, 0.0);
+        Vector normal = other_normalized.crossProduct(xAxis);
+        normal = normal.normalize();
 
-        // 3. Sử dụng công thức Rodrigues' rotation formula
-        double k = cos(angleRadians);
-        double l = sin(angleRadians);
-        double m = 1 - cos(angleRadians);
+        // 3. Tạo vector vuông góc với other và nằm trong mặt phẳng đã tạo ở bước 2
+        Vector orthogonal = normal.crossProduct(other_normalized);
+        orthogonal = orthogonal.normalize();
 
-        double u = axis_normalized.arr[0];
-        double v = axis_normalized.arr[1];
-        double w = axis_normalized.arr[2];
+        // 4. Chuyển đổi góc angle từ độ sang radian
+        float angleRadians = angleDegrees * M_PI / 180.0;
 
-        double x = arr[0];
-        double y = arr[1];
-        double z = arr[2];
+        // 5. Tạo vector mới bằng cách kết hợp vector other và orthogonal với góc angle
+        // Sử dụng công thức quay trực tiếp (vì mặt phẳng đã cố định)
+        double newX = other_normalized.arr[0]; // Không thay đổi vì quay quanh trục X
+        double newY = other_normalized.arr[1] * cos(angleRadians) - orthogonal.arr[1] * sin(angleRadians);
+        double newZ = other_normalized.arr[1] * sin(angleRadians) + orthogonal.arr[1] * cos(angleRadians);
 
-        arr[0] = (u*u*m + k) * x + (v*u*m - w*l) * y + (w*u*m + v*l) * z;
-        arr[1] = (u*v*m + w*l) * x + (v*v*m + k) * y + (w*v*m - u*l) * z;
-        arr[2] = (u*w*m - v*l) * x + (v*w*m + u*l) * y + (w*w*m + k) * z;
+        // Gán giá trị mới cho vector hiện tại
+        arr[0] = newX;
+        arr[1] = newY;
+        arr[2] = newZ;
+
+        // 6. Chuẩn hóa vector kết quả (tùy chọn)
+        Vector normalizedResult = this->normalize();
+        arr[0] = normalizedResult.arr[0];
+        arr[1] = normalizedResult.arr[1];
+        arr[2] = normalizedResult.arr[2];
     }
     void rotateAroundZAxis(const Vector& other, float angleZ)
     {

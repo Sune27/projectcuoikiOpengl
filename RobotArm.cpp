@@ -39,8 +39,8 @@ RobotArm::RobotArm()
     shortArmLength = 2;
     shortArmRadius = 0.5;
     //longArm
-    angleLeftLongArm = 45;
-    angleRightLongArm = 45;
+    angleXLeftLongArm = 45;
+    angleXRightLongArm = 45;
     hingeRadius = 1;
     longArmLength = 1;
     longArmDistanceVertical = 3;
@@ -111,6 +111,8 @@ void RobotArm::printAttributes()
     cout << "angleZ: " << angleZ << endl;
     cout << "angleLeftShortArm: " << angleLeftShortArm << endl;
     cout << "angleRightShortArm: " << angleRightShortArm << endl;
+    cout << "angleXLeftLongArm: " << angleXLeftLongArm << endl;
+    cout << "angleXRightLongArm: " << angleXRightLongArm << endl;
     cout << "eyeX: " << eyeX << endl;
 	cout << "eyeY: " << eyeY << endl;
 	cout << "eyeZ: " << eyeZ << endl;
@@ -131,8 +133,8 @@ void RobotArm::update()
     VectorRotationMethod(robotDirectionXYZ, robotDirectionXY_Vertical, angleZ);
     leftShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLeftShortArm);
     rightShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleRightShortArm);
-    leftLongArmDirection.rotateAroundXAxis(leftShortArmDirection, angleLeftLongArm);
-    rightLongArmDirection.rotateAroundXAxis(rightShortArmDirection, angleRightShortArm);
+    leftLongArmDirection.vertical(angleXLeftLongArm);
+    rightLongArmDirection.vertical(angleXRightLongArm);
     //joint
     leftArmJointPoint = centerBodyPoint;
     rightArmJointPoint = centerBodyPoint;
@@ -184,8 +186,8 @@ void RobotArm::drawDirection()
         drawLine(robotDirectionXYZ, centerBodyPoint, DIRECTION_LENGTH, GREEN);
         drawLine(leftShortArmDirection, leftArmJointPoint, DIRECTION_LENGTH, GREEN);
         drawLine(rightShortArmDirection, rightArmJointPoint, DIRECTION_LENGTH, ORANGE);
-        drawLine(leftShortArmDirection, leftHingePoint, DIRECTION_LENGTH, RED);
-        drawLine(rightShortArmDirection, rightHingePoint, DIRECTION_LENGTH, BLUE);
+        drawLine(leftLongArmDirection, leftHingePoint, DIRECTION_LENGTH, RED);
+        drawLine(rightLongArmDirection, rightHingePoint, DIRECTION_LENGTH, PINK);
     }
 }
 
@@ -271,8 +273,6 @@ float RobotArm::getAngle(TypeAngle a)
     {
         case ANGLE_X:
             return angleX;
-        case ANGLE_LEFT_LONG_ARM:
-            return angleLeftShortArm;
     }
 }
 
@@ -297,11 +297,11 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
 {
     switch (angle)
     {
-    case ANGLE_RIGHT_LONG_ARM:
-        angleRightLongArm += rotate;
+    case ANGLEX_RIGHT_LONG_ARM:
+        angleXRightLongArm += rotate;
         break;
-    case ANGLE_LEFT_LONG_ARM:
-        angleLeftLongArm += rotate;
+    case ANGLEX_LEFT_LONG_ARM:
+        angleXLeftLongArm += rotate;
         break;
     case ANGLE_LEFT_SHORT_ARM:
         angleLeftShortArm += rotate;
