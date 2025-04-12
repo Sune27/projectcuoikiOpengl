@@ -9,7 +9,6 @@ double distanceTwoPoint(Point p1, Point p2)
     double dz = p1.arr[2] - p2.arr[2];
     return sqrt(dx * dx + dy * dy + dz * dz);
 }
-
 void drawMissingCylinderOutline(float radius, float height, Point center, Vector normal, Color color, float angleStart, float angleEnd)
 {
     // Chuẩn hóa vector pháp tuyến

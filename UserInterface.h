@@ -1,4 +1,5 @@
 #include <GL/glut.h>
+#include <memory>
 #include "Config.h"
 #include "Utils.h"
 
@@ -15,6 +16,11 @@ class UI
 		void draw2DUI();
 
 	private:
+		//Button exitButton;
+
 };
+//
+//class Button
+//{};
 
 #endif

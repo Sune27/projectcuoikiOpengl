@@ -43,10 +43,13 @@ private:
     //base
     float baseLeg_Radius = 4;
     float baseLeg_Height = 0.2;
-    float baseBody_Radius = 2;
-    float baseBody_Height = 0.75;
+    float bodyRadius = 4;
+    float bodyHeight = 7;
+    float bodyZPosition = 3.5;
     float baseHead_Radius = 1.4;
     float baseHead_Height = 0.45;
+    //joint
+    float jointZPosition = 2.5;
     //stand
     float axisRadius = 0.3;
     float axisHeight = 2;
@@ -61,7 +64,8 @@ private:
     float angleX = 60.0;
     float angleZ = 55.0;
     //short arm
-    float angleShortArm = 72.0;
+    float angleLeftShortArm = 72.0;
+    float angleRightShortArm = 72.0;
     float shortArmDistanceVertical = 1.5;
     float shortArmDistanceHorizontal = 0.5;
     float shortArmWidth = 0.8;
@@ -103,8 +107,8 @@ private:
 
     Color baseLeg_Color = GRAY_LIGHT;
     Color baseLeg_OutlineColor = GREEN;
-    Color baseBody_Color = GRAY_LIGHT;
-    Color baseBody_OutlineColor = GREEN;
+    Color body_Color = GRAY_LIGHT;
+    Color body_OutlineColor = GREEN;
     Color baseHead_Color = GRAY_LIGHT;
     Color baseHead_OutlineColor = GREEN;
     
@@ -133,14 +137,17 @@ private:
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
     Vector robotDirectionXY_Horizontal;
     Vector robotDirectionXYZ;
-    Vector shortArmDirection;
+    Vector leftShortArmDirection;
+    Vector rightShortArmDirection;
     Vector longArmDirection;
     Vector handDirection;
     Vector handMove;
     Vector containerDirection;
 
+    Point centerBody;
+    Point leftArmJoint;
+    Point rightArmJoint;
     Point centerBaseLeg;
-    Point centerBaseBody;
     Point centerBaseHead;
     Point leftStand;
     Point rightStand;

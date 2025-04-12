@@ -37,6 +37,57 @@ struct Vector
         result.arr[2] = arr[0] * other.arr[1] - arr[1] * other.arr[0];
         return result;
     }
+    void rotateAroundXYSurface(Vector other, double angleRotate) {
+        // 1. Tính vector pháp tuyến của mặt phẳng song song với OXY
+        Vector normal(0,0,1);
+
+        // 2. Tính vector vuông góc với normal và vector other (nằm trên mặt phẳng)
+        Vector rotationAxis;
+        rotationAxis.arr[0] = other.arr[1] * normal.arr[2] - other.arr[2] * normal.arr[1];
+        rotationAxis.arr[1] = other.arr[2] * normal.arr[0] - other.arr[0] * normal.arr[2];
+        rotationAxis.arr[2] = other.arr[0] * normal.arr[1] - other.arr[1] * normal.arr[0];
+
+        // 3. Chuẩn hóa vector rotationAxis
+        double axisLength = sqrt(rotationAxis.arr[0] * rotationAxis.arr[0] +
+                                 rotationAxis.arr[1] * rotationAxis.arr[1] +
+                                 rotationAxis.arr[2] * rotationAxis.arr[2]);
+        if (axisLength == 0.0) {
+            // Xử lý trường hợp vector other song song với normal
+            // Trong trường hợp này, không có trục quay hợp lệ
+            return; // Hoặc ném một exception, tùy vào yêu cầu của bạn
+        }
+        rotationAxis.arr[0] /= axisLength;
+        rotationAxis.arr[1] /= axisLength;
+        rotationAxis.arr[2] /= axisLength;
+
+        // 4. Thực hiện phép quay Rodrigues' rotation formula
+        double cosAngle = cos(angleRotate);
+        double sinAngle = sin(angleRotate);
+
+        double u = rotationAxis.arr[0];
+        double v = rotationAxis.arr[1];
+        double w = rotationAxis.arr[2];
+
+        double x = arr[0];
+        double y = arr[1];
+        double z = arr[2];
+
+        arr[0] = (cosAngle + (1 - cosAngle) * u * u) * x +
+                 ((1 - cosAngle) * u * v - w * sinAngle) * y +
+                 ((1 - cosAngle) * u * w + v * sinAngle) * z;
+
+        arr[1] = ((1 - cosAngle) * u * v + w * sinAngle) * x +
+                 (cosAngle + (1 - cosAngle) * v * v) * y +
+                 ((1 - cosAngle) * v * w - u * sinAngle) * z;
+
+        arr[2] = ((1 - cosAngle) * u * w - v * sinAngle) * x +
+                 ((1 - cosAngle) * v * w + u * sinAngle) * y +
+                 (cosAngle + (1 - cosAngle) * w * w) * z;
+
+        // 5. Đảm bảo vector vẫn nằm trên mặt phẳng song song với OXY
+        // Đặt thành phần z về 0
+        arr[2] = other.arr[2]; // Giữ cùng độ cao với vector other
+    }
     void rotateAroundZAxis(const Vector& other, float angleZ)
     {
         // 1. Chuẩn hóa vector other
@@ -204,23 +255,7 @@ struct Point
         arr[2] = z;
     }
 };
-struct Button
-{
-    float x, y, width, height;
-    Color outline, background;
-    string text;
 
-    void setValue(float x, float y, float width, float height, Color outline, Color background, string text)
-    {
-        this->x = x;
-        this->y = y;
-        this->width = width;
-        this->height = height;
-        this->outline = outline;
-        this->background = background;
-        this->text = text;
-    }
-};
 
 double distanceTwoPoint(Point p1, Point p2);
 void drawMissingCylinderOutline(float radius, float height, Point center, Vector normal, Color color, float angleStart, float angleEnd);
