@@ -70,14 +70,8 @@ private:
     float angleRightShortArm;
     float shortArmDistanceVertical;
     float shortArmDistanceHorizontal;
-    float shortArmWidth;
     float shortArmLength;
-    float shortArmHeight;
-    float axisShortArmDistance;
-    float axisShortArmRadius;
-    float axisShortArmHeight;
-    float axisShortArmHeightOutside;
-    float axisShortArmHeightInside;
+    float shortArmRadius;
     //longArm
     float angleLongArm;
     float longArmDistanceVertical;
@@ -118,8 +112,6 @@ private:
 
     Color shortArm_Color;
     Color shortArm_OutlineColor;
-    Color axisShortArm_Color;
-    Color axisShortArm_OutlineColor;
 
     Color longArm_Color;
     Color longArm_OutlineColor;
@@ -143,16 +135,11 @@ private:
     Vector handMove;
     Vector containerDirection;
 
-    Point centerBody;
-    Point leftArmJoint;
-    Point rightArmJoint;
-    Point centerBaseLeg;
-    Point centerBaseHead;
-    Point leftStand;
-    Point rightStand;
-    Point axisStand;
-    Point leftShortArm;
-    Point rightShortArm;
+    Point centerBodyPoint;
+    Point leftArmJointPoint;
+    Point rightArmJointPoint;
+    Point leftShortArmPoint;
+    Point rightShortArmPoint;
     Point axisShortArm;
     Point leftLongArm;
     Point rightLongArm;
