@@ -2,6 +2,21 @@
 #include "Config.h"
 using namespace std;
 
+void drawSolidSphere(Point center, float radius, Color color, Color outlineColor)
+{
+    int slices = 30, stacks = 30;
+    glPushMatrix(); // Lưu lại ma trận hiện tại
+
+    // Di chuyển đến tâm hình cầu
+    glTranslated(center.arr[0], center.arr[1], center.arr[2]);
+
+    setColor(color);
+    glutSolidSphere(radius, slices, stacks);
+    setColor(outlineColor);
+    glutWireSphere(radius, 2, 2);
+
+    glPopMatrix(); // Khôi phục ma trận trước đó
+}
 double distanceTwoPoint(Point p1, Point p2) 
 {
     double dx = p1.arr[0] - p2.arr[0];

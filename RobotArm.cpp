@@ -6,6 +6,7 @@ RobotArm::RobotArm()
 {
     showDirection = true;
     isHandOpen = true;
+    showRobot = true;
     //base
     baseLeg_Radius = 4;
     baseLeg_Height = 0.2;
@@ -69,6 +70,31 @@ RobotArm::RobotArm()
 
     //container
     containerLength = 2;
+
+    body_Color = GRAY_LIGHT;
+    body_OutlineColor = GREEN;
+    joint_Color = WHITE;
+    joint_OutlineColor = BLACK;    
+    stand_Color = WHITE;
+    stand_OutlineColor = DARK_BLUE;
+    axisStand_Color = WHITE;
+    axisStand_Outlinecolor = DARK_BLUE;
+
+    shortArm_OutlineColor = PURPLE;
+    axisShortArm_Color = WHITE;
+    shortArm_Color = WHITE;
+    axisShortArm_OutlineColor = DARK_BLUE;
+
+    longArm_Color = WHITE;
+    longArm_OutlineColor = DARK_GREEN;
+    wrist_Color = WHITE;
+    wrist_OutlineColor = DARK_GREEN;
+    
+    hand_Color = WHITE;
+    hand_OutlineColor = PURPLE;
+    containerColor = WHITE;
+    containerOutlineColor = DARK_BLUE;
+
     //set value
     normalBase.setValue(0,0,1);
     centerBaseLeg.setValue(0, 0, 0);
@@ -123,8 +149,8 @@ void RobotArm::update()
     //joint
     leftArmJoint = centerBody;
     rightArmJoint = centerBody;
-    leftArmJoint.move(robotDirectionXY_Horizontal, bodyRadius);
-    rightArmJoint.move(robotDirectionXY_Horizontal, -bodyRadius);
+    leftArmJoint.move(robotDirectionXY_Horizontal, bodyRadius+jointRadius);
+    rightArmJoint.move(robotDirectionXY_Horizontal, -bodyRadius-jointRadius);
     leftArmJoint.move(normalBase, jointZPosition);
     rightArmJoint.move(normalBase, jointZPosition);
     //stand
@@ -234,20 +260,14 @@ void RobotArm::changeStatus(TypeStatus status)
     }
 }
 
-//done
-void RobotArm::drawRobotStand()
+void RobotArm::drawRobotJoint()
 {
-    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, stand_Color);
-    drawBox(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, stand_Color);
-    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, leftStand, stand_OutlineColor);
-    drawBoxOutline(standLength, standWidth, standHeight, robotDirectionXYZ, rightStand, stand_OutlineColor);
-    drawCylinderWithCaps(axisRadius, axisHeight, axisRadius, axisStand, robotDirectionXY_Horizontal,axisStand_Color);
-    drawCylinderOutline(axisRadius, axisHeightOutside, axisStand, robotDirectionXY_Horizontal, axisStand_Outlinecolor);
-    drawCylinderOutline(axisRadius, axisHeightInside, axisStand, robotDirectionXY_Horizontal, axisStand_Outlinecolor);
+    drawSolidSphere(leftArmJoint, jointRadius, joint_Color, joint_OutlineColor);
+    drawSolidSphere(rightArmJoint, jointRadius, joint_Color, joint_OutlineColor);
 }
 
 //done
-void RobotArm::drawRobotBase()
+void RobotArm::drawRobotBody()
 {
     drawCylinderWithCaps(bodyRadius, bodyHeight, bodyRadius, centerBody, normalBase, body_Color);
     drawCylinderOutline(bodyRadius, bodyHeight, centerBody, normalBase, body_OutlineColor);

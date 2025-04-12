@@ -14,8 +14,8 @@ public:
     RobotArm();
     ~RobotArm();
     void draw();
-    void drawRobotBase();
-    void drawRobotStand();
+    void drawRobotBody();
+    void drawRobotJoint();
     void drawRobotShortArm();
     void drawRobotLongArm();
     void drawRobotHand();
@@ -38,8 +38,9 @@ public:
 
 private:
     //special
-    bool showDirection = true;
-    bool isHandOpen = true;
+    bool showDirection;
+    bool showRobot;
+    bool isHandOpen;
     //base
     float baseLeg_Radius;
     float baseLeg_Height;
@@ -50,6 +51,7 @@ private:
     float baseHead_Height;
     //joint
     float jointZPosition;
+    float jointRadius;
     //stand
     float axisRadius;
     float axisHeight;
@@ -105,33 +107,30 @@ private:
     float containerLength;
     double distanceContainer;
 
-    Color baseLeg_Color = GRAY_LIGHT;
-    Color baseLeg_OutlineColor = GREEN;
-    Color body_Color = GRAY_LIGHT;
-    Color body_OutlineColor = GREEN;
-    Color baseHead_Color = GRAY_LIGHT;
-    Color baseHead_OutlineColor = GREEN;
+    Color body_Color;
+    Color body_OutlineColor;
+    Color joint_Color;
+    Color joint_OutlineColor;    
+    Color stand_Color;
+    Color stand_OutlineColor;
+    Color axisStand_Color;
+    Color axisStand_Outlinecolor;
+
+    Color shortArm_Color;
+    Color shortArm_OutlineColor;
+    Color axisShortArm_Color;
+    Color axisShortArm_OutlineColor;
+
+    Color longArm_Color;
+    Color longArm_OutlineColor;
+    Color wrist_Color;
+    Color wrist_OutlineColor;
     
-    Color stand_Color = WHITE;
-    Color stand_OutlineColor = DARK_BLUE;
-    Color axisStand_Color = WHITE;
-    Color axisStand_Outlinecolor = DARK_BLUE;
+    Color hand_Color;
+    Color hand_OutlineColor;
 
-    Color shortArm_Color = WHITE;
-    Color shortArm_OutlineColor = PURPLE;
-    Color axisShortArm_Color = WHITE;
-    Color axisShortArm_OutlineColor = DARK_BLUE;
-
-    Color longArm_Color = WHITE;
-    Color longArm_OutlineColor = DARK_GREEN;
-    Color wrist_Color = WHITE;
-    Color wrist_OutlineColor = DARK_GREEN;
-    
-    Color hand_Color = WHITE;
-    Color hand_OutlineColor = PURPLE;
-
-    Color containerColor = WHITE;
-    Color containerOutlineColor = DARK_BLUE;
+    Color containerColor;
+    Color containerOutlineColor;
 
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
