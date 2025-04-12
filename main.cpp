@@ -10,12 +10,14 @@ using namespace std;
 
 RobotArm robotArm;
 UI ui;
+vector<bool> keys(256, false);
 
 void display();
 void reshape(int, int);
 void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
-
+void keyboardUpFunc(unsigned char, int, int);
+void checkEventKeyboard();
 
 int main(int argc, char** argv) 
 {
@@ -27,8 +29,10 @@ int main(int argc, char** argv)
 	
 	glEnable(GL_DEPTH_TEST);
 	
+	//event
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboardFunc);
+	glutKeyboardUpFunc(keyboardUpFunc);
 	glutSpecialFunc(specialKeys);
 	glutReshapeFunc(reshape);
 	
@@ -51,10 +55,11 @@ void display()
 		centerX, centerY, centerZ,
 		upX, upY, upZ
 	);
-	robotArm.draw();
 
+	robotArm.draw();
 	ui.draw2DUI();
-	
+	checkEventKeyboard();
+
 	glFlush();
 	glutSwapBuffers(); 
 }
@@ -70,48 +75,54 @@ void reshape(int w, int h)
 
 void keyboardFunc(unsigned char key, int x, int y)
 {
+	keys[key] = true;
+}
+
+void keyboardUpFunc(unsigned char key, int x, int y)
+{
+	keys[key] = false;
+}
+
+void checkEventKeyboard()
+{
 	float rotate = 1.0;
-	switch(key)
-	{
-		case 27:
-			exit(0);break;
-		case 32:
-			robotArm.changeStatus(HAND_OPEN);break;
-		case '6':
-			robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, rotate);break;
-		case '3':
-			robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, -rotate);break;
-		case 'e':
-			robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, rotate);break;
-		case 'd':
-			robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, -rotate);break;
-		case '5':
-			robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, rotate);break;
-		case '2':
-			robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, -rotate);break;
-		case 'w':
-			robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, rotate);break;
-		case 's':
-			robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, -rotate);break;
-		case '-':
-			robotArm.changeStatus(SHOW_OBJECT_STATUS);break;
-		case 'q':
-			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, rotate);break;
-		case 'a':
-			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, -rotate);break;
-		case '4':
-			robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, rotate);break;
-		case '1':
-			robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, -rotate);break;
-		case 'z':
-			robotArm.rotateAngle(ANGLE_X, rotate);break;
-		case 'x':
-			robotArm.rotateAngle(ANGLE_X, -rotate);break;
-		case '=':
-			robotArm.changeStatus(SHOW_DIRECTION);break;
-		default:
-			break;
-	}
+	if(keys[27])
+		exit(0);
+	if(keys[32]) 
+		robotArm.changeStatus(HAND_OPEN);
+	if(keys['6']) 
+		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, rotate);
+	if(keys['3'])
+		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, -rotate);
+	if(keys['e'])
+		robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, rotate);
+	if(keys['d'])
+		robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, -rotate);
+	if(keys['5'])
+		robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, rotate);
+	if(keys['2'])
+		robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, -rotate);
+	if(keys['w'])
+		robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, rotate);
+	if(keys['s'])
+		robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, -rotate);
+	if(keys['-'])
+		robotArm.changeStatus(SHOW_OBJECT_STATUS);
+	if(keys['q'])
+		robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, rotate);
+	if(keys['a'])
+		robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, -rotate);
+	if(keys['4'])
+		robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, rotate);
+	if(keys['1'])
+		robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, -rotate);
+	if(keys['z'])
+		robotArm.rotateAngle(ANGLE_X, rotate);
+	if(keys['x'])
+		robotArm.rotateAngle(ANGLE_X, -rotate);
+	if(keys['='])
+		robotArm.changeStatus(SHOW_DIRECTION);
+
 	robotArm.checkMinValueAngle();
 	robotArm.checkMaxValueAngle();
 	glutPostRedisplay();
