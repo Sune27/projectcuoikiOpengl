@@ -44,6 +44,7 @@ RobotArm::RobotArm()
     angleZLeftLongArm = 45;
     angleZRightLongArm = 45;
     hingeRadius = 1;
+    longArmRadius = 0.5;
     longArmLength = 1;
     //hand
     handRadius = 1;
@@ -73,16 +74,10 @@ RobotArm::RobotArm()
     hinge_OutlineColor = BLACK;
     longArm_Color = WHITE;
     longArm_OutlineColor = DARK_GREEN;
-    
-    hand_Color = WHITE;
-    hand_OutlineColor = PURPLE;
-    containerColor = WHITE;
-    containerOutlineColor = DARK_BLUE;
 
     //set value
     normalBase.setValue(0,0,1);
     centerBodyPoint.setValue(0, 0, bodyZPosition);
-    centerContainer.setValue(10,0,4);
     
     robotDirectionXY_Vertical.vertical(angleX);
     robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
@@ -113,6 +108,11 @@ void RobotArm::printAttributes()
     cout << "angleRightShortArm: " << angleRightShortArm << endl;
     cout << "angleXLeftLongArm: " << angleXLeftLongArm << endl;
     cout << "angleXRightLongArm: " << angleXRightLongArm << endl;
+    cout << "angleZLeftLongArm: " << angleZLeftLongArm << endl;
+    cout << "angleZRightLongArm: " << angleZRightLongArm << endl;
+    cout << "longArmRadius: " << longArmRadius << endl;
+    cout << "longArmLength: " << longArmLength << endl;
+    cout << "leftLongArmPoint: " << endl << leftLongArmPoint << endl;
     cout << "eyeX: " << eyeX << endl;
 	cout << "eyeY: " << eyeY << endl;
 	cout << "eyeZ: " << eyeZ << endl;
@@ -135,8 +135,8 @@ void RobotArm::update()
     rightShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleRightShortArm);
     leftLongArmDirection.vertical(angleXLeftLongArm);
     rightLongArmDirection.vertical(angleXRightLongArm);
-    leftLongArmDirection.rotateAroundZAxis(leftLongArmDirection, angleZLeftLongArm);
-    rightLongArmDirection.rotateAroundZAxis(rightLongArmDirection, angleZRightLongArm);
+    VectorRotationMethod(leftLongArmDirection, leftLongArmDirection, angleZLeftLongArm);
+    VectorRotationMethod(rightLongArmDirection, rightLongArmDirection, angleZRightLongArm);
     //joint
     leftArmJointPoint = centerBodyPoint;
     rightArmJointPoint = centerBodyPoint;
@@ -150,12 +150,16 @@ void RobotArm::update()
     leftShortArmPoint.move(leftShortArmDirection, jointRadius+shortArmLength/2);
     rightShortArmPoint.move(rightShortArmDirection, jointRadius+shortArmLength/2);
 
-
     //longarm
     leftHingePoint = leftShortArmPoint;
     rightHingePoint = rightShortArmPoint;
-    leftHingePoint.move(leftShortArmDirection, hingeRadius);
-    rightHingePoint.move(rightShortArmDirection, hingeRadius);
+    leftHingePoint.move(leftShortArmDirection, hingeRadius+shortArmLength/2);
+    rightHingePoint.move(rightShortArmDirection, hingeRadius+shortArmLength/2);
+    leftLongArmPoint = leftHingePoint;
+    rightLongArmPoint = rightHingePoint;
+    leftLongArmPoint.move(leftLongArmDirection, hingeRadius+longArmLength/2);
+    rightLongArmPoint.move(rightLongArmDirection, hingeRadius+longArmLength/2);
+    
     
 }
 
@@ -203,7 +207,7 @@ void RobotArm::drawRobotLongArm()
     drawCylinderOutline(longArmRadius, longArmLength, leftLongArmPoint, leftLongArmDirection, longArm_OutlineColor);
     drawCylinderWithCaps(longArmRadius, longArmLength, longArmRadius, rightLongArmPoint, rightLongArmDirection, longArm_Color);
     drawCylinderOutline(longArmRadius, longArmLength, rightLongArmPoint, rightLongArmDirection, longArm_OutlineColor);
-
+    cout << "da ve long arm " << endl;
 }
 
 void RobotArm::drawRobotShortArm()

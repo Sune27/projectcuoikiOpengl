@@ -110,12 +110,6 @@ private:
     Color longArm_Color;
     Color longArm_OutlineColor;
     
-    Color hand_Color;
-    Color hand_OutlineColor;
-
-    Color containerColor;
-    Color containerOutlineColor;
-
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
     Vector robotDirectionXY_Horizontal;
@@ -134,11 +128,6 @@ private:
     Point rightHingePoint;
     Point leftLongArmPoint;
     Point rightLongArmPoint;
-    Point wrist;
-    Point leftHand;
-    Point rightHand;
-    Point centerHand;
-    Point centerContainer;
 };
 
 #endif
