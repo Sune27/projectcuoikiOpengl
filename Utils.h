@@ -239,7 +239,8 @@ struct Point
     }
 };
 
-void drawSolidSphere(Point center, float radius, Color color, Color outlineColor);
+void drawWireSphere(Point center, float radius, Color color);
+void drawSolidSphere(Point center, float radius, Color color);
 double distanceTwoPoint(Point p1, Point p2);
 void drawMissingCylinderOutline(float radius, float height, Point center, Vector normal, Color color, float angleStart, float angleEnd);
 void drawMissingCylinder(float radius, float height, float thickness, Point center, Vector normal, Color color, float angleStart, float angleEnd);

@@ -195,9 +195,15 @@ void RobotArm::drawDirection()
 
 void RobotArm::drawRobotLongArm()
 {
-    //drawSolidSphere(leftHingePoint, hingeRadius, hinge_Color, hinge_OutlineColor);
-    //drawSolidSphere(rightHingePoint, hingeRadius, hinge_Color, hinge_OutlineColor);
-    //drawCylinderWithCaps(longArmRadius, longArmLength, longArmRadius, leftLongArmPoint, leftLongArmDirection, longArm_Color);
+    drawSolidSphere(leftHingePoint, hingeRadius, hinge_Color);
+    drawWireSphere(leftHingePoint, hingeRadius, hinge_OutlineColor);
+    drawSolidSphere(rightHingePoint, hingeRadius, hinge_Color);
+    drawWireSphere(rightHingePoint, hingeRadius, hinge_OutlineColor);
+    drawCylinderWithCaps(longArmRadius, longArmLength, longArmRadius, leftLongArmPoint, leftLongArmDirection, longArm_Color);
+    drawCylinderOutline(longArmRadius, longArmLength, leftLongArmPoint, leftLongArmDirection, longArm_OutlineColor);
+    drawCylinderWithCaps(longArmRadius, longArmLength, longArmRadius, rightLongArmPoint, rightLongArmDirection, longArm_Color);
+    drawCylinderOutline(longArmRadius, longArmLength, rightLongArmPoint, rightLongArmDirection, longArm_OutlineColor);
+
 }
 
 void RobotArm::drawRobotShortArm()
@@ -210,8 +216,10 @@ void RobotArm::drawRobotShortArm()
 }
 void RobotArm::drawRobotJoint()
 {
-    drawSolidSphere(leftArmJointPoint, jointRadius, joint_Color, joint_OutlineColor);
-    drawSolidSphere(rightArmJointPoint, jointRadius, joint_Color, joint_OutlineColor);
+    drawSolidSphere(leftArmJointPoint, jointRadius, joint_Color);
+    drawWireSphere(leftArmJointPoint, jointRadius, joint_OutlineColor);
+    drawSolidSphere(rightArmJointPoint, jointRadius, joint_Color);
+    drawWireSphere(rightArmJointPoint, jointRadius, joint_OutlineColor);
 }
 
 //done
