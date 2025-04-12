@@ -41,6 +41,8 @@ enum TypeAngle
 {
     ANGLE_X,
     ANGLE_Z,
+    ANGLE_LEFT_SHORT_ARM,
+    ANGLE_RIGHT_SHORT_ARM,
     ANGLE_SHORT_ARM,
     ANGLE_LONG_ARM,
 

@@ -27,7 +27,7 @@ RobotArm::RobotArm()
     standWidth = 0.8;
     standLength = 0.15;
     standHeight = 3;
-    angleX = 60.0;
+    angleX = 290;
     angleZ = 55.0;
     //short arm
     angleLeftShortArm = 72.0;
@@ -319,14 +319,17 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
 {
     switch (angle)
     {
+    case ANGLE_LEFT_SHORT_ARM:
+        angleLeftShortArm += rotate;
+        break;
+    case ANGLE_RIGHT_SHORT_ARM:
+        angleRightShortArm += rotate;
+        break;
     case ANGLE_X:
         angleX += rotate;
         break;
     case ANGLE_Z:
         angleZ += rotate;
-        break;
-    case ANGLE_SHORT_ARM:
-        angleLeftShortArm += rotate;
         break;
     case ANGLE_LONG_ARM:
         angleLongArm += rotate;
