@@ -30,8 +30,6 @@ public:
     void test();
     
     void rotateAngle(TypeAngle angle, float rotate);
-    void changeHandDistanceVertical(float distance);
-    void changeHandDistanceHorizontal(float distance);
     void changeStatus(TypeStatus status);
 
     Vector getVector(TypeVector v);
@@ -99,6 +97,8 @@ private:
     Color wrist_OutlineColor;
     Color fingerDisableClaw_Color;
     Color fingerDisableClaw_OutlineColor;
+    Color container_Color;
+    Color container_OutlineColor;
     
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
@@ -112,6 +112,7 @@ private:
     Vector rightHandDirection;
     Vector othorgonalLeftHandDirection;
     Vector othorgonalRightHandDirection;
+    Vector containerDirection;
 
     Point centerBodyPoint;
     Point leftArmJointPoint;
@@ -124,12 +125,13 @@ private:
     Point rightLongArmPoint;
     Point leftWristPoint;
     Point rightWristPoint;
-    Point centerLeftHand;
-    Point centerRightHand;
-    Point fingerLeftHand1;
-    Point fingerLeftHand2;
-    Point fingerRightHand1;
-    Point fingerRightHand2;
+    Point centerLeftHandPoint;
+    Point centerRightHandPoint;
+    Point fingerLeftHand1Point;
+    Point fingerLeftHand2Point;
+    Point fingerRightHand1Point;
+    Point fingerRightHand2Point;
+    Point containerPoint;
 };
 
 #endif

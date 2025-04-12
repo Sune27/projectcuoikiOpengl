@@ -64,13 +64,17 @@ RobotArm::RobotArm()
     wrist_OutlineColor = BLACK;
     fingerDisableClaw_Color = ALUMINUM;
     fingerDisableClaw_OutlineColor = DARK_GRAY;
+    container_Color = SILVER;
+    container_OutlineColor = DARK_GREEN;
 
     //set value
     normalBase.setValue(0,0,1);
     centerBodyPoint.setValue(0, 0, bodyZPosition);
+    containerPoint.setValue(10, 10, 8);
     
     robotDirectionXY_Vertical.vertical(angleX);
     robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
+    containerDirection = robotDirectionXY_Vertical;
 }
 
 void RobotArm::printAttributeToTxt()
@@ -157,19 +161,19 @@ void RobotArm::update()
     rightWristPoint = rightLongArmPoint;
     leftWristPoint.move(leftLongArmDirection, wristRadius+longArmLength/2);
     rightWristPoint.move(rightLongArmDirection, wristRadius + longArmLength/2);
-    centerLeftHand = leftWristPoint;
-    centerRightHand = rightWristPoint;
-    centerLeftHand.move(leftLongArmDirection, wristRadius);
-    centerRightHand.move(rightLongArmDirection, wristRadius);
-    fingerLeftHand1 = centerLeftHand;
-    fingerLeftHand2 = centerLeftHand;
-    fingerRightHand1 = centerRightHand;
-    fingerRightHand2 = centerRightHand;
-    fingerLeftHand1.move(othorgonalLeftHandDirection, fingerDistance);
-    fingerLeftHand2.move(othorgonalLeftHandDirection, -fingerDistance);
-    fingerRightHand1.move(othorgonalRightHandDirection, fingerDistance);
-    fingerRightHand2.move(othorgonalRightHandDirection, -fingerDistance);
-
+    centerLeftHandPoint = leftWristPoint;
+    centerRightHandPoint = rightWristPoint;
+    centerLeftHandPoint.move(leftLongArmDirection, wristRadius);
+    centerRightHandPoint.move(rightLongArmDirection, wristRadius);
+    fingerLeftHand1Point = centerLeftHandPoint;
+    fingerLeftHand2Point = centerLeftHandPoint;
+    fingerRightHand1Point = centerRightHandPoint;
+    fingerRightHand2Point = centerRightHandPoint;
+    fingerLeftHand1Point.move(othorgonalLeftHandDirection, fingerDistance);
+    fingerLeftHand2Point.move(othorgonalLeftHandDirection, -fingerDistance);
+    fingerRightHand1Point.move(othorgonalRightHandDirection, fingerDistance);
+    fingerRightHand2Point.move(othorgonalRightHandDirection, -fingerDistance);
+    //container
 }
 
 void RobotArm::draw()
@@ -185,8 +189,8 @@ void RobotArm::draw()
         drawRobotShortArm();
         drawRobotLongArm();
         drawRobotHand();
+        drawContainer();
     }
-    // drawContainer();
 }
 
 void RobotArm::drawDirection()
@@ -209,6 +213,12 @@ void RobotArm::drawDirection()
     }
 }
 
+void RobotArm::drawContainer()
+{
+    drawBox(containerLength, containerLength, containerLength, containerDirection, containerPoint, container_Color);
+    drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, containerPoint, container_OutlineColor);
+}
+
 void RobotArm::drawRobotHand()
 {
     drawSolidSphere(leftWristPoint, wristRadius, wrist_Color);
@@ -217,29 +227,28 @@ void RobotArm::drawRobotHand()
     drawWireSphere(rightWristPoint, wristRadius, wrist_OutlineColor);
     if(isHandOpen == true)
     {
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand1, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand1_Open.first, angleFingerLeftHand1_Open.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand1, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand1_Open.first, angleFingerLeftHand1_Open.second);
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand2, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand2_Open.first, angleFingerLeftHand2_Open.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand2, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand2_Open.first, angleFingerLeftHand2_Open.second);
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand1, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand1_Open.first, angleFingerRightHand1_Open.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand1, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand1_Open.first, angleFingerRightHand1_Open.second);
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand2, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand2_Open.first, angleFingerRightHand2_Open.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand2, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand2_Open.first, angleFingerRightHand2_Open.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand1Point, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand1_Open.first, angleFingerLeftHand1_Open.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand1Point, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand1_Open.first, angleFingerLeftHand1_Open.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand2Point, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand2_Open.first, angleFingerLeftHand2_Open.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand2Point, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand2_Open.first, angleFingerLeftHand2_Open.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand1Point, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand1_Open.first, angleFingerRightHand1_Open.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand1Point, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand1_Open.first, angleFingerRightHand1_Open.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand2Point, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand2_Open.first, angleFingerRightHand2_Open.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand2Point, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand2_Open.first, angleFingerRightHand2_Open.second);
     }
     else
     {
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand1, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand1_Close.first, angleFingerLeftHand1_Close.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand1, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand1_Close.first, angleFingerLeftHand1_Close.second);
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand2, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand2_Close.first, angleFingerLeftHand2_Close.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand2, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand2_Close.first, angleFingerLeftHand2_Close.second);
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand1, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand1_Close.first, angleFingerRightHand1_Close.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand1, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand1_Close.first, angleFingerRightHand1_Close.second);
-        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand2, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand2_Close.first, angleFingerRightHand2_Close.second);
-        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand2, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand2_Close.first, angleFingerRightHand2_Close.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand1Point, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand1_Close.first, angleFingerLeftHand1_Close.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand1Point, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand1_Close.first, angleFingerLeftHand1_Close.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerLeftHand2Point, leftHandDirection, fingerDisableClaw_Color, angleFingerLeftHand2_Close.first, angleFingerLeftHand2_Close.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerLeftHand2Point, leftHandDirection, fingerDisableClaw_OutlineColor, angleFingerLeftHand2_Close.first, angleFingerLeftHand2_Close.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand1Point, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand1_Close.first, angleFingerRightHand1_Close.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand1Point, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand1_Close.first, angleFingerRightHand1_Close.second);
+        drawMissingCylinder(fingerRadius, fingerHeight, fingerThickness, fingerRightHand2Point, rightHandDirection, fingerDisableClaw_Color, angleFingerRightHand2_Close.first, angleFingerRightHand2_Close.second);
+        drawMissingCylinderOutline(fingerRadius, fingerHeight, fingerRightHand2Point, rightHandDirection, fingerDisableClaw_OutlineColor, angleFingerRightHand2_Close.first, angleFingerRightHand2_Close.second);
 
     }
 }
-
 void RobotArm::drawRobotLongArm()
 {
     drawSolidSphere(leftHingePoint, hingeRadius, hinge_Color);
