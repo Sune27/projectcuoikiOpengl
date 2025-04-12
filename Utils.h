@@ -88,6 +88,31 @@ struct Vector
         // Đặt thành phần z về 0
         arr[2] = other.arr[2]; // Giữ cùng độ cao với vector other
     }
+    void rotateAroundXAxis(const Vector& axis, double angleDegrees) 
+    {
+        // 1. Chuyển đổi góc từ độ sang radian
+        double angleRadians = angleDegrees * M_PI / 180.0;
+
+        // 2. Chuẩn hóa trục quay (axis)
+        Vector axis_normalized = axis.normalize();
+
+        // 3. Sử dụng công thức Rodrigues' rotation formula
+        double k = cos(angleRadians);
+        double l = sin(angleRadians);
+        double m = 1 - cos(angleRadians);
+
+        double u = axis_normalized.arr[0];
+        double v = axis_normalized.arr[1];
+        double w = axis_normalized.arr[2];
+
+        double x = arr[0];
+        double y = arr[1];
+        double z = arr[2];
+
+        arr[0] = (u*u*m + k) * x + (v*u*m - w*l) * y + (w*u*m + v*l) * z;
+        arr[1] = (u*v*m + w*l) * x + (v*v*m + k) * y + (w*v*m - u*l) * z;
+        arr[2] = (u*w*m - v*l) * x + (v*w*m + u*l) * y + (w*w*m + k) * z;
+    }
     void rotateAroundZAxis(const Vector& other, float angleZ)
     {
         // 1. Chuẩn hóa vector other

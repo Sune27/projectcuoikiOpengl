@@ -52,7 +52,7 @@ void display()
 		upX, upY, upZ
 	);
 	robotArm.draw();
-	
+
 	ui.draw2DUI();
 	
 	glFlush();
@@ -74,59 +74,29 @@ void keyboardFunc(unsigned char key, int x, int y)
 	switch(key)
 	{
 		case 27:
-			exit(0);
-			break;
+			exit(0);break;
 		case 32:
-			robotArm.changeStatus(HAND_OPEN);
-			break;
+			robotArm.changeStatus(HAND_OPEN);break;
 		case '-':
-			robotArm.changeStatus(SHOW_OBJECT_STATUS);
-			break;
+			robotArm.changeStatus(SHOW_OBJECT_STATUS);break;
 		case 'q':
-			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, rotate);break;
 		case 'a':
-			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, -rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, -rotate);break;
 		case '4':
-			robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, rotate);break;
 		case '1':
-			robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, -rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, -rotate);break;
 		case 'z':
-			robotArm.rotateAngle(ANGLE_X, rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_X, rotate);break;
 		case 'x':
-			robotArm.rotateAngle(ANGLE_X, -rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_X, -rotate);break;
 		case 'w':
-			robotArm.rotateAngle(ANGLE_Z, rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_Z, rotate);break;
 		case 's':
-			robotArm.rotateAngle(ANGLE_Z, -rotate);
-			break;
-		case 'y':
-			robotArm.rotateAngle(ANGLE_LONG_ARM, rotate);
-			break;
-		case 'h':
-			robotArm.rotateAngle(ANGLE_LONG_ARM, -rotate);
-			break;
-		case 'e':
-			robotArm.changeHandDistanceVertical(rotate);
-			break;
-		case 'd':
-			robotArm.changeHandDistanceVertical(-rotate);
-			break;
-		case 'r':
-			robotArm.changeHandDistanceHorizontal(rotate);
-			break;
-		case 'f':
-			robotArm.changeHandDistanceHorizontal(-rotate);
-			break;
+			robotArm.rotateAngle(ANGLE_Z, -rotate);break;
 		case '=':
-			robotArm.changeStatus(SHOW_DIRECTION);
-			break;
+			robotArm.changeStatus(SHOW_DIRECTION);break;
 		default:
 			break;
 	}

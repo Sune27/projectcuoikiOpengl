@@ -73,15 +73,13 @@ private:
     float shortArmLength;
     float shortArmRadius;
     //longArm
-    float angleLongArm;
+    float angleLeftLongArm;
+    float angleRightLongArm;
+    float hingeRadius;
+    float longArmRadius;
+    float longArmLength;
     float longArmDistanceVertical;
     float longArmDistanceHorizontal;
-    float longArmWidth;
-    float longArmLength;
-    float longArmHeight;
-    float wristDistance;
-    float wristRadius;
-    float wristHeight;
     //hand
     float handRadius;
     float handHeight;
@@ -105,18 +103,12 @@ private:
     Color body_OutlineColor;
     Color joint_Color;
     Color joint_OutlineColor;    
-    Color stand_Color;
-    Color stand_OutlineColor;
-    Color axisStand_Color;
-    Color axisStand_Outlinecolor;
-
     Color shortArm_Color;
     Color shortArm_OutlineColor;
-
+    Color hinge_Color;
+    Color hinge_OutlineColor;
     Color longArm_Color;
     Color longArm_OutlineColor;
-    Color wrist_Color;
-    Color wrist_OutlineColor;
     
     Color hand_Color;
     Color hand_OutlineColor;
@@ -130,19 +122,18 @@ private:
     Vector robotDirectionXYZ;
     Vector leftShortArmDirection;
     Vector rightShortArmDirection;
-    Vector longArmDirection;
-    Vector handDirection;
-    Vector handMove;
-    Vector containerDirection;
+    Vector leftLongArmDirection;
+    Vector rightLongArmDirection;
 
     Point centerBodyPoint;
     Point leftArmJointPoint;
     Point rightArmJointPoint;
     Point leftShortArmPoint;
     Point rightShortArmPoint;
-    Point axisShortArm;
-    Point leftLongArm;
-    Point rightLongArm;
+    Point leftHingePoint;
+    Point rightHingePoint;
+    Point leftLongArmPoint;
+    Point rightLongArmPoint;
     Point wrist;
     Point leftHand;
     Point rightHand;

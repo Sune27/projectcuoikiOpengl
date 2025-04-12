@@ -29,25 +29,22 @@ RobotArm::RobotArm()
     standWidth = 0.8;
     standLength = 0.15;
     standHeight = 3;
-    angleX = 290;
+    angleX = 485;
     angleZ = 55.0;
     //short arm
-    angleLeftShortArm = 72.0;
-    angleRightShortArm = 72.0;
+    angleLeftShortArm = 96.0;
+    angleRightShortArm = 96.0;
     shortArmDistanceVertical = 1.5;
     shortArmDistanceHorizontal = 0.5;
     shortArmLength = 2;
     shortArmRadius = 0.5;
     //longArm
-    angleLongArm = -20.0;
+    angleLeftLongArm = 45;
+    angleRightLongArm = 45;
+    hingeRadius = 1;
+    longArmLength = 1;
     longArmDistanceVertical = 3;
     longArmDistanceHorizontal = 0.5;
-    longArmWidth = 0.8;
-    longArmLength = 0.15;
-    longArmHeight = 8;
-    wristDistance = 7.5;
-    wristRadius = 0.7;
-    wristHeight = 1.2;
     //hand
     handRadius = 1;
     handHeight = 0.5;
@@ -70,18 +67,12 @@ RobotArm::RobotArm()
     body_OutlineColor = GREEN;
     joint_Color = WHITE;
     joint_OutlineColor = BLACK;    
-    stand_Color = WHITE;
-    stand_OutlineColor = DARK_BLUE;
-    axisStand_Color = WHITE;
-    axisStand_Outlinecolor = DARK_BLUE;
-
-    shortArm_OutlineColor = PURPLE;
     shortArm_Color = WHITE;
-
+    shortArm_OutlineColor = PURPLE;
+    hinge_Color = WHITE;
+    hinge_OutlineColor = BLACK;
     longArm_Color = WHITE;
     longArm_OutlineColor = DARK_GREEN;
-    wrist_Color = WHITE;
-    wrist_OutlineColor = DARK_GREEN;
     
     hand_Color = WHITE;
     hand_OutlineColor = PURPLE;
@@ -137,12 +128,11 @@ void RobotArm::update()
     //vector
     robotDirectionXY_Vertical.vertical(angleX);
     robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
-    VectorRotationMethod(leftShortArmDirection, robotDirectionXY_Vertical, angleLeftShortArm);
-    VectorRotationMethod(rightShortArmDirection, robotDirectionXY_Vertical, angleRightShortArm);
     VectorRotationMethod(robotDirectionXYZ, robotDirectionXY_Vertical, angleZ);
-    longArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLongArm);
-    handDirection.rotateAroundZAxis(longArmDirection, 90);
-    handMove = crossProduct(longArmDirection, robotDirectionXY_Vertical);
+    leftShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLeftShortArm);
+    rightShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleRightShortArm);
+    leftLongArmDirection.rotateAroundXAxis(leftShortArmDirection, angleLeftLongArm);
+    rightLongArmDirection.rotateAroundXAxis(rightShortArmDirection, angleRightShortArm);
     //joint
     leftArmJointPoint = centerBodyPoint;
     rightArmJointPoint = centerBodyPoint;
@@ -158,18 +148,11 @@ void RobotArm::update()
 
 
     //longarm
-    leftLongArm = axisShortArm;
-    rightLongArm = axisShortArm;
-
-}
-
-//done
-void RobotArm::drawRobotShortArm()
-{
-    drawCylinderWithCaps(shortArmRadius, shortArmLength, shortArmRadius, leftShortArmPoint, leftShortArmDirection, shortArm_Color);
-    drawCylinderWithCaps(shortArmRadius, shortArmLength, shortArmRadius, rightShortArmPoint, leftShortArmDirection, shortArm_Color);
-    drawCylinderOutline(shortArmRadius, shortArmLength, leftShortArmPoint, leftShortArmDirection, shortArm_OutlineColor);
-    drawCylinderOutline(shortArmRadius, shortArmLength, rightShortArmPoint, rightShortArmDirection, shortArm_OutlineColor);
+    leftHingePoint = leftShortArmPoint;
+    rightHingePoint = rightShortArmPoint;
+    leftHingePoint.move(leftShortArmDirection, hingeRadius);
+    rightHingePoint.move(rightShortArmDirection, hingeRadius);
+    
 }
 
 void RobotArm::draw()
@@ -183,19 +166,11 @@ void RobotArm::draw()
         drawRobotBody();
         drawRobotJoint();
         drawRobotShortArm();
+        drawRobotLongArm();
     }
-    // drawRobotLongArm();
     // drawRobotHand();
     // drawContainer();
     test();
-}
-
-void RobotArm::drawRobotLongArm()
-{
-}
-
-void RobotArm::drawContainer()
-{
 }
 
 void RobotArm::drawDirection()
@@ -206,15 +181,40 @@ void RobotArm::drawDirection()
         
         drawLine(robotDirectionXY_Vertical, centerBodyPoint, DIRECTION_LENGTH, PURPLE);
         drawLine(robotDirectionXY_Horizontal, centerBodyPoint, DIRECTION_LENGTH, BLUE);
+        drawLine(robotDirectionXYZ, centerBodyPoint, DIRECTION_LENGTH, GREEN);
         drawLine(leftShortArmDirection, leftArmJointPoint, DIRECTION_LENGTH, GREEN);
         drawLine(rightShortArmDirection, rightArmJointPoint, DIRECTION_LENGTH, ORANGE);
-        //drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
+        drawLine(leftShortArmDirection, leftHingePoint, DIRECTION_LENGTH, RED);
+        drawLine(rightShortArmDirection, rightHingePoint, DIRECTION_LENGTH, BLUE);
     }
 }
 
-//done
-void RobotArm::drawRobotHand()
+void RobotArm::drawRobotLongArm()
 {
+    //drawSolidSphere(leftHingePoint, hingeRadius, hinge_Color, hinge_OutlineColor);
+    //drawSolidSphere(rightHingePoint, hingeRadius, hinge_Color, hinge_OutlineColor);
+    //drawCylinderWithCaps(longArmRadius, longArmLength, longArmRadius, leftLongArmPoint, leftLongArmDirection, longArm_Color);
+}
+
+void RobotArm::drawRobotShortArm()
+{
+    drawCylinderWithCaps(shortArmRadius, shortArmLength, shortArmRadius, leftShortArmPoint, leftShortArmDirection, shortArm_Color);
+    drawCylinderOutline(shortArmRadius, shortArmLength, leftShortArmPoint, leftShortArmDirection, shortArm_OutlineColor);
+    
+    drawCylinderWithCaps(shortArmRadius, shortArmLength, shortArmRadius, rightShortArmPoint, rightShortArmDirection, shortArm_Color);
+    drawCylinderOutline(shortArmRadius, shortArmLength, rightShortArmPoint, rightShortArmDirection, shortArm_OutlineColor);
+}
+void RobotArm::drawRobotJoint()
+{
+    drawSolidSphere(leftArmJointPoint, jointRadius, joint_Color, joint_OutlineColor);
+    drawSolidSphere(rightArmJointPoint, jointRadius, joint_Color, joint_OutlineColor);
+}
+
+//done
+void RobotArm::drawRobotBody()
+{
+    drawCylinderWithCaps(bodyRadius, bodyHeight, bodyRadius, centerBodyPoint, normalBase, body_Color);
+    drawCylinderOutline(bodyRadius, bodyHeight, centerBodyPoint, normalBase, body_OutlineColor);
 }
 
 void RobotArm::test()
@@ -239,31 +239,16 @@ void RobotArm::changeStatus(TypeStatus status)
     }
 }
 
-void RobotArm::drawRobotJoint()
-{
-    drawSolidSphere(leftArmJointPoint, jointRadius, joint_Color, joint_OutlineColor);
-    drawSolidSphere(rightArmJointPoint, jointRadius, joint_Color, joint_OutlineColor);
-}
-
-//done
-void RobotArm::drawRobotBody()
-{
-    drawCylinderWithCaps(bodyRadius, bodyHeight, bodyRadius, centerBodyPoint, normalBase, body_Color);
-    drawCylinderOutline(bodyRadius, bodyHeight, centerBodyPoint, normalBase, body_OutlineColor);
-}
-
 void RobotArm::checkMinValueAngle()
 {
     if(angleZ < ANGLEZ_MIN) angleZ = ANGLEZ_MIN;
     if(angleLeftShortArm < ANGLESHORTARM_MIN) angleLeftShortArm = ANGLESHORTARM_MIN;
-    if(angleLongArm < ANGLELONGARM_MIN) angleLongArm = ANGLELONGARM_MIN;
 }
 
 void RobotArm::checkMaxValueAngle()
 {
     if(angleZ > ANGLEZ_MAX) angleZ = ANGLEZ_MAX;
     if(angleLeftShortArm > ANGLESHORTARM_MAX) angleLeftShortArm = ANGLESHORTARM_MAX;
-    if(angleLongArm > ANGLELONGARM_MAX) angleLongArm = ANGLELONGARM_MAX;
 }
 
 void RobotArm::changeHandDistanceVertical(float distance)
@@ -286,11 +271,7 @@ float RobotArm::getAngle(TypeAngle a)
     {
         case ANGLE_X:
             return angleX;
-        case ANGLE_Z:
-            return ANGLE_Z;
-        case ANGLE_LONG_ARM:
-            return angleLongArm;
-        case ANGLE_SHORT_ARM:
+        case ANGLE_LEFT_LONG_ARM:
             return angleLeftShortArm;
     }
 }
@@ -309,8 +290,6 @@ Vector RobotArm::getVector(TypeVector v)
             return robotDirectionXYZ;
         case SHORTARM:
             return leftShortArmDirection;
-        case LONGARM:
-            return longArmDirection;
     }
 }
 
@@ -318,6 +297,12 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
 {
     switch (angle)
     {
+    case ANGLE_RIGHT_LONG_ARM:
+        angleRightLongArm += rotate;
+        break;
+    case ANGLE_LEFT_LONG_ARM:
+        angleLeftLongArm += rotate;
+        break;
     case ANGLE_LEFT_SHORT_ARM:
         angleLeftShortArm += rotate;
         break;
@@ -326,12 +311,6 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
         break;
     case ANGLE_X:
         angleX += rotate;
-        break;
-    case ANGLE_Z:
-        angleZ += rotate;
-        break;
-    case ANGLE_LONG_ARM:
-        angleLongArm += rotate;
         break;
     default:
         break;
