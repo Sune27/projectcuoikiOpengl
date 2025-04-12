@@ -81,6 +81,7 @@ private:
     float longArmRadius;
     float longArmLength;
     //hand
+    float wristRadius;
     float handRadius;
     float handHeight;
     float handThickness;
@@ -109,6 +110,8 @@ private:
     Color hinge_OutlineColor;
     Color longArm_Color;
     Color longArm_OutlineColor;
+    Color wrist_Color;
+    Color wrist_OutlineColor;
     
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
@@ -128,6 +131,8 @@ private:
     Point rightHingePoint;
     Point leftLongArmPoint;
     Point rightLongArmPoint;
+    Point leftWristPoint;
+    Point rightWristPoint;
 };
 
 #endif

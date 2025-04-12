@@ -47,6 +47,7 @@ RobotArm::RobotArm()
     longArmRadius = 0.5;
     longArmLength = 1;
     //hand
+    wristRadius = 0.2;
     handRadius = 1;
     handHeight = 0.5;
     handThickness = 0.5;
@@ -74,6 +75,8 @@ RobotArm::RobotArm()
     hinge_OutlineColor = BLACK;
     longArm_Color = WHITE;
     longArm_OutlineColor = DARK_GREEN;
+    wrist_Color = WHITE;
+    wrist_OutlineColor = BLACK;
 
     //set value
     normalBase.setValue(0,0,1);
@@ -112,7 +115,6 @@ void RobotArm::printAttributes()
     cout << "angleZRightLongArm: " << angleZRightLongArm << endl;
     cout << "longArmRadius: " << longArmRadius << endl;
     cout << "longArmLength: " << longArmLength << endl;
-    cout << "leftLongArmPoint: " << endl << leftLongArmPoint << endl;
     cout << "eyeX: " << eyeX << endl;
 	cout << "eyeY: " << eyeY << endl;
 	cout << "eyeZ: " << eyeZ << endl;
@@ -159,8 +161,11 @@ void RobotArm::update()
     rightLongArmPoint = rightHingePoint;
     leftLongArmPoint.move(leftLongArmDirection, hingeRadius+longArmLength/2);
     rightLongArmPoint.move(rightLongArmDirection, hingeRadius+longArmLength/2);
-    
-    
+    //hand
+    leftWristPoint = leftLongArmPoint;
+    rightWristPoint = rightLongArmPoint;
+    leftWristPoint.move(leftLongArmDirection, wristRadius+longArmLength/2);
+    rightWristPoint.move(rightLongArmDirection, wristRadius + longArmLength/2);    
 }
 
 void RobotArm::draw()
@@ -175,8 +180,8 @@ void RobotArm::draw()
         drawRobotJoint();
         drawRobotShortArm();
         drawRobotLongArm();
+        drawRobotHand();
     }
-    // drawRobotHand();
     // drawContainer();
     test();
 }
@@ -195,6 +200,14 @@ void RobotArm::drawDirection()
         drawLine(leftLongArmDirection, leftHingePoint, DIRECTION_LENGTH, RED);
         drawLine(rightLongArmDirection, rightHingePoint, DIRECTION_LENGTH, PINK);
     }
+}
+
+void RobotArm::drawRobotHand()
+{
+    drawSolidSphere(leftWristPoint, wristRadius, wrist_Color);
+    drawWireSphere(leftWristPoint, wristRadius, wrist_OutlineColor);
+    drawSolidSphere(rightWristPoint, wristRadius, wrist_Color);
+    drawWireSphere(rightWristPoint, wristRadius, wrist_OutlineColor);
 }
 
 void RobotArm::drawRobotLongArm()
