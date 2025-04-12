@@ -70,6 +70,11 @@ private:
     float handRadius;
     float handHeight;
     float handThickness;
+    float fingerDistance;
+    pair<float, float> angleFingerLeftHand1;
+    pair<float, float> angleFingerRightHand1;
+    pair<float, float> angleFingerLeftHand2;
+    pair<float, float> angleFingerRightHand2;
 
     //container
     float containerLength;
@@ -96,7 +101,10 @@ private:
     Vector rightShortArmDirection;
     Vector leftLongArmDirection;
     Vector rightLongArmDirection;
-    
+    Vector leftHandDirection;
+    Vector rightHandDirection;
+    Vector othorgonalLeftHandDirection;
+    Vector othorgonalRightHandDirection;
 
     Point centerBodyPoint;
     Point leftArmJointPoint;
@@ -109,6 +117,12 @@ private:
     Point rightLongArmPoint;
     Point leftWristPoint;
     Point rightWristPoint;
+    Point centerLeftHand;
+    Point centerRightHand;
+    Point fingerLeftHand1;
+    Point fingerLeftHand2;
+    Point fingerRightHand1;
+    Point fingerRightHand2;
 };
 
 #endif
