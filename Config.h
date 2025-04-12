@@ -33,6 +33,7 @@ enum TypeStatus
 {
     SHOW_DIRECTION,
     HAND_OPEN,
+    SHOW_OBJECT_STATUS,
 
     TOTAL_STATUS
 };

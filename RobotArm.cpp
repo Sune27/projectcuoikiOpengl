@@ -17,6 +17,7 @@ RobotArm::RobotArm()
     baseHead_Height = 0.45;
     //joint
     jointZPosition = 2.5;
+    jointRadius = 1;
     //stand
     axisRadius = 0.3;
     axisHeight = 2;
@@ -129,10 +130,17 @@ void RobotArm::printAttributes()
     cout << "angleX: " << angleX << endl;
     cout << "angleZ: " << angleZ << endl;
     cout << "angleLeftShortArm: " << angleLeftShortArm << endl;
-    cout << "angleLongArm: " << angleLongArm << endl;
-    cout << "handDistanceVertical: " << handDistanceVertical << endl;
-    cout << "handDistanceHorizontal: " << handDistanceHorizontal << endl;
-    cout << "rightShortArmDirection: " << endl << rightShortArmDirection << endl;
+    cout << "angleRightShortArm: " << angleRightShortArm << endl;
+    cout << "eyeX: " << eyeX << endl;
+	cout << "eyeY: " << eyeY << endl;
+	cout << "eyeZ: " << eyeZ << endl;
+	cout << "centerX: " << centerX << endl;
+	cout << "centerY: " << centerY << endl;
+	cout << "centerZ: " << centerZ << endl;
+	cout << "upX: " << upX << endl;
+	cout << "upY: " << upY << endl;
+	cout << "upZ: " << upZ << endl;
+
 }
 
 void RobotArm::update()
@@ -205,8 +213,11 @@ void RobotArm::draw()
     printAttributes();
     printAttributeToTxt();
     drawDirection();
-    //drawRobotBase();
-    // drawRobotStand();
+    if(showRobot)
+    {
+        drawRobotBody();
+        drawRobotJoint();
+    }
     // drawRobotShortArm();
     // drawRobotLongArm();
     // drawRobotHand();
@@ -249,6 +260,9 @@ void RobotArm::changeStatus(TypeStatus status)
 {
     switch(status)
     {
+        case SHOW_OBJECT_STATUS:
+            showRobot = !showRobot;
+            break;
         case SHOW_DIRECTION:
             showDirection = !showDirection;
             break;

@@ -52,15 +52,7 @@ void display()
 		upX, upY, upZ
 	);
 	robotArm.draw();
-	cout << "eyeX: " << eyeX << endl;
-	cout << "eyeY: " << eyeY << endl;
-	cout << "eyeZ: " << eyeZ << endl;
-	cout << "centerX: " << centerX << endl;
-	cout << "centerY: " << centerY << endl;
-	cout << "centerZ: " << centerZ << endl;
-	cout << "upX: " << upX << endl;
-	cout << "upY: " << upY << endl;
-	cout << "upZ: " << upZ << endl;
+	
 	ui.draw2DUI();
 	
 	glFlush();
@@ -86,6 +78,9 @@ void keyboardFunc(unsigned char key, int x, int y)
 			break;
 		case 32:
 			robotArm.changeStatus(HAND_OPEN);
+			break;
+		case '-':
+			robotArm.changeStatus(SHOW_OBJECT_STATUS);
 			break;
 		case 'q':
 			robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, rotate);

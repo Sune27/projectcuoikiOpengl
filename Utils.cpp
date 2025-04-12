@@ -13,7 +13,7 @@ void drawSolidSphere(Point center, float radius, Color color, Color outlineColor
     setColor(color);
     glutSolidSphere(radius, slices, stacks);
     setColor(outlineColor);
-    glutWireSphere(radius, 2, 2);
+    glutWireSphere(radius+0.1, 2, 2);
 
     glPopMatrix(); // Khôi phục ma trận trước đó
 }
