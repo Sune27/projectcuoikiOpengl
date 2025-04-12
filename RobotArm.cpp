@@ -207,7 +207,6 @@ void RobotArm::drawRobotLongArm()
     drawCylinderOutline(longArmRadius, longArmLength, leftLongArmPoint, leftLongArmDirection, longArm_OutlineColor);
     drawCylinderWithCaps(longArmRadius, longArmLength, longArmRadius, rightLongArmPoint, rightLongArmDirection, longArm_Color);
     drawCylinderOutline(longArmRadius, longArmLength, rightLongArmPoint, rightLongArmDirection, longArm_OutlineColor);
-    cout << "da ve long arm " << endl;
 }
 
 void RobotArm::drawRobotShortArm()
@@ -331,6 +330,8 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
         break;
     case ANGLE_X:
         angleX += rotate;
+        angleXLeftLongArm += rotate;
+        angleXRightLongArm += rotate;
         break;
     default:
         break;
