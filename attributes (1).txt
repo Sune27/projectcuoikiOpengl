@@ -7,7 +7,7 @@ float baseHead_Radius = 1.4;
 float baseHead_Height = 0.45;
 float jointZPosition = 2.5;
 float jointRadius = 1;
-float axisRadius = 0.3;
+float axisRadius = 0.5;
 float axisHeight = 2;
 float axisHeightOutside = 2;
 float axisHeightInside = 1.1;
@@ -17,25 +17,25 @@ float standDistance = 0.75;
 float standWidth = 0.8;
 float standLength = 0.15;
 float standHeight = 3;
-float angleX = 540;
+float angleX = 485;
 float angleZ = 55;
-float angleLeftShortArm = 48;
-float angleRightShortArm = 126;
-float shortArmDistanceVertical = 1.5;
+float angleLeftShortArm = 110;
+float angleRightShortArm = 110;
+float shortArmDistanceVertical = 1.7;
 float shortArmDistanceHorizontal = 0.5;
-float shortArmLength = 2;
-float shortArmRadius = 0.5;
-float angleXLeftLongArm = -49;
-float angleXRightLongArm = -42;
-float angleZLeftLongArm = 32;
-float angleZRightLongArm = 82;
+float shortArmLength = 4;
+float shortArmRadius = 0.85;
+float angleXLeftLongArm = -65;
+float angleXRightLongArm = -65;
+float angleZLeftLongArm = 35;
+float angleZRightLongArm = 35;
 float hingeRadius = 1;
-float longArmRadius = 0.5;
-float longArmLength = 1;
+float longArmRadius = 0.85;
+float longArmLength = 3;
 float handRadius = 1;
 float handHeight = 0.5;
 float handThickness = 0.5;
-float handDistanceVertical = 1.5;
+float handDistanceVertical = 1.7;
 float handDistanceHorizontal = -0.5;
 float leftHandAngleStart_Open = 200;
 float leftHandAngleEnd_Open = 270;
@@ -46,15 +46,15 @@ float leftHandAngleEnd_Close = 270;
 float rightHandAngleStart_Close = 270;
 float rightHandAngleEnd_Close = 450;
 float containerLength = 2;
-body_Color: LIGHT_GRAY 190 190 190
-body_OutlineColor: DARK_GRAY 70 70 70
+body_Color: GOLD3 205 173 0
+body_OutlineColor: ALUMINUM 200 200 200
 joint_Color: SILVER 160 160 160
 joint_OutlineColor: BLACK 0 0 0
-shortArm_Color: WHITE 255 255 255
+shortArm_Color: GOLD1 255 215 0
 shortArm_OutlineColor: BLACK 255 255 255
 hinge_Color: ALUMINUM 200 200 200
 hinge_OutlineColor: DARK_GRAY 70 70 70
-longArm_Color: LIGHT_BLUE 173 216 230
+longArm_Color: GOLD2 238 201 0
 longArm_OutlineColor: DARK_BLUE 255 255 255
 wrist_Color: DARK_GRAY 70 70 70
 wrist_OutlineColor: BLACK 255 255 255

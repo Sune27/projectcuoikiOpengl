@@ -8,74 +8,50 @@ RobotArm::RobotArm()
     isHandOpen = true;
     showRobot = true;
     //base
-    baseLeg_Radius = 4;
-    baseLeg_Height = 0.2;
     bodyRadius = 4;
     bodyHeight = 7;
     bodyZPosition = 3.5;
-    baseHead_Radius = 1.4;
-    baseHead_Height = 0.45;
     //joint
     jointZPosition = 2.5;
     jointRadius = 1;
     //stand
-    axisRadius = 0.3;
-    axisHeight = 2;
-    axisHeightOutside = 2;
-    axisHeightInside = 1.1;
-    standPositionZ = 1.8;
-    standAxisDistance = 1.1;
-    standDistance = 0.75;
-    standWidth = 0.8;
-    standLength = 0.15;
-    standHeight = 3;
     angleX = 485;
-    angleZ = 55.0;
+    angleZ = 55;
     //short arm
-    angleLeftShortArm = 96.0;
-    angleRightShortArm = 96.0;
-    shortArmDistanceVertical = 1.5;
+    angleLeftShortArm = 110;
+    angleRightShortArm = 110;
+    shortArmDistanceVertical = 1.7;
     shortArmDistanceHorizontal = 0.5;
-    shortArmLength = 2;
-    shortArmRadius = 0.5;
+    shortArmLength = 4;
+    shortArmRadius = 0.85;
     //longArm
-    angleXLeftLongArm = -58;
-    angleXRightLongArm = -54;
-    angleZLeftLongArm = 45;
-    angleZRightLongArm = 45;
+    angleXLeftLongArm = -65;
+    angleXRightLongArm = -65;
+    angleZLeftLongArm = 35;
+    angleZRightLongArm = 35;
     hingeRadius = 1;
-    longArmRadius = 0.5;
-    longArmLength = 1;
+    longArmRadius = 0.85;
+    longArmLength = 3;
     //hand
-    wristRadius = 0.2;
+    wristRadius = 0.5;
     handRadius = 1;
     handHeight = 0.5;
     handThickness = 0.5;
-    handDistanceVertical = 1.5;
-    handDistanceHorizontal = -0.5;
-    leftHandAngleStart_Open = 200;
-    leftHandAngleEnd_Open = 270;
-    rightHandAngleStart_Open = 350;
-    rightHandAngleEnd_Open = 270;    
-    leftHandAngleStart_Close = 90;
-    leftHandAngleEnd_Close = 270;
-    rightHandAngleStart_Close = 270;
-    rightHandAngleEnd_Close = 450;
 
     //container
     containerLength = 2;
 
-    body_Color = GRAY_LIGHT;
-    body_OutlineColor = GREEN;
-    joint_Color = WHITE;
+    body_Color = GOLD3;
+    body_OutlineColor = DARK_GRAY;
+    joint_Color = SILVER;
     joint_OutlineColor = BLACK;    
     shortArm_Color = WHITE;
-    shortArm_OutlineColor = PURPLE;
-    hinge_Color = WHITE;
-    hinge_OutlineColor = BLACK;
-    longArm_Color = WHITE;
+    shortArm_OutlineColor = BLACK;
+    hinge_Color = ALUMINUM;
+    hinge_OutlineColor = DARK_GRAY;
+    longArm_Color = LIGHT_BLUE;
     longArm_OutlineColor = DARK_GREEN;
-    wrist_Color = WHITE;
+    wrist_Color = DARK_GRAY;
     wrist_OutlineColor = BLACK;
 
     //set value
@@ -208,6 +184,7 @@ void RobotArm::drawRobotHand()
     drawWireSphere(leftWristPoint, wristRadius, wrist_OutlineColor);
     drawSolidSphere(rightWristPoint, wristRadius, wrist_Color);
     drawWireSphere(rightWristPoint, wristRadius, wrist_OutlineColor);
+    
 }
 
 void RobotArm::drawRobotLongArm()
@@ -279,15 +256,6 @@ void RobotArm::checkMaxValueAngle()
     if(angleLeftShortArm > ANGLESHORTARM_MAX) angleLeftShortArm = ANGLESHORTARM_MAX;
 }
 
-void RobotArm::changeHandDistanceVertical(float distance)
-{
-    handDistanceVertical += distance/10;
-}
-
-void RobotArm::changeHandDistanceHorizontal(float distance)
-{
-    handDistanceHorizontal += distance/10;
-}
 
 RobotArm::~RobotArm()
 {

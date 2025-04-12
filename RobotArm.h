@@ -42,29 +42,14 @@ private:
     bool showRobot;
     bool isHandOpen;
     //base
-    float baseLeg_Radius;
-    float baseLeg_Height;
+    float angleX;
+    float angleZ;
     float bodyRadius;
     float bodyHeight;
     float bodyZPosition;
-    float baseHead_Radius;
-    float baseHead_Height;
     //joint
     float jointZPosition;
     float jointRadius;
-    //stand
-    float axisRadius;
-    float axisHeight;
-    float axisHeightOutside;
-    float axisHeightInside;
-    float standPositionZ;
-    float standAxisDistance;
-    float standDistance;
-    float standWidth;
-    float standLength;
-    float standHeight;
-    float angleX;
-    float angleZ;
     //short arm
     float angleLeftShortArm;
     float angleRightShortArm;
@@ -85,16 +70,6 @@ private:
     float handRadius;
     float handHeight;
     float handThickness;
-    float handDistanceVertical;
-    float handDistanceHorizontal;
-    float leftHandAngleStart_Open;
-    float leftHandAngleEnd_Open;
-    float rightHandAngleStart_Open;
-    float rightHandAngleEnd_Open;    
-    float leftHandAngleStart_Close;
-    float leftHandAngleEnd_Close;
-    float rightHandAngleStart_Close;
-    float rightHandAngleEnd_Close;
 
     //container
     float containerLength;
@@ -121,6 +96,7 @@ private:
     Vector rightShortArmDirection;
     Vector leftLongArmDirection;
     Vector rightLongArmDirection;
+    
 
     Point centerBodyPoint;
     Point leftArmJointPoint;

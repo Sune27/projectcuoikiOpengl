@@ -66,6 +66,9 @@ enum TypeVector
 
 enum Color
 {
+    GOLD2,
+    GOLD1,
+    GOLD3,
 	DARK_GRAY,
 	GRAY,
 	LIGHT_GRAY,

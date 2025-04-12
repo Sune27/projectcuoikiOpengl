@@ -912,6 +912,15 @@ void setColor(Color color)
 {
     switch (color) 
 	{
+        case GOLD1:
+            glColor3f(255.0/255, 215.0/255, 0);
+            break;
+        case GOLD2:
+            glColor3f(238.0/255, 201.0/255, 0);
+            break;
+        case GOLD3:
+            glColor3f(205.0/255, 173.0/255, 0);
+            break;
 		case DARK_GRAY:
             glColor3f(70.0/255.0, 70.0/255.0, 70.0/255.0);
             break;
