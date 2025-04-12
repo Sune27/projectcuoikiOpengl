@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 #include "Utils.h"
 #include "Config.h"
@@ -67,14 +68,18 @@ private:
     float longArmLength;
     //hand
     float wristRadius;
-    float handRadius;
-    float handHeight;
-    float handThickness;
+    float fingerRadius;
+    float fingerHeight;
+    float fingerThickness;
     float fingerDistance;
-    pair<float, float> angleFingerLeftHand1;
-    pair<float, float> angleFingerRightHand1;
-    pair<float, float> angleFingerLeftHand2;
-    pair<float, float> angleFingerRightHand2;
+    pair<float, float> angleFingerLeftHand1_Open;
+    pair<float, float> angleFingerRightHand1_Open;
+    pair<float, float> angleFingerLeftHand2_Open;
+    pair<float, float> angleFingerRightHand2_Open;
+    pair<float, float> angleFingerLeftHand1_Close;
+    pair<float, float> angleFingerRightHand1_Close;
+    pair<float, float> angleFingerLeftHand2_Close;
+    pair<float, float> angleFingerRightHand2_Close;
 
     //container
     float containerLength;
@@ -92,6 +97,8 @@ private:
     Color longArm_OutlineColor;
     Color wrist_Color;
     Color wrist_OutlineColor;
+    Color fingerDisableClaw_Color;
+    Color fingerDisableClaw_OutlineColor;
     
     Vector normalBase; // (0,0,1)
     Vector robotDirectionXY_Vertical;// lam goc cho tat ca vector khac;
