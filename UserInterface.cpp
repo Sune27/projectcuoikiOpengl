@@ -2,11 +2,13 @@
 
 using namespace std;
 
-UI::UI()
+UIElemet::UIElemet(){}
+Button::Button(){}
+UIManager::UIManager()
 {
     cout << "Constructor UI class" << endl;
 }
-void UI::draw2DUI()
+void UIManager::draw2DUI()
 {
 	// Lưu lại projection matrix và modelview matrix
 	glMatrixMode(GL_PROJECTION);
@@ -34,7 +36,9 @@ void UI::draw2DUI()
 	glPopMatrix();
 }
 
-UI::~UI()
+UIManager::~UIManager()
 {
     cout << "Destructor UI class" << endl;
 }
+UIElemet::~UIElemet(){}
+Button::~Button(){}

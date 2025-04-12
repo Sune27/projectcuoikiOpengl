@@ -9,7 +9,7 @@
 using namespace std;
 
 RobotArm robotArm;
-UI ui;
+UIManager uiManager;
 vector<bool> keys(256, false);
 
 void display();
@@ -57,7 +57,7 @@ void display()
 	);
 
 	robotArm.draw();
-	ui.draw2DUI();
+	uiManager.draw2DUI();
 	checkEventKeyboard();
 
 	glFlush();
