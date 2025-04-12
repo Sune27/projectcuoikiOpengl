@@ -38,7 +38,7 @@ public:
 
 private:
     //special
-    bool showDirection = false;
+    bool showDirection = true;
     bool isHandOpen = true;
     //base
     float baseLeg_Radius = 4;

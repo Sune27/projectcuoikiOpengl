@@ -41,7 +41,7 @@ void RobotArm::printAttributes()
     cout << "angleLongArm: " << angleLongArm << endl;
     cout << "handDistanceVertical: " << handDistanceVertical << endl;
     cout << "handDistanceHorizontal: " << handDistanceHorizontal << endl;
-    cout << leftHand << endl;
+    cout << "rightShortArmDirection: " << endl << rightShortArmDirection << endl;
 }
 
 void RobotArm::update()
@@ -49,9 +49,9 @@ void RobotArm::update()
     //vector
     robotDirectionXY_Vertical.vertical(angleX);
     robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
+    VectorRotationMethod(leftShortArmDirection, robotDirectionXY_Vertical, angleLeftShortArm);
+    VectorRotationMethod(rightShortArmDirection, robotDirectionXY_Vertical, angleRightShortArm);
     VectorRotationMethod(robotDirectionXYZ, robotDirectionXY_Vertical, angleZ);
-    leftShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLeftShortArm);
-    
     longArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleLongArm);
     handDirection.rotateAroundZAxis(longArmDirection, 90);
     handMove = crossProduct(longArmDirection, robotDirectionXY_Vertical);
@@ -122,7 +122,7 @@ void RobotArm::draw()
     printAttributes();
     printAttributeToTxt();
     drawDirection();
-    drawRobotBase();
+    //drawRobotBase();
     // drawRobotStand();
     // drawRobotShortArm();
     // drawRobotLongArm();
