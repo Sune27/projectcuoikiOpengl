@@ -39,12 +39,12 @@ RobotArm::RobotArm()
     shortArmLength = 2;
     shortArmRadius = 0.5;
     //longArm
-    angleXLeftLongArm = 45;
-    angleXRightLongArm = 45;
+    angleXLeftLongArm = -58;
+    angleXRightLongArm = -54;
+    angleZLeftLongArm = 45;
+    angleZRightLongArm = 45;
     hingeRadius = 1;
     longArmLength = 1;
-    longArmDistanceVertical = 3;
-    longArmDistanceHorizontal = 0.5;
     //hand
     handRadius = 1;
     handHeight = 0.5;
@@ -135,6 +135,8 @@ void RobotArm::update()
     rightShortArmDirection.rotateAroundZAxis(robotDirectionXYZ, angleRightShortArm);
     leftLongArmDirection.vertical(angleXLeftLongArm);
     rightLongArmDirection.vertical(angleXRightLongArm);
+    leftLongArmDirection.rotateAroundZAxis(leftLongArmDirection, angleZLeftLongArm);
+    rightLongArmDirection.rotateAroundZAxis(rightLongArmDirection, angleZRightLongArm);
     //joint
     leftArmJointPoint = centerBodyPoint;
     rightArmJointPoint = centerBodyPoint;
@@ -297,6 +299,12 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
 {
     switch (angle)
     {
+    case ANGLEZ_LEFT_LONG_ARM:
+        angleZLeftLongArm += rotate;
+        break;
+    case ANGLEZ_RIGHT_LONG_ARM:
+        angleZRightLongArm += rotate;
+        break;
     case ANGLEX_RIGHT_LONG_ARM:
         angleXRightLongArm += rotate;
         break;
