@@ -4,6 +4,71 @@ using namespace std;
 
 RobotArm::RobotArm()
 {
+    showDirection = true;
+    isHandOpen = true;
+    //base
+    baseLeg_Radius = 4;
+    baseLeg_Height = 0.2;
+    bodyRadius = 4;
+    bodyHeight = 7;
+    bodyZPosition = 3.5;
+    baseHead_Radius = 1.4;
+    baseHead_Height = 0.45;
+    //joint
+    jointZPosition = 2.5;
+    //stand
+    axisRadius = 0.3;
+    axisHeight = 2;
+    axisHeightOutside = 2;
+    axisHeightInside = 1.1;
+    standPositionZ = 1.8;
+    standAxisDistance = 1.1;
+    standDistance = 0.75;
+    standWidth = 0.8;
+    standLength = 0.15;
+    standHeight = 3;
+    angleX = 60.0;
+    angleZ = 55.0;
+    //short arm
+    angleLeftShortArm = 72.0;
+    angleRightShortArm = 72.0;
+    shortArmDistanceVertical = 1.5;
+    shortArmDistanceHorizontal = 0.5;
+    shortArmWidth = 0.8;
+    shortArmLength = 0.15;
+    shortArmHeight = 4;
+    axisShortArmDistance = 3.1;
+    axisShortArmRadius = 0.3;
+    axisShortArmHeight = 2;
+    axisShortArmHeightOutside = 2;
+    axisShortArmHeightInside = 1.5;
+    //longArm
+    angleLongArm = -20.0;
+    longArmDistanceVertical = 3;
+    longArmDistanceHorizontal = 0.5;
+    longArmWidth = 0.8;
+    longArmLength = 0.15;
+    longArmHeight = 8;
+    wristDistance = 7.5;
+    wristRadius = 0.7;
+    wristHeight = 1.2;
+    //hand
+    handRadius = 1;
+    handHeight = 0.5;
+    handThickness = 0.5;
+    handDistanceVertical = 1.5;
+    handDistanceHorizontal = -0.5;
+    leftHandAngleStart_Open = 200;
+    leftHandAngleEnd_Open = 270;
+    rightHandAngleStart_Open = 350;
+    rightHandAngleEnd_Open = 270;    
+    leftHandAngleStart_Close = 90;
+    leftHandAngleEnd_Close = 270;
+    rightHandAngleStart_Close = 270;
+    rightHandAngleEnd_Close = 450;
+
+    //container
+    containerLength = 2;
     //set value
     normalBase.setValue(0,0,1);
     centerBaseLeg.setValue(0, 0, 0);
@@ -106,14 +171,6 @@ void RobotArm::update()
 //done
 void RobotArm::drawRobotShortArm()
 {
-    drawBox(shortArmLength, shortArmWidth, shortArmHeight, leftShortArmDirection, leftShortArm, shortArm_Color);
-    drawBox(shortArmLength, shortArmWidth, shortArmHeight, leftShortArmDirection, rightShortArm, shortArm_Color);
-    drawBoxOutline(shortArmLength, shortArmWidth, shortArmHeight, leftShortArmDirection, leftShortArm, shortArm_OutlineColor);
-    drawBoxOutline(shortArmLength, shortArmWidth, shortArmHeight, leftShortArmDirection, rightShortArm, shortArm_OutlineColor);
-    drawCylinderWithCaps(axisShortArmRadius, axisShortArmHeight, axisShortArmRadius, axisShortArm, robotDirectionXY_Horizontal, axisShortArm_Color);
-    drawCylinderOutline(axisShortArmRadius, axisShortArmHeightOutside, axisShortArm, robotDirectionXY_Horizontal, axisShortArm_OutlineColor);
-    drawCylinderOutline(axisShortArmRadius, axisShortArmHeightInside, axisShortArm, robotDirectionXY_Horizontal, axisShortArm_OutlineColor);
-
 }
 
 void RobotArm::draw()
@@ -131,21 +188,12 @@ void RobotArm::draw()
     test();
 }
 
-//done
 void RobotArm::drawRobotLongArm()
 {
-    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, longArm_Color);
-    drawBox(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, longArm_Color);
-    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, leftLongArm, longArm_OutlineColor);
-    drawBoxOutline(longArmLength, longArmWidth, longArmHeight, longArmDirection, rightLongArm, longArm_OutlineColor);
-    drawCylinderWithCaps(wristRadius, wristHeight, wristRadius, wrist, longArmDirection, wrist_Color);
-    drawCylinderOutline(wristRadius, wristHeight, wrist, longArmDirection, wrist_OutlineColor);
 }
 
 void RobotArm::drawContainer()
 {
-    drawBox(containerLength, containerLength, containerLength, containerDirection, centerContainer, containerColor);
-    drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, centerContainer, containerOutlineColor);
 }
 
 void RobotArm::drawDirection()
@@ -159,28 +207,12 @@ void RobotArm::drawDirection()
         drawLine(leftShortArmDirection, leftArmJoint, DIRECTION_LENGTH, GREEN);
         drawLine(rightShortArmDirection, rightArmJoint, DIRECTION_LENGTH, ORANGE);
         //drawLine(robotDirectionXYZ, centerBaseHead, DIRECTION_LENGTH, DARK_GREEN);
-        drawLine(handDirection, centerHand, DIRECTION_LENGTH, YELLOW);
-        drawLine(handMove, centerHand, DIRECTION_LENGTH, PINK);
     }
 }
 
 //done
 void RobotArm::drawRobotHand()
 {
-    if(isHandOpen == true)
-    {
-        drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart_Open, leftHandAngleEnd_Open);
-        drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart_Open, rightHandAngleEnd_Open);
-        drawMissingCylinderOutline(handRadius, handHeight, leftHand, handDirection, hand_OutlineColor, leftHandAngleStart_Open, leftHandAngleEnd_Open);
-        drawMissingCylinderOutline(handRadius, handHeight, rightHand, handDirection, hand_OutlineColor, rightHandAngleStart_Open, rightHandAngleEnd_Open);
-    }
-    else 
-    {
-        drawMissingCylinder(handRadius, handHeight, handThickness, leftHand, handDirection, hand_Color, leftHandAngleStart_Close, leftHandAngleEnd_Close);
-        drawMissingCylinder(handRadius, handHeight, handThickness, rightHand, handDirection, hand_Color, rightHandAngleStart_Close, rightHandAngleEnd_Close);
-        drawMissingCylinderOutline(handRadius, handHeight, leftHand, handDirection, hand_OutlineColor, leftHandAngleStart_Close, leftHandAngleEnd_Close);
-        drawMissingCylinderOutline(handRadius, handHeight, rightHand, handDirection, hand_OutlineColor, rightHandAngleStart_Close, rightHandAngleEnd_Close);
-    }
 }
 
 void RobotArm::test()
