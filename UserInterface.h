@@ -30,11 +30,13 @@ public:
 	UIManager();
 	~UIManager();
 	void draw2DUI();
-	void drawViewport();
 	void passiveMouseMotion(int mouseX, int mouseY);
 	void mouseLeftClicked(int mouseX, int mouseY);
+	void drawViewport();
+	bool getButtonOver(TypeButtonOver button, int mouseX, int mouseY);
 	void exitButtonLeftClicked();
-
+	void rightArrowLeftClicked();
+	void leftArrowLeftClicked();
 private:
 	Button exitButton;
 	Button userManualButton;

@@ -28,9 +28,20 @@ const float ANGLELONGARM_MAX = 25.0;
 const float ANGLELONGARM_MIN = -60.0;
 const double SIZE_FLOOR = 20.0;
 const int DIVISION_FLOOR = 20.0;
+const float ROTATE = 0.5;
 
 const double PI = 3.14193;
 const int NUM_SEGMENTS = 30;
+
+enum TypeButtonOver
+{
+    EXIT_BUTTON,
+    USER_MANUAL_BUTTON,
+    LEFT_ARROW_BUTTON,
+    RIGHT_ARROW_BUTTON,
+
+    TOTAL_BUTTON
+};
 
 enum TypeStatus
 {

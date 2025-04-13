@@ -104,10 +104,28 @@ void mouseFunc(int button, int state, int x, int y)
 	{
         if (state == GLUT_DOWN) 
 		{
-			uiManager.mouseLeftClicked(x, y);
+			if(uiManager.getButtonOver(LEFT_ARROW_BUTTON, x, y) == true)
+			{
+				keys['z'] = true;
+			}
+			else if(uiManager.getButtonOver(RIGHT_ARROW_BUTTON, x, y) == true)
+			{
+				keys['x'] = true;
+			}
+			else
+			{
+				uiManager.mouseLeftClicked(x, y);
+			}
         } else if (state == GLUT_UP) 
 		{
-                cout << "Mouse Clicked in " << x << " " << y << endl;
+			if(uiManager.getButtonOver(LEFT_ARROW_BUTTON, x, y) == true)
+			{
+				keys['z'] = false;
+			}
+			else if(uiManager.getButtonOver(RIGHT_ARROW_BUTTON, x, y) == true)
+			{
+				keys['x'] = false;
+			}   
         }
         glutPostRedisplay(); // Vẽ lại
     }
@@ -120,39 +138,38 @@ void passiveMouseMotion(int x, int y)
 
 void checkEventKeyboard()
 {
-	float rotate = 1.0;
 	if(keys[27])
 		exit(0);
 	if(keys['6']) 
-		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, rotate);
+		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, ROTATE);
 	if(keys['3'])
-		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, -rotate);
+		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, -ROTATE);
 	if(keys['e'])
-		robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, rotate);
+		robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, ROTATE);
 	if(keys['d'])
-		robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, -rotate);
+		robotArm.rotateAngle(ANGLEZ_LEFT_LONG_ARM, -ROTATE);
 	if(keys['5'])
-		robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, rotate);
+		robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, ROTATE);
 	if(keys['2'])
-		robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, -rotate);
+		robotArm.rotateAngle(ANGLEX_RIGHT_LONG_ARM, -ROTATE);
 	if(keys['w'])
-		robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, rotate);
+		robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, ROTATE);
 	if(keys['s'])
-		robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, -rotate);
+		robotArm.rotateAngle(ANGLEX_LEFT_LONG_ARM, -ROTATE);
 	if(keys['-'])
 		robotArm.changeStatus(SHOW_OBJECT_STATUS);
 	if(keys['q'])
-		robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, rotate);
+		robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, ROTATE);
 	if(keys['a'])
-		robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, -rotate);
+		robotArm.rotateAngle(ANGLE_LEFT_SHORT_ARM, -ROTATE);
 	if(keys['4'])
-		robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, rotate);
+		robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, ROTATE);
 	if(keys['1'])
-		robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, -rotate);
+		robotArm.rotateAngle(ANGLE_RIGHT_SHORT_ARM, -ROTATE);
 	if(keys['z'])
-		robotArm.rotateAngle(ANGLE_X, rotate);
+		robotArm.rotateAngle(ANGLE_X, ROTATE);
 	if(keys['x'])
-		robotArm.rotateAngle(ANGLE_X, -rotate);
+		robotArm.rotateAngle(ANGLE_X, -ROTATE);
 
 	robotArm.checkMinValueAngle();
 	robotArm.checkMaxValueAngle();

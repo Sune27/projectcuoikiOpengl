@@ -59,6 +59,10 @@ void UIManager::mouseLeftClicked(int mouseX, int mouseY)
 {
 	if(exitButton.isMouseOver(mouseX, mouseY))
 		exitButtonLeftClicked();
+	else if(leftArrow.isMouseOver(mouseX, mouseY))
+		leftArrowLeftClicked();
+	else if(rightArrow.isMouseOver(mouseX, mouseY))
+		rightArrowLeftClicked();
 }
 void UIManager::passiveMouseMotion(int mouseX, int mouseY)
 {
@@ -68,6 +72,26 @@ void UIManager::passiveMouseMotion(int mouseX, int mouseY)
 	rightArrow.isMouseOver(mouseX, mouseY);
 }
 
+bool UIManager::getButtonOver(TypeButtonOver button, int mouseX, int mouseY)
+{
+	switch (button)
+	{
+	case LEFT_ARROW_BUTTON:
+		return leftArrow.isMouseOver(mouseX, mouseY);
+	case RIGHT_ARROW_BUTTON:
+		return rightArrow.isMouseOver(mouseX, mouseY);
+	default:
+		break;
+	}
+}
+void UIManager::leftArrowLeftClicked()
+{
+	cout << "leftArrow clicked" << endl;
+}
+void UIManager::rightArrowLeftClicked()
+{
+	cout << "rightArrow clicked" << endl;
+}
 void UIManager::exitButtonLeftClicked()
 {
 	exit(0);
