@@ -52,7 +52,7 @@ public:
     void rotateAngle(TypeAngle angle, float rotate);
     void changeStatus(TypeStatus status);
 
-
+    bool getStatus(TypeStatus status);
     Vector getVector(TypeVector v);
     float getAngle(TypeAngle a);
 

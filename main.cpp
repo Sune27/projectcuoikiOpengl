@@ -89,7 +89,7 @@ void keyboardFunc(unsigned char key, int x, int y)
 		robotArm.changeStatus(SHOW_DIRECTION);
 	else if(key == '+')
 	{
-		if(robotArm.checkHandClaw())
+		if(robotArm.getStatus(RIGHT_HAND_CLAWING) == false)
 		robotArm.changeStatus(LEFT_HAND_CLAWING);
 	}
 	else keys[key] = true;
@@ -164,7 +164,7 @@ void specialKeys(int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_F1:
-		if(robotArm.checkHandClaw())
+		if(robotArm.getStatus(LEFT_HAND_CLAWING) == false)
 		robotArm.changeStatus(RIGHT_HAND_CLAWING);
 		break;
 

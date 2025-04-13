@@ -114,8 +114,9 @@ void RobotArm::printAttributes()
     cout << "angleXRightLongArm: " << angleXRightLongArm << endl;
     cout << "angleZLeftLongArm: " << angleZLeftLongArm << endl;
     cout << "angleZRightLongArm: " << angleZRightLongArm << endl;
-    cout << "longArmRadius: " << longArmRadius << endl;
-    cout << "longArmLength: " << longArmLength << endl;
+    cout << boolalpha;
+    cout << "isLeftHandClaw: " << isLeftHandClaw << endl;
+    cout << "isRightHandClaw: " << isRightHandClaw << endl;
     cout << "eyeX: " << eyeX << endl;
 	cout << "eyeY: " << eyeY << endl;
 	cout << "eyeZ: " << eyeZ << endl;
@@ -361,6 +362,24 @@ float RobotArm::getAngle(TypeAngle a)
     {
         case ANGLE_X:
             return angleX;
+    }
+}
+bool RobotArm::getStatus(TypeStatus status)
+{
+    switch (status)
+    {
+    case SHOW_DIRECTION:
+        return showDirection;
+    case HAND_OPEN:
+        return isHandOpen;
+    case SHOW_OBJECT_STATUS:
+        return showRobot;
+    case LEFT_HAND_CLAWING: 
+        return isLeftHandClaw;
+    case RIGHT_HAND_CLAWING:
+        return isRightHandClaw;
+    default:
+        break;
     }
 }
 Vector RobotArm::getVector(TypeVector v)
