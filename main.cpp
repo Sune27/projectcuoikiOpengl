@@ -11,16 +11,20 @@ using namespace std;
 RobotArm robotArm;
 UIManager uiManager;
 vector<bool> keys(256, false);
+vector<bool> specialKeys(256, false);
+float cameraAngle = 0;
 
 void display();
 void reshape(int, int);
 void keyboardFunc(unsigned char, int, int);
-void specialKeys(int, int, int);
 void keyboardUpFunc(unsigned char, int, int);
+void specialFunc(int, int, int);
+void specialUpFunc(int, int, int); 
 void mouseFunc(int, int, int, int);
 void passiveMouseMotion(int, int);
 
 void checkEventKeyboard();
+void checkEventSpecialKeys();
 
 int main(int argc, char** argv) 
 {
@@ -37,7 +41,8 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboardFunc);
 	glutKeyboardUpFunc(keyboardUpFunc);
-	glutSpecialFunc(specialKeys);
+	glutSpecialFunc(specialFunc);
+	glutSpecialUpFunc(specialUpFunc);
 	glutMouseFunc(mouseFunc);
 	glutPassiveMotionFunc(passiveMouseMotion);
 	//glutMotionFunc();
@@ -59,7 +64,7 @@ void display()
 
 	gluLookAt
 	(
-		eyeX, eyeY, eyeZ,
+		eyeX*cos(cameraAngle), eyeY*sin(cameraAngle), eyeZ,
 		centerX, centerY, centerZ,
 		upX, upY, upZ
 	);
@@ -67,6 +72,7 @@ void display()
 	robotArm.draw();
 	uiManager.draw2DUI();
 	checkEventKeyboard();
+	checkEventSpecialKeys();
 
 	glFlush();
 	glutSwapBuffers(); 
@@ -176,17 +182,29 @@ void checkEventKeyboard()
 	glutPostRedisplay();
 }
 
-void specialKeys(int key, int x, int y) 
+void specialUpFunc(int key, int x, int y) 
 {
-	switch (key)
+    specialKeys[key] = false;
+}
+void specialFunc(int key, int x, int y)
+{
+	if(key == GLUT_KEY_F1)
 	{
-	case GLUT_KEY_F1:
 		if(robotArm.getStatus(LEFT_HAND_CLAWING) == false)
 		robotArm.changeStatus(RIGHT_HAND_CLAWING);
-		break;
-
-	
-	default:
-		break;
 	}
+	else
+	{
+		specialKeys[key] = true;
+	}
+}
+void checkEventSpecialKeys() 
+{
+	float rotate = 0.01;
+
+	if(specialKeys[GLUT_KEY_LEFT])
+		normalizeAngle(cameraAngle += rotate);
+	if(specialKeys[GLUT_KEY_RIGHT])
+		normalizeAngle(cameraAngle -= rotate);
+	
 }
