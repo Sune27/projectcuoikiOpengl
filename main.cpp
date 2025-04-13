@@ -85,9 +85,13 @@ void keyboardFunc(unsigned char key, int x, int y)
 	
 	if(key == 32) 
 		robotArm.changeStatus(HAND_OPEN);
+	else if(key == '=')
+		robotArm.changeStatus(SHOW_DIRECTION);
 	else if(key == '+')
+	{
 		if(robotArm.checkHandClaw())
 		robotArm.changeStatus(LEFT_HAND_CLAWING);
+	}
 	else keys[key] = true;
 }
 void keyboardUpFunc(unsigned char key, int x, int y)
@@ -149,8 +153,6 @@ void checkEventKeyboard()
 		robotArm.rotateAngle(ANGLE_X, rotate);
 	if(keys['x'])
 		robotArm.rotateAngle(ANGLE_X, -rotate);
-	if(keys['='])
-		robotArm.changeStatus(SHOW_DIRECTION);
 
 	robotArm.checkMinValueAngle();
 	robotArm.checkMaxValueAngle();

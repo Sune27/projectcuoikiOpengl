@@ -207,12 +207,12 @@ void RobotArm::drawDirection()
         drawLine(robotDirectionXYZ, centerBodyPoint, DIRECTION_LENGTH, GREEN);
         // drawLine(leftShortArmDirection, leftArmJointPoint, DIRECTION_LENGTH, GREEN);
         // drawLine(rightShortArmDirection, rightArmJointPoint, DIRECTION_LENGTH, ORANGE);
-        // drawLine(leftLongArmDirection, leftHingePoint, DIRECTION_LENGTH, RED);
-        // drawLine(rightLongArmDirection, rightHingePoint, DIRECTION_LENGTH, PINK);
+        drawLine(leftLongArmDirection, leftHingePoint, DIRECTION_LENGTH, RED);
+        drawLine(rightLongArmDirection, rightHingePoint, DIRECTION_LENGTH, PINK);
         drawLine(leftHandDirection, leftWristPoint, DIRECTION_LENGTH, YELLOW);
         drawLine(rightHandDirection, rightWristPoint, DIRECTION_LENGTH, ORANGE);
-        drawLine(othorgonalLeftHandDirection, leftWristPoint, DIRECTION_LENGTH, RED);
-        drawLine(othorgonalRightHandDirection, rightWristPoint, DIRECTION_LENGTH, PINK);
+        // drawLine(othorgonalLeftHandDirection, leftWristPoint, DIRECTION_LENGTH, RED);
+        // drawLine(othorgonalRightHandDirection, rightWristPoint, DIRECTION_LENGTH, PINK);
     }
 }
 
