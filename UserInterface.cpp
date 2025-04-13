@@ -2,7 +2,10 @@
 
 using namespace std;
 
-Button::Button(){}
+Button::Button()
+{
+	isHover = false;
+}
 void Button::setValue(float x, float y, float width, float height, Color background, Color backgroundHover, Color textColor)
 {
 	this->x = x;
@@ -15,12 +18,16 @@ void Button::setValue(float x, float y, float width, float height, Color backgro
 }
 void Button::draw(const char* text)
 {
-	drawButton(x, y, width, height, background, textColor, text);
+	if(isHover)
+		drawButton(x, y, width, height, backgroundHover, textColor, text);
+	else
+		drawButton(x, y, width, height, background, textColor, text);
 }
-
-bool Button::isMouseLeftOver(int mouseX, int mouseY) const 
+bool Button::isMouseOver(int mouseX, int mouseY) 
 {
-	return (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height);
+
+	isHover = (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height);
+	return isHover;
 }
 
 UIManager::UIManager()
@@ -50,8 +57,15 @@ UIManager::UIManager()
 
 void UIManager::mouseLeftClicked(int mouseX, int mouseY)
 {
-	if(exitButton.isMouseLeftOver(mouseX, mouseY))
+	if(exitButton.isMouseOver(mouseX, mouseY))
 		exitButtonLeftClicked();
+}
+void UIManager::passiveMouseMotion(int mouseX, int mouseY)
+{
+	exitButton.isMouseOver(mouseX, mouseY);
+	userManualButton.isMouseOver(mouseX, mouseY);
+	leftArrow.isMouseOver(mouseX, mouseY);
+	rightArrow.isMouseOver(mouseX, mouseY);
 }
 
 void UIManager::exitButtonLeftClicked()

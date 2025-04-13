@@ -21,6 +21,8 @@ void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
 void keyboardUpFunc(unsigned char, int, int);
 void mouseFunc(int, int, int, int);
+void passiveMouseMotion(int, int);
+
 void checkEventKeyboard();
 
 int main(int argc, char** argv) 
@@ -40,8 +42,8 @@ int main(int argc, char** argv)
 	glutKeyboardUpFunc(keyboardUpFunc);
 	glutSpecialFunc(specialKeys);
 	glutMouseFunc(mouseFunc);
+	glutPassiveMotionFunc(passiveMouseMotion);
 	//glutMotionFunc();
-	//glutPassiveMotionFunc();
 	//glutIdleFunc();
 	glutReshapeFunc(reshape);
 	
@@ -81,7 +83,6 @@ void reshape(int w, int h)
 	gluPerspective(45.0, (double)w / (double)h, 0.1, 100.0); 
   
 }
-
 void keyboardFunc(unsigned char key, int x, int y)
 {
 	
@@ -89,7 +90,6 @@ void keyboardFunc(unsigned char key, int x, int y)
 		robotArm.changeStatus(HAND_OPEN);
 	else keys[key] = true;
 }
-
 void keyboardUpFunc(unsigned char key, int x, int y)
 {
 	keys[key] = false;
@@ -114,6 +114,13 @@ void mouseFunc(int button, int state, int x, int y)
         }
         glutPostRedisplay(); // Vẽ lại
     }
+}
+
+void passiveMouseMotion(int x, int y) 
+{
+    mouseX = x;
+    mouseY = y;
+	uiManager.passiveMouseMotion(x, y);
 }
 
 void checkEventKeyboard()

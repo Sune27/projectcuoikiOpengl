@@ -15,13 +15,13 @@ public:
 	~Button();
 	void setValue(float, float, float, float, Color, Color, Color);
 	void draw(const char* text);
-	bool isMouseLeftOver(int mouseX, int mouseY) const;
-	bool isMousseRightOver(int mouseX, int mouseY) const;
+	bool isMouseOver(int mouseX, int mouseY);
 private:
 	float x, y, width, height;
 	Color background;
 	Color backgroundHover;
 	Color textColor;
+	bool isHover;
 };
 
 class UIManager
@@ -30,6 +30,7 @@ public:
 	UIManager();
 	~UIManager();
 	void draw2DUI();
+	void passiveMouseMotion(int mouseX, int mouseY);
 	void mouseLeftClicked(int mouseX, int mouseY);
 	void exitButtonLeftClicked();
 
