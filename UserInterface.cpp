@@ -84,6 +84,7 @@ void UIManager::draw2DUI()
 	glPushMatrix();
 	glLoadIdentity();
 	// Vẽ các thành phần UI 2D
+	drawViewport();
 	exitButton.draw("EXIT");
 	userManualButton.draw("User Manual");
 	leftArrow.draw("<-");
@@ -96,6 +97,18 @@ void UIManager::draw2DUI()
 	glPopMatrix();
 
 	glEnable(GL_DEPTH_TEST);
+}
+
+void UIManager::drawViewport()
+{
+	setColor(ALUMINUM);
+	glBegin(GL_QUADS);
+        glVertex2f(0, 0);
+        glVertex2f(0, VIEWPORT_HEIGHT);
+        glVertex2f(WINDOW_WIDTH, VIEWPORT_HEIGHT);
+        glVertex2f(WINDOW_WIDTH, 0);
+    glEnd();
+
 }
 
 UIManager::~UIManager()

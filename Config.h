@@ -13,6 +13,7 @@ const int WINDOW_WIDTH = 1000;
 const int WINDOW_HEIGHT = 800;
 const int WINDOW_POSITION_X = 450;
 const int WINDOW_POSITION_Y = 50;
+const float VIEWPORT_HEIGHT = 50;
 const int FPS = 60;
 
 const float LINE_WIDTH = 5.0;

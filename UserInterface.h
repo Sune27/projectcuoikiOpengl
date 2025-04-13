@@ -30,6 +30,7 @@ public:
 	UIManager();
 	~UIManager();
 	void draw2DUI();
+	void drawViewport();
 	void passiveMouseMotion(int mouseX, int mouseY);
 	void mouseLeftClicked(int mouseX, int mouseY);
 	void exitButtonLeftClicked();
