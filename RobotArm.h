@@ -40,6 +40,8 @@ private:
     bool showDirection;
     bool showRobot;
     bool isHandOpen;
+    bool isLeftHandClaw;
+    bool isRightHandClaw;
     //base
     float angleX;
     float angleZ;

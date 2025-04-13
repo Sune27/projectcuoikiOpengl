@@ -7,6 +7,8 @@ RobotArm::RobotArm()
     showDirection = true;
     isHandOpen = true;
     showRobot = true;
+    isLeftHandClaw = false;
+    isRightHandClaw = false;
     //base
     bodyRadius = 4;
     bodyHeight = 7;
@@ -182,6 +184,7 @@ void RobotArm::draw()
     printAttributes();
     printAttributeToTxt();
     drawDirection();
+    drawFloor(SIZE_FLOOR, DIVISION_FLOOR, GRAY);
     if(showRobot)
     {
         drawRobotBody();
@@ -215,8 +218,21 @@ void RobotArm::drawDirection()
 
 void RobotArm::drawContainer()
 {
-    drawBox(containerLength, containerLength, containerLength, containerDirection, containerPoint, container_Color);
-    drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, containerPoint, container_OutlineColor);
+    if(isLeftHandClaw == false && isRightHandClaw == false)
+    {
+        drawBox(containerLength, containerLength, containerLength, containerDirection, containerPoint, container_Color);
+        drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, containerPoint, container_OutlineColor);
+    }
+    else if(isLeftHandClaw == true)
+    {
+        drawBox(containerLength, containerLength, containerLength, containerDirection, centerLeftHandPoint, container_Color);
+        drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, centerLeftHandPoint, container_OutlineColor);
+    }
+    else if(isRightHandClaw == true)
+    {
+        drawBox(containerLength, containerLength, containerLength, containerDirection, centerRightHandPoint, container_Color);
+        drawBoxOutline(containerLength, containerLength, containerLength, containerDirection, centerRightHandPoint, container_OutlineColor);
+    }
 }
 
 void RobotArm::drawRobotHand()
@@ -342,26 +358,35 @@ void RobotArm::rotateAngle(TypeAngle angle, float rotate)
     {
     case ANGLEZ_LEFT_LONG_ARM:
         angleZLeftLongArm += rotate;
+        normalizeAngle(angleZLeftLongArm);
         break;
     case ANGLEZ_RIGHT_LONG_ARM:
         angleZRightLongArm += rotate;
+        normalizeAngle(angleZRightLongArm);
         break;
     case ANGLEX_RIGHT_LONG_ARM:
         angleXRightLongArm += rotate;
+        normalizeAngle(angleXRightLongArm);
         break;
     case ANGLEX_LEFT_LONG_ARM:
         angleXLeftLongArm += rotate;
+        normalizeAngle(angleXLeftLongArm);
         break;
     case ANGLE_LEFT_SHORT_ARM:
         angleLeftShortArm += rotate;
+        normalizeAngle(angleLeftShortArm);
         break;
     case ANGLE_RIGHT_SHORT_ARM:
         angleRightShortArm += rotate;
+        normalizeAngle(angleRightShortArm);
         break;
     case ANGLE_X:
         angleX += rotate;
         angleXLeftLongArm += rotate;
         angleXRightLongArm += rotate;
+        normalizeAngle(angleX);
+        normalizeAngle(angleXLeftLongArm);
+        normalizeAngle(angleXRightLongArm);
         break;
     default:
         break;

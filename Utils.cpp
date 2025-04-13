@@ -2,6 +2,38 @@
 #include "Config.h"
 using namespace std;
 
+void normalizeAngle(float& angle) 
+{
+    angle = fmod(angle, 360.0f);
+    if (angle < 0) {
+        angle += 360.0f;
+    }
+}
+
+void drawFloor(double size = 10.0, int divisions = 10, Color color = GRAY) {
+    glBegin(GL_QUADS);
+
+    setColor(color);
+    for (int i = -divisions; i < divisions; ++i) 
+    {
+        for (int j = -divisions; j < divisions; ++j) 
+        {
+            double x1 = i * size / divisions;
+            double y1 = j * size / divisions;
+            double x2 = (i + 1) * size / divisions;
+            double y2 = (j + 1) * size / divisions;
+
+            glNormal3f(0.0f, 0.0f, 1.0f); // Normal hướng lên trên (trục Z)
+
+            glVertex3f(x1, y1, 0.0f);
+            glVertex3f(x2, y1, 0.0f);
+            glVertex3f(x2, y2, 0.0f);
+            glVertex3f(x1, y2, 0.0f);
+        }
+    }
+    glEnd();
+}
+
 void drawButton(float x, float y, float width, float height, Color background, Color textColor, const char* text)
 {
     setColor(background);

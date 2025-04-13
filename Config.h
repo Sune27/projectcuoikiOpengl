@@ -25,6 +25,8 @@ const float ANGLESHORTARM_MIN = 35.0;
 const float ANGLESHORTARM_MAX = 100.0;
 const float ANGLELONGARM_MAX = 25.0;
 const float ANGLELONGARM_MIN = -60.0;
+const double SIZE_FLOOR = 20.0;
+const int DIVISION_FLOOR = 20.0;
 
 const double PI = 3.14193;
 const int NUM_SEGMENTS = 30;
@@ -34,6 +36,8 @@ enum TypeStatus
     SHOW_DIRECTION,
     HAND_OPEN,
     SHOW_OBJECT_STATUS,
+    LEFT_HAND_CLAWING,
+    RIGHT_HAND_CLAWING,
 
     TOTAL_STATUS
 };
