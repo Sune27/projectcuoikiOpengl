@@ -3,18 +3,24 @@
 using namespace std;
 
 Button::Button(){}
-void Button::setValue(float x, float y, float width, float height, Color background, Color textColor)
+void Button::setValue(float x, float y, float width, float height, Color background, Color backgroundHover, Color textColor)
 {
 	this->x = x;
 	this->y = y;
 	this->width = width;
 	this->height = height;
 	this->background = background;
+	this->backgroundHover = backgroundHover;
 	this->textColor = textColor;
 }
 void Button::draw(const char* text)
 {
 	drawButton(x, y, width, height, background, textColor, text);
+}
+
+bool Button::isMouseLeftOver(int mouseX, int mouseY) const 
+{
+	return (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height);
 }
 
 UIManager::UIManager()
@@ -23,23 +29,34 @@ UIManager::UIManager()
 	exitButton.setValue
 	(
 		10, 10, 100, 100,
-		RED, BLACK
+		RED, YELLOW, BLACK
 	);
 	userManualButton.setValue
 	(
 		200, 200, 100, 100,
-		DARK_BLUE, WHITE
+		BLUE, DARK_BLUE, WHITE
 	);
 	leftArrow.setValue
 	(
 		500, 500, 100, 100,
-		GREEN, ALUMINUM
+		GREEN, DARK_GREEN, ALUMINUM
 	);
 	rightArrow.setValue
 	(
 		700, 500, 100, 100,
-		GREEN, ALUMINUM
+		GREEN, DARK_GREEN, ALUMINUM
 	);
+}
+
+void UIManager::mouseLeftClicked(int mouseX, int mouseY)
+{
+	if(exitButton.isMouseLeftOver(mouseX, mouseY))
+		exitButtonLeftClicked();
+}
+
+void UIManager::exitButtonLeftClicked()
+{
+	exit(0);
 }
 void UIManager::draw2DUI()
 {
@@ -52,7 +69,6 @@ void UIManager::draw2DUI()
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-  
 	// Vẽ các thành phần UI 2D
 	exitButton.draw("EXIT");
 	userManualButton.draw("User Manual");

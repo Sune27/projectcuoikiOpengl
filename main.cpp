@@ -8,6 +8,9 @@
 #include "UserInterface.h"
 using namespace std;
 
+int mouseX = 0, mouseY = 0;
+bool buttonClicked = false;
+
 RobotArm robotArm;
 UIManager uiManager;
 vector<bool> keys(256, false);
@@ -17,6 +20,7 @@ void reshape(int, int);
 void keyboardFunc(unsigned char, int, int);
 void specialKeys(int, int, int);
 void keyboardUpFunc(unsigned char, int, int);
+void mouseFunc(int, int, int, int);
 void checkEventKeyboard();
 
 int main(int argc, char** argv) 
@@ -35,7 +39,7 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboardFunc);
 	glutKeyboardUpFunc(keyboardUpFunc);
 	glutSpecialFunc(specialKeys);
-	//glutMouseFunc();
+	glutMouseFunc(mouseFunc);
 	//glutMotionFunc();
 	//glutPassiveMotionFunc();
 	//glutIdleFunc();
@@ -89,6 +93,27 @@ void keyboardFunc(unsigned char key, int x, int y)
 void keyboardUpFunc(unsigned char key, int x, int y)
 {
 	keys[key] = false;
+}
+void mouseFunc(int button, int state, int x, int y) 
+{
+    if (button == GLUT_LEFT_BUTTON) 
+	{
+        if (state == GLUT_DOWN) 
+		{
+            mouseX = x;
+            mouseY = y;
+            buttonClicked = false; // Reset trạng thái
+			uiManager.mouseLeftClicked(x, y);
+        } else if (state == GLUT_UP) 
+		{
+            if (x == mouseX && y == mouseY) 
+			{
+                buttonClicked = true;
+                cout << "Mouse Clicked in " << x << " " << y << endl;
+            }
+        }
+        glutPostRedisplay(); // Vẽ lại
+    }
 }
 
 void checkEventKeyboard()
