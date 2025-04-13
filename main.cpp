@@ -26,6 +26,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutInitWindowPosition(WINDOW_POSITION_X, WINDOW_POSITION_Y);
 	glutCreateWindow("Project");
+	hideCursor();
 	
 	glEnable(GL_DEPTH_TEST);
 	

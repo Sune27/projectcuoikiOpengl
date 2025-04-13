@@ -239,6 +239,7 @@ struct Point
     }
 };
 
+void drawButton(float x, float y, float width, float height, Color background, Color textColor, const char* text);
 void drawWireSphere(Point center, float radius, Color color);
 void drawSolidSphere(Point center, float radius, Color color);
 double distanceTwoPoint(Point p1, Point p2);
