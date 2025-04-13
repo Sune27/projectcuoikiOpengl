@@ -8,9 +8,6 @@
 #include "UserInterface.h"
 using namespace std;
 
-int mouseX = 0, mouseY = 0;
-bool buttonClicked = false;
-
 RobotArm robotArm;
 UIManager uiManager;
 vector<bool> keys(256, false);
@@ -88,6 +85,9 @@ void keyboardFunc(unsigned char key, int x, int y)
 	
 	if(key == 32) 
 		robotArm.changeStatus(HAND_OPEN);
+	else if(key == '+')
+		if(robotArm.checkHandClaw())
+		robotArm.changeStatus(LEFT_HAND_CLAWING);
 	else keys[key] = true;
 }
 void keyboardUpFunc(unsigned char key, int x, int y)
@@ -100,17 +100,10 @@ void mouseFunc(int button, int state, int x, int y)
 	{
         if (state == GLUT_DOWN) 
 		{
-            mouseX = x;
-            mouseY = y;
-            buttonClicked = false; // Reset trạng thái
 			uiManager.mouseLeftClicked(x, y);
         } else if (state == GLUT_UP) 
 		{
-            if (x == mouseX && y == mouseY) 
-			{
-                buttonClicked = true;
                 cout << "Mouse Clicked in " << x << " " << y << endl;
-            }
         }
         glutPostRedisplay(); // Vẽ lại
     }
@@ -118,8 +111,6 @@ void mouseFunc(int button, int state, int x, int y)
 
 void passiveMouseMotion(int x, int y) 
 {
-    mouseX = x;
-    mouseY = y;
 	uiManager.passiveMouseMotion(x, y);
 }
 
@@ -168,5 +159,15 @@ void checkEventKeyboard()
 
 void specialKeys(int key, int x, int y) 
 {
+	switch (key)
+	{
+	case GLUT_KEY_F1:
+		if(robotArm.checkHandClaw())
+		robotArm.changeStatus(RIGHT_HAND_CLAWING);
+		break;
+
 	
+	default:
+		break;
+	}
 }

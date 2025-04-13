@@ -23,6 +23,7 @@ public:
     void drawContainer();
     void drawDirection();
     void printAttributes();
+    bool checkHandClaw();
     void checkMinValueAngle();
     void checkMaxValueAngle();
     void printAttributeToTxt();
@@ -31,6 +32,7 @@ public:
     
     void rotateAngle(TypeAngle angle, float rotate);
     void changeStatus(TypeStatus status);
+
 
     Vector getVector(TypeVector v);
     float getAngle(TypeAngle a);

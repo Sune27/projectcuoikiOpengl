@@ -296,7 +296,10 @@ void RobotArm::drawRobotBody()
     drawCylinderWithCaps(bodyRadius, bodyHeight, bodyRadius, centerBodyPoint, normalBase, body_Color);
     drawCylinderOutline(bodyRadius, bodyHeight, centerBodyPoint, normalBase, body_OutlineColor);
 }
-
+bool RobotArm::checkHandClaw()
+{
+    return isLeftHandClaw == false && isRightHandClaw == false;
+}
 void RobotArm::changeStatus(TypeStatus status)
 {
     switch(status)
@@ -309,6 +312,12 @@ void RobotArm::changeStatus(TypeStatus status)
             break;
         case HAND_OPEN:
             isHandOpen = !isHandOpen;
+            break;
+        case LEFT_HAND_CLAWING:
+            isLeftHandClaw = !isLeftHandClaw;
+            break;
+        case RIGHT_HAND_CLAWING:
+            isRightHandClaw = !isRightHandClaw;
             break;
         default:
             break;
