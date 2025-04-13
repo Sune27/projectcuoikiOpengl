@@ -78,6 +78,14 @@ RobotArm::RobotArm()
     robotDirectionXY_Horizontal.horizontal(robotDirectionXY_Vertical);
     containerDirection = robotDirectionXY_Vertical;
 }
+RobotHead::RobotHead()
+{
+    headRadius = 3;
+    headZPosition = 10;
+    normal.setValue(0,0,1);
+    head_Color = ORANGE;
+    centerHeadPoint.move(normal, headZPosition);
+}
 
 void RobotArm::printAttributeToTxt()
 {
@@ -136,6 +144,7 @@ void RobotArm::update()
     VectorRotationMethod(rightLongArmDirection, rightLongArmDirection, angleZRightLongArm);
     leftHandDirection.rotateAroundZAxis(leftLongArmDirection, 90);
     rightHandDirection.rotateAroundZAxis(rightLongArmDirection, 90);
+    head.setDirection(robotDirectionXY_Vertical);
     //joint
     leftArmJointPoint = centerBodyPoint;
     rightArmJointPoint = centerBodyPoint;
@@ -187,6 +196,7 @@ void RobotArm::draw()
     drawFloor(SIZE_FLOOR, DIVISION_FLOOR, GRAY);
     if(showRobot)
     {
+        head.drawHead();
         drawRobotBody();
         drawRobotJoint();
         drawRobotShortArm();
@@ -296,10 +306,19 @@ void RobotArm::drawRobotBody()
     drawCylinderWithCaps(bodyRadius, bodyHeight, bodyRadius, centerBodyPoint, normalBase, body_Color);
     drawCylinderOutline(bodyRadius, bodyHeight, centerBodyPoint, normalBase, body_OutlineColor);
 }
+void RobotHead::drawHead()
+{
+    drawSolidSphere(centerHeadPoint, headRadius, head_Color);
+}
 bool RobotArm::checkHandClaw()
 {
     return isLeftHandClaw == false && isRightHandClaw == false;
 }
+void RobotHead::setDirection(Vector other)
+{
+    direction = other;
+}
+RobotHead::~RobotHead(){}
 void RobotArm::changeStatus(TypeStatus status)
 {
     switch(status)

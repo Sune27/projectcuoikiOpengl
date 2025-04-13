@@ -84,7 +84,7 @@ void UIManager::draw2DUI()
 	glPushMatrix();
 	glLoadIdentity();
 	// Vẽ các thành phần UI 2D
-	drawViewport();
+	//drawViewport();
 	exitButton.draw("EXIT");
 	userManualButton.draw("User Manual");
 	leftArrow.draw("<-");

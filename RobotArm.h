@@ -9,6 +9,25 @@
 #ifndef ROBOTARM_H
 #define ROBOTARM_H
 
+class RobotHead
+{
+    public:
+    RobotHead();
+    ~RobotHead();
+    void drawHead();
+    void setDirection(Vector other);
+    private:
+    float headRadius;
+    float headZPosition;
+
+    Color head_Color;
+    
+    Point centerHeadPoint;
+
+    Vector normal;
+    Vector direction;
+};
+
 class RobotArm
 {
 public:
@@ -39,6 +58,7 @@ public:
 
 private:
     //special
+    RobotHead head;
     bool showDirection;
     bool showRobot;
     bool isHandOpen;
