@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include <GL/glut.h>
-
+//#include <GL/glfw3.h>
 #include "Config.h"
 #include "Utils.h"
 #include "Console.h"
@@ -35,6 +35,10 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboardFunc);
 	glutKeyboardUpFunc(keyboardUpFunc);
 	glutSpecialFunc(specialKeys);
+	//glutMouseFunc();
+	//glutMotionFunc();
+	//glutPassiveMotionFunc();
+	//glutIdleFunc();
 	glutReshapeFunc(reshape);
 	
 	glutMainLoop();
@@ -76,7 +80,10 @@ void reshape(int w, int h)
 
 void keyboardFunc(unsigned char key, int x, int y)
 {
-	keys[key] = true;
+	
+	if(key == 32) 
+		robotArm.changeStatus(HAND_OPEN);
+	else keys[key] = true;
 }
 
 void keyboardUpFunc(unsigned char key, int x, int y)
@@ -89,8 +96,6 @@ void checkEventKeyboard()
 	float rotate = 1.0;
 	if(keys[27])
 		exit(0);
-	if(keys[32]) 
-		robotArm.changeStatus(HAND_OPEN);
 	if(keys['6']) 
 		robotArm.rotateAngle(ANGLEZ_RIGHT_LONG_ARM, rotate);
 	if(keys['3'])

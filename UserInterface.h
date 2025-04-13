@@ -12,7 +12,6 @@ class Button
 {
 public:
 	Button();
-	Button(string, float, float, float, float, Color, Color);
 	~Button();
 	void setValue(float, float, float, float, Color, Color);
 	void draw(const char* text);
@@ -32,6 +31,8 @@ public:
 private:
 	Button exitButton;
 	Button userManualButton;
+	Button leftArrow;
+	Button rightArrow;
 };
 
 #endif

@@ -30,6 +30,16 @@ UIManager::UIManager()
 		200, 200, 100, 100,
 		DARK_BLUE, WHITE
 	);
+	leftArrow.setValue
+	(
+		500, 500, 100, 100,
+		GREEN, ALUMINUM
+	);
+	rightArrow.setValue
+	(
+		700, 500, 100, 100,
+		GREEN, ALUMINUM
+	);
 }
 void UIManager::draw2DUI()
 {
@@ -46,6 +56,8 @@ void UIManager::draw2DUI()
 	// Vẽ các thành phần UI 2D
 	exitButton.draw("EXIT");
 	userManualButton.draw("User Manual");
+	leftArrow.draw("<-");
+	rightArrow.draw("->");
   
 	// Khôi phục projection matrix và modelview matrix
 	glMatrixMode(GL_PROJECTION);
