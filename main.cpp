@@ -7,6 +7,7 @@
 #include "RobotArm.h"
 #include "UserInterface.h"
 using namespace std;
+//dcm thang nghia
 
 RobotArm robotArm;
 UIManager uiManager;
